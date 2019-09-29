@@ -1,17 +1,78 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <!--<style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">-->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--</style>-->
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="NewEdictTimeText">
+        <item name="android:textSize">@dimen/new_edict_time_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bottom_line_white</item>
+    </style>
+
+    <style name="MyActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:icon">@drawable/ic_launcher_foreground</item>
+    </style>
+
+    <style name="NewEdictBasicText">
+        <item name="android:textSize">@dimen/new_edict_basic_text_size</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="NewEdictEditText" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:textSize">@dimen/new_edict_basic_text_size</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/edit_text</item>
+
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+        <!--<item name="android:"-->
+    </style>
+
+    <style name="NumberPickerText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/offWhite</item>
+        <item name="android:textColorHint">@color/offWhite</item>
+    </style>
+
+    <style name="ErrorText">
+        <item name="android:textColor">@color/maroonHighlighted</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="CheckedChip">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/offWhite</item>
+    </style>
+
+    <style name="AppTheme.Picker" parent="Theme.MaterialComponents.Light.NoActionBar" >
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:color">@color/white</item>
+        <item name="android:textSize">@dimen/new_edict_basic_text_size</item>
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+
 
 </resources>

@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.willlockwood.edict.viewmodel.NewEdictVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout"
+        style="@style/NewEdictTimeText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/offWhite"
+        tools:context=".fragment.NewEdictFragment"
+        >
+
+        <ImageView
+            android:id="@+id/first_line_dotted2"
+            android:layout_width="23dp"
+            android:layout_height="0dp"
+            android:rotation="180"
+            app:layout_constraintBottom_toBottomOf="@+id/first_line_ribbon"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_left"
+            app:layout_constraintTop_toTopOf="@+id/first_line_ribbon"
+            app:srcCompat="@drawable/ribbon_left_end"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/first_line_ribbon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/ribbon_shadow"
+            android:paddingLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_left"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <NumberPicker
+                android:id="@+id/type_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="130dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:forceDarkAllowed="false"
+                android:theme="@style/AppTheme.Picker"
+                android:value="@={viewmodel.typeIdx}"
+                app:displayedValues="@{viewmodel.baseTypes}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:maxValue="@{2}"
+                app:minValue="@{0}"
+                />
+
+            <EditText
+                android:id="@+id/activity_text"
+                style="@style/NewEdictEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="39dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text"
+                android:cursorVisible="true"
+                android:gravity="bottom"
+                android:hint="@string/new_edict_activity_hint"
+                android:imeOptions="actionDone"
+                android:lines="1"
+                android:maxWidth="250dp"
+                android:maxLines="1"
+                android:paddingTop="0dp"
+                android:paddingBottom="14dp"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:text="@={viewmodel.activity}"
+                android:textColorHighlight="#B60033"
+                android:textColorHint="#F2F2F2"
+                android:theme="@style/NewEdictEditText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/type_picker"
+                />
+
+            <View
+                android:id="@+id/first_line_dotted"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/bottom_line_dashed"
+                app:layout_constraintBottom_toBottomOf="@+id/activity_text"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toRightOf="@id/activity_text"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/activity_text"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/second_line_ribbon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/ribbon_shadow"
+            android:orientation="horizontal"
+            android:paddingRight="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/first_line_ribbon"
+            >
+
+            <View
+                android:id="@+id/second_line_dotted"
+                android:layout_width="32dp"
+                android:layout_height="52dp"
+                android:background="@drawable/bottom_line_dashed"
+                app:layout_constraintBottom_toBottomOf="@+id/detail_picker"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/detail_picker"
+                />
+
+            <NumberPicker
+                android:id="@+id/detail_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="130dp"
+                android:layout_marginLeft="8dp"
+                android:theme="@style/AppTheme.Picker"
+                android:value="@={viewmodel.detailTypeIdx}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/second_line_dotted"
+                app:layout_constraintTop_toTopOf="parent"
+                app:values="@{viewmodel.detailTypes}"
+                />
+
+            <LinearLayout
+                android:id="@+id/details"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginLeft="8dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingBottom="39dp"
+                app:layout_constraintBottom_toBottomOf="@+id/detail_picker"
+                app:layout_constraintLeft_toRightOf="@id/detail_picker"
+                app:layout_constraintTop_toTopOf="@+id/detail_picker"
+                >
+
+                <EditText
+                    android:id="@+id/at_txt"
+                    style="@style/NewEdictEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_text"
+                    android:drawableBottom="@drawable/edittext_bottom_line_unselected"
+                    android:hint="@string/new_edict_at_txt_hint"
+                    android:includeFontPadding="true"
+                    android:inputType="text"
+                    android:paddingTop="39dp"
+                    android:paddingBottom="0dp"
+                    android:text="@={viewmodel.atText}"
+                    android:textSize="@dimen/new_edict_basic_text_size"
+                    android:visibility="gone"
+                    app:visibilityBasedOnSelection="@{viewmodel.detailType}"
+                    />
+
+                <TextView
+                    android:id="@+id/after_txt"
+                    style="@style/NewEdictTimeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="39dp"
+                    android:text="@={viewmodel.detailMinutesText}"
+                    android:visibility="gone"
+                    app:visibilityBasedOnSelection="@{viewmodel.detailType}"
+                    />
+
+                <TextView
+                    android:id="@+id/before_txt"
+                    style="@style/NewEdictTimeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="39dp"
+                    android:visibility="gone"
+                    android:text="@={viewmodel.detailMinutesText}"
+                    app:visibilityBasedOnSelection="@{viewmodel.detailType}"
+                    />
+
+                <EditText
+                    android:id="@+id/when_txt"
+                    style="@style/NewEdictEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_text"
+                    android:hint="@string/new_edict_when_txt_hint"
+                    android:inputType="text"
+                    android:paddingTop="39dp"
+                    android:paddingBottom="0dp"
+                    android:text="@={viewmodel.whenText}"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:visibilityBasedOnSelection="@{viewmodel.detailType}"
+                    />
+
+                <EditText
+                    android:id="@+id/while_txt"
+                    style="@style/NewEdictEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_text"
+                    android:hint="@string/new_edict_while_text_hint"
+                    android:inputType="text"
+                    android:paddingTop="39dp"
+                    android:paddingBottom="0dp"
+                    android:text="@={viewmodel.whileText}"
+                    android:visibility="gone"
+                    app:visibilityBasedOnSelection="@{viewmodel.detailType}"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/on_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:visibilityBasedOnSelection="@{viewmodel.detailType}"
+                    >
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/days_chipgroup"
+                        style="@style/Widget.MaterialComponents.ChipGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:singleLine="true"
+                        >
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/sun_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:onClick="@{(v) -> viewmodel.addDay(v)}"
+                            android:text="@string/new_edict_sat_chip_txt"
+                            android:textColor="@color/chip_text_selector"
+                            app:checkedIconEnabled="false"
+                            app:checkedIconVisible="false"
+                            app:chipBackgroundColor="@color/chip"
+                            app:uncheckedFromBoolean="@{viewmodel.allChipsAreUnchecked}"
+                            />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/mon_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:onClick="@{(v) -> viewmodel.addDay(v)}"
+                            android:text="@string/new_edict_mon_chip_txt"
+                            android:textColor="@color/chip_text_selector"
+                            app:checkedIconEnabled="false"
+                            app:checkedIconVisible="false"
+                            app:chipBackgroundColor="@color/chip"
+                            app:uncheckedFromBoolean="@{viewmodel.allChipsAreUnchecked}"
+                            />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/tue_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:onClick="@{(v) -> viewmodel.addDay(v)}"
+                            android:text="@string/new_edict_tue_chip_txt"
+                            android:textColor="@color/chip_text_selector"
+                            app:checkedIconEnabled="false"
+                            app:checkedIconVisible="false"
+                            app:chipBackgroundColor="@color/chip"
+                            app:uncheckedFromBoolean="@{viewmodel.allChipsAreUnchecked}"
+                            />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/wed_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:onClick="@{(v) -> viewmodel.addDay(v)}"
+                            android:text="@string/new_edict_wed_chip_txt"
+                            android:textColor="@color/chip_text_selector"
+                            app:checkedIconEnabled="false"
+                            app:checkedIconVisible="false"
+                            app:chipBackgroundColor="@color/chip"
+                            app:uncheckedFromBoolean="@{viewmodel.allChipsAreUnchecked}"
+                            />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/thu_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:onClick="@{(v) -> viewmodel.addDay(v)}"
+                            android:text="@string/new_edict_thu_chip_txt"
+                            android:textColor="@color/chip_text_selector"
+                            app:checkedIconEnabled="false"
+                            app:checkedIconVisible="false"
+                            app:chipBackgroundColor="@color/chip"
+                            app:uncheckedFromBoolean="@{viewmodel.allChipsAreUnchecked}"
+                            />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/fri_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:onClick="@{(v) -> viewmodel.addDay(v)}"
+                            android:text="@string/new_edict_fri_chip_txt"
+                            android:textColor="@color/chip_text_selector"
+                            app:checkedIconEnabled="false"
+                            app:checkedIconVisible="false"
+                            app:chipBackgroundColor="@color/chip"
+                            app:uncheckedFromBoolean="@{viewmodel.allChipsAreUnchecked}"
+                            />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/sat_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:onClick="@{(v) -> viewmodel.addDay(v)}"
+                            android:text="@string/new_edict_sun_chip_txt"
+                            android:textColor="@color/chip_text_selector"
+                            app:checkedIconEnabled="false"
+                            app:checkedIconVisible="false"
+                            app:chipBackgroundColor="@color/chip"
+                            app:uncheckedFromBoolean="@{viewmodel.allChipsAreUnchecked}"
+                            />
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <EditText
+                        android:id="@+id/on_txt"
+                        style="@style/NewEdictEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edit_text"
+                        android:ems="10"
+                        android:hint="@string/new_edict_on_txt_hint"
+                        android:inputType="text"
+                        android:text="@={viewmodel.onText}"
+                        android:textColorHint="#AAAAAA"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/every_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:visibilityBasedOnSelection="@{viewmodel.detailType}"
+                    >
+
+                    <NumberPicker
+                        android:id="@+id/every_picker"
+                        style="@style/NumberPickerText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/new_edict_picker_height"
+                        android:theme="@style/AppTheme.Picker"
+                        android:value="@={viewmodel.everyTypeIdx}"
+                        app:values="@{viewmodel.everyTypes}"
+                        />
+
+                    <EditText
+                        android:id="@+id/every_time_txt"
+                        style="@style/NewEdictEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginLeft="8dp"
+                        android:hint="@string/new_edict_every_time_hint"
+                        android:inputType="text"
+                        android:paddingTop="39dp"
+                        android:text="@={viewmodel.everyTimeText}"
+                        android:visibility="gone"
+                        app:visibilityBasedOnSelection="@{viewmodel.everyType}"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/every_number_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:visibilityBasedOnSelection="@{viewmodel.everyType}"
+                        >
+
+                        <NumberPicker
+                            android:id="@+id/every_number_picker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/new_edict_picker_height"
+                            android:layout_marginLeft="8dp"
+                            android:theme="@style/AppTheme.Picker"
+                            android:value="@={viewmodel.everyNumberIdx}"
+                            app:values="@{viewmodel.everyNumbers}"
+                            />
+
+                        <NumberPicker
+                            android:id="@+id/every_number_per_picker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/new_edict_picker_height"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:theme="@style/AppTheme.Picker"
+                            android:value="@={viewmodel.everyNumberTimeIdx}"
+                            app:values="@{viewmodel.everyNumberTimes}"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/between_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="37dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:visibilityBasedOnSelection="@{viewmodel.detailType}"
+                    >
+
+                    <TextView
+                        android:id="@+id/between_time_txt_1"
+                        style="@style/NewEdictTimeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
+                        android:text="@={viewmodel.detailMinutesText}"
+                        android:theme="@style/NewEdictEditText"
+                        />
+
+                    <TextView
+                        android:id="@+id/between_and_word"
+                        style="@style/NewEdictBasicText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/bottom_line_dashed"
+                        android:gravity="center_vertical"
+                        android:paddingTop="2dp"
+                        android:text="@string/new_edict_between_to_word"
+                        />
+
+                    <TextView
+                        android:id="@+id/between_time_txt_2"
+                        style="@style/NewEdictTimeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@={viewmodel.detailMinutes2Text}"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/number_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:visibilityBasedOnSelection="@{viewmodel.detailType}"
+                    >
+
+                    <NumberPicker
+                        android:id="@+id/number_picker"
+                        style="@style/NumberPickerText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/new_edict_picker_height"
+                        android:theme="@style/AppTheme.Picker"
+                        android:value="@={viewmodel.numberTimeIdx}"
+                        app:values="@{viewmodel.numberTimes}"
+                        />
+
+                    <TextView
+                        android:id="@+id/times_per_word"
+                        style="@style/NewEdictBasicText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:background="@drawable/bottom_line_dashed"
+                        android:gravity="center_vertical"
+                        android:paddingTop="39dp"
+                        android:text="@string/new_edict_times_per_word"
+                        />
+
+                    <NumberPicker
+                        android:id="@+id/number_per_time_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/new_edict_picker_height"
+                        android:layout_marginLeft="8dp"
+                        android:theme="@style/AppTheme.Picker"
+                        android:value="@={viewmodel.numberTimesPerTimeIdx}"
+                        app:values="@{viewmodel.numberTimesPerTimes}"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/first_line_dotted3"
+            android:layout_width="23dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/second_line_ribbon"
+            app:layout_constraintStart_toEndOf="@+id/second_line_ribbon"
+            app:layout_constraintTop_toTopOf="@+id/second_line_ribbon"
+            app:srcCompat="@drawable/ribbon_right_end"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="40dp"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_left2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="102dp"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="45dp"
+            />
+
+        <TextView
+            android:id="@+id/new_edict_full_txt"
+            style="@style/NewEdictBasicText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:paddingLeft="40dp"
+            android:paddingTop="8dp"
+            android:paddingRight="40dp"
+            android:text="@{viewmodel.edictText}"
+            app:layout_constraintBottom_toTopOf="@+id/error_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/second_line_ribbon"
+            />
+
+        <TextView
+            android:id="@+id/error_text"
+            style="@style/ErrorText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textColor="#D81B60"
+            app:errorTextFromStatus="@{viewmodel.edictStatus}"
+            app:layout_constraintBottom_toTopOf="@+id/upload_button"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+            app:layout_constraintStart_toStartOf="@+id/guideline_left"
+            app:visibilityFromBoolean="@{viewmodel.uploadButtonPressed}"
+            />
+
+        <Button
+            android:id="@+id/upload_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/upload_edict_btn_txt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

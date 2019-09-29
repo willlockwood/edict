@@ -4,19 +4,25 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.willlockwood.edict.data.converter.TimeConverters
 import com.willlockwood.edict.data.dao.EdictDao
+import com.willlockwood.edict.data.dao.EdictSessionDao
 import com.willlockwood.edict.data.model.Edict
+import com.willlockwood.edict.data.model.EdictSession
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Database (
-    entities = [Edict::class],
-    version = 1
+    entities = [Edict::class, EdictSession::class],
+    version = 13
 )
+@TypeConverters(TimeConverters::class)
 abstract class EdictDatabase : RoomDatabase() {
 
     abstract fun edictDao(): EdictDao
+    abstract fun edictSessionDao(): EdictSessionDao
 
     companion object {
         @Volatile

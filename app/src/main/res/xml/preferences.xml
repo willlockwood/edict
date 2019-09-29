@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <PreferenceCategory
+        app:key="notifications_category"
+        app:title="Notifications"
+        >
+
+        <SwitchPreference
+            app:key="daily_review_notification"
+            app:title="Notifications"
+            />
+
+        <com.willlockwood.edict.preferences.TimePreference
+            android:key="review_time"
+            android:title="Daily edict review time"
+            android:defaultValue="@string/default_review_time"
+            />
+
+        <com.willlockwood.edict.preferences.TimePreference
+            android:key="deadline_time"
+            android:title="Daily edict completion deadline"
+            android:defaultValue="@string/default_check_in_deadline"
+            />
+
+    </PreferenceCategory>
+
+
+
+    <Preference
+        app:key="feedback"
+        app:title="Send feedback"
+        app:summary="Report technical issues or suggest new features"
+        />
+
+</androidx.preference.PreferenceScreen>

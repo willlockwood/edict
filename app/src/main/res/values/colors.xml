@@ -1,6 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
+    <!--<color name="colorPrimary">#009688</color>-->
+    <!--<color name="colorPrimaryDark">#00675b</color>-->
+    <!--<color name="colorPrimaryLight">#52c7b8</color>-->
+    <!--<color name="colorAccent">#60768b</color>-->
+    <!--<color name="colorAccentLight">#8eacbb</color>-->
+    <!--<color name="colorAccentDark">#34515e</color>-->
+
+    <!--<color name="offWhite">#F2F2F2</color>-->
+    <!--<color name="lightGray">#3F4040</color>-->
+    <!--<color name="darkGray">#070707</color>-->
+
+    <!--<color name="black">#000000</color>-->
+    <!--<color name="white">#FFFFFF</color>-->
+
+    <!--<color name="maroonLightDisabled">#8077001E</color>-->
+    <!--<color name="maroonHighlighted">#B60033</color>-->
+
+    <!--<color name="ribbonShadow">#383838</color>-->
+
+
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimaryLight">#484848</color>
+    <color name="colorAccent">#aa00ff</color>
+    <color name="colorAccentLight">#e254ff</color>
+    <color name="colorAccentDark">#7200ca</color>
+
+    <color name="offWhite">#F2F2F2</color>
+    <color name="lightGray">#3F4040</color>
+    <color name="darkGray">#070707</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="maroonLightDisabled">#8077001E</color>
+    <color name="maroonHighlighted">#B60033</color>
+
+    <color name="ribbonShadow">#383838</color>
+
+    <color name="edict_level_0">#f4f4f4</color>
+    <color name="edict_level_0_light">#ffffff</color>
+    <color name="edict_level_0_dark">#c1c1c1</color>
+    <color name="edict_level_1">#00c853</color>
+    <color name="edict_level_1_light">#5efc82</color>
+    <color name="edict_level_1_dark">#009624</color>
+    <color name="edict_level_2">#0091ea</color>
+    <color name="edict_level_2_light">#64c1ff</color>
+    <color name="edict_level_2_dark">#0064b7</color>
+    <color name="edict_level_3">#aa00ff</color>
+    <color name="edict_level_3_light">#e254ff</color>
+    <color name="edict_level_3_dark">#7200ca</color>
+    <color name="edict_level_4">#ffab00</color>
+    <color name="edict_level_4_light">#ffdd4b</color>
+    <color name="edict_level_4_dark">#c67c00</color>
+    <color name="edict_level_5">#b71c1c</color>
+    <color name="edict_level_5_light">#f05545</color>
+    <color name="edict_level_5_dark">#7f0000</color>
+    <color name="edict_level_6">#1a237e</color>
+    <color name="edict_level_6_light">#534bae</color>
+    <color name="edict_level_6_dark">#000051</color>
+    <color name="edict_level_7">#880e4f</color>
+    <color name="edict_level_7_light">#bc447b</color>
+    <color name="edict_level_7_dark">#560027</color>
+
+
+    <!--<color name="edict_level_5">#18ffff</color>-->
+    <!--<color name="edict_level_5_light">#76ffff</color>-->
+    <!--<color name="edict_level_5_dark">#00cbcc</color>-->
+    <!--<color name="edict_level_6">#c51162</color>-->
+    <!--<color name="edict_level_6_light">#fd558f</color>-->
+    <!--<color name="edict_level_6_dark">#8e0038</color>-->
+    <!--<color name="edict_level_7">#d50000</color>-->
+    <!--<color name="edict_level_7_light">#ff5131</color>-->
+    <!--<color name="edict_level_7_dark">#9b0000</color>-->
+
 </resources>

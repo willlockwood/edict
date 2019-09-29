@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    style="@style/MyActionBar"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
+    android:minHeight="?attr/actionBarSize"
+    app:logo="@drawable/ic_launcher_foreground"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:titleTextColor="#363636"
+    >
+
+
+    <ImageButton
+        android:id="@+id/toolbar_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:background="#00000000"
+        />
+    <!--android:src="@drawable/ic_menu_white_24dp"-->
+
+    <TextView
+        android:id="@+id/toolbar_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        />
+
+</androidx.appcompat.widget.Toolbar>
