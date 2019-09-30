@@ -63,7 +63,6 @@ class NewEdictFragment : Fragment() {
                 newEdictVM.setUploadButtonPressed(true)
             }
         }
-//        activity_text.requestFocus()
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -72,26 +71,11 @@ class NewEdictFragment : Fragment() {
         val hour = c.get(Calendar.HOUR)
         val minute = c.get(Calendar.MINUTE)
 
-        val tpd = TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener(function = { _, h, m ->
-            val minutes = h * 60 + m
-//            val amPM = when {
-//                h >= 12 -> "PM"
-//                else -> "AM"
-//            }
-//            val displayHour = when {
-//                h > 12 -> h - 12
-//                h == 0 -> 12
-//                else -> h
-//            }
-//            val min = when {
-//                m < 10 -> "0$m"
-//                else -> "$m"
-//            }
-//            val timeString = "$displayHour:$min $amPM"
-//            text.text = timeString
-            text.text = TimeHelper.minutesToTimeString(minutes)
-
-        }),hour,minute,false)
+        val tpd = TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener(
+            function = { _, h, m ->
+                val minutes = h * 60 + m
+                text.text = TimeHelper.minutesToTimeString(minutes) }),
+            hour, minute, false)
         tpd.show()
     }
 
