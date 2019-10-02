@@ -31,7 +31,15 @@ data class Edict(
     var numberTime: Int? = null,
     var numberTimesPerTime: String? = null,
 
-    var currentStreak: Int = 0
+    var currentStreak: Int = 0,
+    var level: Int = 0,
+
+    var notifyStartMinutes: Int? = null,
+    var notifyEndMinutes: Int? = null,
+    var notifyAtMinutes: Int? = null,
+
+    var deadlineType: String? = null,
+    var deadlineMinutes: Int? = null
 ) : BaseObservable() {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
@@ -59,18 +67,6 @@ data class Edict(
         return EdictHelper.getErrorStatus(this)
     }
 
-//    fun getErrorStatus(): Status {
-//        return when {
-//            activity == "" -> Status.EMPTY_ACTIVITY
-//            activity == "do something" -> Status.ACTIVITY_STILL_DEFAULT
-////            textToInt(betweenBeforeTime) > 0 && textToInt(betweenAfterTime) > 0 && textToInt(betweenBeforeTime) >= textToInt(betweenAfterTime) -> Status.BEFORE_NOT_BEFORE_AFTER
-////            textToInt(betweenBeforeTime) > 0 && textToInt(betweenAfterTime) > 0 && textToInt(betweenBeforeTime) >= textToInt(betweenAfterTime) -> Status.BEFORE_NOT_BEFORE_AFTER
-//            whileText == "doing something else" -> Status.WHILE_STILL_DEFAULT
-//            whenText == "something else happens" -> Status.WHEN_STILL_DEFAULT
-//            else -> Status.READY
-//        }
-//    }
-
     fun isActiveToday(): Boolean {
         return EdictHelper.getEdictIsActiveToday(this)
     }
@@ -81,10 +77,15 @@ data class Edict(
 
     fun addToStreak() {
         currentStreak += 1
+        levelUp()
     }
 
     fun resetStreak() {
         currentStreak = 0
+    }
+
+    fun levelUp() {
+        level += 1
     }
 
     override fun toString(): String {

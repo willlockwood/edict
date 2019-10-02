@@ -2,6 +2,7 @@ package com.willlockwood.edict.fragment
 
 
 import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -48,20 +49,30 @@ class NewEdictFragment : Fragment() {
 
         setUpToolbar()
 
+        setUpClickListeners()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun setUpClickListeners() {
         between_time_txt_1.setOnClickListener { clickTimePicker(it as TextView) }
         between_time_txt_2.setOnClickListener { clickTimePicker(it as TextView) }
         after_txt.setOnClickListener { clickTimePicker(it as TextView) }
         before_txt.setOnClickListener { clickTimePicker(it as TextView) }
+        notify_at_text.setOnClickListener { clickTimePicker(it as TextView) }
+        deadline_custom_time.setOnClickListener { clickTimePicker(it as TextView) }
 
-        upload_button.setOnClickListener {
+        finalize_button.setOnClickListener {
             val edict = newEdictVM.getEdict()
             if (edict.getErrorStatus() == EdictHelper.ErrorStatus.READY) {
-                uploadVM.insertEdictAndNewSession(edict)
-
-                findNavController().navigate(R.id.action_newEdictFragment_to_homeFragment)
+                newEdictVM.setCurrentlyFinalizing(true)
             } else {
-                newEdictVM.setUploadButtonPressed(true)
+                newEdictVM.setFinalizeButtonPressed(true)
             }
+        }
+        upload_button.setOnClickListener {
+            val edict = newEdictVM.getEdict()
+            uploadVM.insertEdictAndNewSession(edict)
+            findNavController().navigate(R.id.action_newEdictFragment_to_homeFragment)
         }
     }
 
@@ -80,7 +91,8 @@ class NewEdictFragment : Fragment() {
     }
 
     private fun setUpViewModels() {
-        newEdictVM = NewEdictVM()
+        val sharedPref = activity!!.getSharedPreferences("com.willlockwood.edict_preferences", Context.MODE_PRIVATE)
+        newEdictVM = NewEdictVM(sharedPref)
         uploadVM = ViewModelProviders.of(requireActivity()).get(EdictVM::class.java)
         toolbarVM = ViewModelProviders.of(requireActivity()).get(ToolbarVM::class.java)
     }

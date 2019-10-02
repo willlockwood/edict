@@ -1,8 +1,15 @@
 package com.willlockwood.edict.utils
 
+import android.content.res.ColorStateList
+import android.os.Build
 import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.NumberPicker
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.google.android.material.chip.Chip
 import com.willlockwood.edict.R
@@ -24,6 +31,7 @@ object BindingAdapters {
             view.id == R.id.every_time_txt      && visibilityBasedOnSelection == "time" ->      view.visibility = View.VISIBLE
             view.id == R.id.every_number_layout && visibilityBasedOnSelection == "#" ->         view.visibility = View.VISIBLE
             view.id == R.id.number_layout       && visibilityBasedOnSelection == "#" ->         view.visibility = View.VISIBLE
+            view.id == R.id.deadline_custom_time && visibilityBasedOnSelection == "at" ->         view.visibility = View.VISIBLE
             else -> view.visibility = View.GONE
         }
     }
@@ -50,6 +58,36 @@ object BindingAdapters {
         }
     }
 
+    @BindingAdapter("visibilityFromBoolean")
+    @JvmStatic
+    fun setVisibilityFromBoolean(view: ConstraintLayout, visibilityFromBoolean: Boolean){
+        view.visibility = when (visibilityFromBoolean) {
+            true -> View.VISIBLE
+            false -> View.GONE
+        }
+    }
+
+    @BindingAdapter("layoutVisibilityFromDetailType")
+    @JvmStatic
+    fun setLayoutVisibilityFromDetailType(view: LinearLayout, detailType: String){
+        when {
+            view.id == R.id.notify_start && detailType == "between" -> view.visibility = View.VISIBLE
+            view.id == R.id.notify_start && detailType == "after" -> view.visibility = View.VISIBLE
+            view.id == R.id.notify_end && detailType == "between" -> view.visibility = View.VISIBLE
+            view.id == R.id.notify_end && detailType == "before" -> view.visibility = View.VISIBLE
+            else -> view.visibility = View.GONE
+        }
+    }
+
+    @BindingAdapter("invisibilityFromBoolean")
+    @JvmStatic
+    fun setInvisibilityFromBoolean(view: ConstraintLayout, invisibilityFromBoolean: Boolean){
+        view.visibility = when (invisibilityFromBoolean) {
+            false -> View.VISIBLE
+            true -> View.GONE
+        }
+    }
+
     @BindingAdapter("uncheckedFromBoolean")
     @JvmStatic
     fun setUncheckedFromBoolean(view: Chip, uncheckedFromBoolean: Boolean) {
@@ -58,13 +96,74 @@ object BindingAdapters {
         }
     }
 
-//    @BindingAdapter("highlightOnError")
-//    @JvmStatic
-//    fun setHighlightOnError(view: View, highlightOnError: Edict.Status){
-//        when {
-//            view.id == R.id.activity_text && highlightOnError == Edict.Status.ACTIVITY_STILL_DEFAULT -> (view as EditText).background =
-//        }
-//    }
+    @BindingAdapter("iconChipStyle")
+    @JvmStatic
+    fun setIconChipStyle(view: Chip, edictLevel: Int){
+        when (edictLevel) {
+            0 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_trend_down_black_24dp)
+            1 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_trend_up_black_24dp)
+            2 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_snowflake_white_24dp)
+            3 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_flame_white_24dp)
+            4 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_lightning_black_24dp)
+            5 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_heart_white_24dp)
+            6 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_infinity_white_24dp)
+            7 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.ic_launcher_foreground)
+            else -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_lightning_black_24dp)
+        }
+        when (edictLevel) {
+            0 -> view.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.edict_level_0))
+            1 -> view.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.edict_level_1))
+            2 -> view.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.edict_level_2))
+            3 -> view.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.edict_level_3))
+            4 -> view.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.edict_level_4))
+            5 -> view.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.edict_level_5))
+            6 -> view.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.edict_level_6))
+            7 -> view.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.edict_level_7))
+            else -> view.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.edict_level_4))
+        }
+    }
+
+    @BindingAdapter("backgroundColorFromLevel")
+    @JvmStatic
+    fun setBackgroundColorFromLevel(view: View, edictLevel: Int){
+        when (edictLevel) {
+            0 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_0))
+            1 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_1))
+            2 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_2))
+            3 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_3))
+            4 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_4))
+            5 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_5))
+            6 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_6))
+            7 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_7))
+        }
+    }
+
+    @BindingAdapter("backgroundColorFromLevel")
+    @JvmStatic
+    fun setBackgroundColorFromLevel(view: ConstraintLayout, edictLevel: Int){
+        when (edictLevel) {
+            0 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_0))
+            1 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_1))
+            2 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_2))
+            3 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_3))
+            4 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_4))
+            5 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_5))
+            6 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_6))
+            7 -> view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.edict_level_7))
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+    @BindingAdapter("backgroundIconFromLevel")
+    @JvmStatic
+    fun setBackgroundIconFromLevel(view: ImageView, edictLevel: Int){
+        when (edictLevel) {
+            0 -> view.background = ContextCompat.getDrawable(view.context, R.drawable.level_icon_trend_down_black_24dp)
+            1 -> view.background = ContextCompat.getDrawable(view.context, R.drawable.level_icon_trend_up_black_24dp)
+            2 -> view.background = ContextCompat.getDrawable(view.context, R.drawable.level_icon_snowflake_black_24dp)
+            else -> view.background = ContextCompat.getDrawable(view.context, R.drawable.level_icon_flame_black_24dp)
+        }
+    }
 
     @BindingAdapter("visibilityBasedOnText")
     @JvmStatic

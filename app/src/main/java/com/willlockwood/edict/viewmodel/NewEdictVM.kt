@@ -1,5 +1,6 @@
 package com.willlockwood.edict.viewmodel
 
+import android.content.SharedPreferences
 import android.view.View
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
@@ -10,7 +11,9 @@ import com.willlockwood.edict.data.model.Edict
 import com.willlockwood.edict.utils.EdictHelper
 import com.willlockwood.edict.utils.TimeHelper
 
-class NewEdictVM : BaseObservable() {
+class NewEdictVM(
+    private val sharedPreferences: SharedPreferences
+) : BaseObservable() {
 
     private var edict: Edict = Edict()
     private var edictText = edict.toString()
@@ -36,6 +39,10 @@ class NewEdictVM : BaseObservable() {
     var numberTimesPerTimes = arrayOf("day", "week")
     private var numberTimesPerTimeIdx = 0
 
+    var deadlines = arrayOf("evening", "mid-day", "morning", "at")
+    private var deadlineIdx = 0
+
+
     private var onDays = hashMapOf(
         Pair("Sunday", false),
         Pair("Monday", false),
@@ -50,6 +57,8 @@ class NewEdictVM : BaseObservable() {
         setTypeIdx(1)
         setTypeIdx(0)
         setActivity("do something")
+        setDeadlineIdx(1)
+        setDeadlineIdx(0)
     }
 
     @Bindable
@@ -413,6 +422,126 @@ class NewEdictVM : BaseObservable() {
         }
     }
 
+    private var shouldNotifyAtStart = false
+    @Bindable
+    fun getShouldNotifyAtStart(): Boolean { return shouldNotifyAtStart }
+    fun setShouldNotifyAtStart(shouldNotifyAtStart: Boolean) {
+        val currentlyNotifyingAtStart = this.shouldNotifyAtStart
+        if (currentlyNotifyingAtStart != shouldNotifyAtStart) {
+            this.shouldNotifyAtStart = shouldNotifyAtStart
+            when (shouldNotifyAtStart) {
+//                false -> this.shouldNotifyAtStart = false
+                true -> setNotifyAtStart(edict.detailMinutes)
+            }
+            notifyPropertyChanged(BR.shouldNotifyAtStart)
+        }
+    }
+
+
+    @Bindable
+    fun getNotifyAtStart(): String { return "(${TimeHelper.minutesToTimeString(edict.notifyStartMinutes)})" }
+    private fun setNotifyAtStart(minutes: Int?) {
+        if (minutes != edict.notifyStartMinutes) {
+            edict.notifyStartMinutes = minutes
+            notifyPropertyChanged(BR.notifyAtStart)
+        }
+    }
+
+    @Bindable
+    fun getNotifyAtEnd(): String { return "{${TimeHelper.minutesToTimeString(edict.notifyEndMinutes)})" }
+    private fun setNotifyAtEnd(minutes: Int?) {
+        if (minutes != edict.notifyEndMinutes) {
+            edict.notifyEndMinutes = minutes
+            notifyPropertyChanged(BR.notifyAtEnd)
+        }
+    }
+
+    private var shouldNotifyAtEnd: Boolean = false
+    @Bindable
+    fun getShouldNotifyAtEnd(): Boolean { return shouldNotifyAtEnd }
+    fun setShouldNotifyAtEnd(shouldNotifyAtEnd: Boolean) {
+        val currentlyNotifyingAtEnd = this.shouldNotifyAtEnd
+        if (currentlyNotifyingAtEnd != shouldNotifyAtEnd) {
+            this.shouldNotifyAtEnd = shouldNotifyAtEnd
+            when (shouldNotifyAtEnd) {
+                true -> when (edict.detailType) {
+                    "between" -> setNotifyAtEnd(edict.detailMinutes2)
+                    "before" -> setNotifyAtEnd(edict.detailMinutes2)
+                }
+            }
+            notifyPropertyChanged(BR.shouldNotifyAtEnd)
+        }
+    }
+
+    private var shouldNotifyAt: Boolean = false
+    @Bindable
+    fun getShouldNotifyAt(): Boolean { return shouldNotifyAt }
+    fun setShouldNotifyAt(shouldNotifyAt: Boolean) {
+        val currentlyNotifyingAt= this.shouldNotifyAt
+        if (currentlyNotifyingAt != shouldNotifyAt) {
+            this.shouldNotifyAt = shouldNotifyAt
+            when (shouldNotifyAt) {
+                true -> when (edict.detailType) {
+                    "between" -> setNotifyAt(TimeHelper.minutesToTimeString(edict.detailMinutes2))
+                    "before" -> setNotifyAt(TimeHelper.minutesToTimeString(edict.detailMinutes))
+                    "after" -> setNotifyAt(TimeHelper.minutesToTimeString(edict.detailMinutes))
+                    else -> setNotifyAt(TimeHelper.minutesToTimeString(21))
+                }
+            }
+            notifyPropertyChanged(BR.shouldNotifyAt)
+        }
+    }
+
+    @Bindable
+    fun getNotifyAt(): String? { return TimeHelper.minutesToTimeString(edict.notifyAtMinutes) }
+    private fun setNotifyAt(notifyAt: String?) {
+        val shouldNotifyAtText: Int? = TimeHelper.getMinutesFromTimeString(notifyAt)
+        val currentlyNotifyingAt= edict.notifyAtMinutes
+        if (currentlyNotifyingAt != shouldNotifyAtText) {
+            edict.notifyAtMinutes = shouldNotifyAtText
+            notifyPropertyChanged(BR.notifyAt)
+        }
+    }
+
+    private var finalizeButtonPressed: Boolean = false
+    @Bindable
+    fun getFinalizeButtonPressed(): Boolean { return finalizeButtonPressed }
+    fun setFinalizeButtonPressed(value: Boolean) {
+        if (finalizeButtonPressed != value) {
+            finalizeButtonPressed = value
+            notifyPropertyChanged(BR.finalizeButtonPressed)
+        }
+    }
+
+    private var currentlyFinalizing: Boolean = false
+    @Bindable
+    fun getCurrentlyFinalizing(): Boolean { return currentlyFinalizing }
+    fun setCurrentlyFinalizing(value: Boolean) {
+        if (currentlyFinalizing != value) {
+            currentlyFinalizing = value
+
+            setShouldNotifyAt(true)
+            setShouldNotifyAt(false)
+            when (edict.detailType) {
+                "before" -> {
+                    setShouldNotifyAtEnd(true)
+                    setShouldNotifyAtEnd(false)
+                }
+                "after" -> {
+                    setShouldNotifyAtStart(true)
+                    setShouldNotifyAtStart(false)
+                }
+                "between" -> {
+                    setShouldNotifyAtEnd(true)
+                    setShouldNotifyAtEnd(false)
+                    setShouldNotifyAtStart(true)
+                    setShouldNotifyAtStart(false)
+                }
+            }
+            notifyPropertyChanged(BR.currentlyFinalizing)
+        }
+    }
+
     private var uploadButtonPressed: Boolean = false
     @Bindable
     fun getUploadButtonPressed(): Boolean { return uploadButtonPressed }
@@ -423,48 +552,59 @@ class NewEdictVM : BaseObservable() {
         }
     }
 
-    fun getEdict(): Edict { return edict }
+    @Bindable
+    fun getDeadlineText(): String? { return TimeHelper.minutesToTimeString(edict.deadlineMinutes) }
+    fun setDeadlineText(value: String?) {
+        val minutes: Int? = TimeHelper.getMinutesFromTimeString(value)
+        if (edict.deadlineMinutes != minutes || minutes == null || value == null) {
+            edict.deadlineMinutes = minutes
+            setEdictText(edict.toString())
+            notifyPropertyChanged(BR.deadlineText)
+        }
+    }
+
+    @Bindable
+    fun getDeadlineIdx(): Int { return deadlineIdx }
+    fun setDeadlineIdx(idx: Int) {
+        if (deadlineIdx != idx) {
+            deadlineIdx = idx
+
+            val deadlineType = deadlines[deadlineIdx]
+            setDeadlineType(deadlineType)
+
+            notifyPropertyChanged(BR.deadlineIdx)
+        }
+    }
+
+    @Bindable // ["morning", "midday", "evening", "at"]
+    fun getDeadlineType(): String? { return edict.deadlineType }
+    private fun setDeadlineType(value: String) {
+        if (edict.deadlineType != value) {
+            edict.deadlineType = value
+            notifyPropertyChanged(BR.deadlineType)
+
+            val minutes = when (edict.deadlineType) {
+                "morning" -> sharedPreferences.getInt("morning_deadline", 5)
+                "midday" -> sharedPreferences.getInt("midday_deadline", 5)
+                "evening" -> sharedPreferences.getInt("evening_deadline", 5)
+                else -> TimeHelper.getMinutesFromTimeString(getDeadlineText())
+            }
+            setDeadlineText(TimeHelper.minutesToTimeString(minutes))
+        }
+    }
+
+    private fun resetShouldNotify() {
+        val shouldNotifyAt = getShouldNotifyAt()
+        val shouldNotifyAtEnd = getShouldNotifyAtEnd()
+        val shouldNotifyAtStart = getShouldNotifyAtStart()
+        if (!shouldNotifyAt) { edict.notifyAtMinutes = null }
+        if (!shouldNotifyAtStart) { edict.notifyStartMinutes = null }
+        if (!shouldNotifyAtEnd) { edict.notifyEndMinutes = null }
+    }
+
+    fun getEdict(): Edict {
+        resetShouldNotify()
+        return edict
+    }
 
 }
-
-
-//    @Bindable // "between ___ and 4:30"
-//    fun getBetweenBeforeText(): String? { return edict.betweenBeforeTime }
-//    fun setBetweenBeforeText(value: String?) {
-//        if (value == "") {
-//            setBetweenBeforeText(null)
-//        } else if (edict.betweenBeforeTime != value) {
-//            edict.betweenBeforeTime = value
-//            setEdictText(edict.toString())
-//            notifyPropertyChanged(BR.betweenBeforeText)
-//        }
-//    }
-//
-//    @Bindable // "between 4:30 and ___"
-//    fun getBetweenAfterText(): String? { return edict.betweenAfterTime }
-//    fun setBetweenAfterText(value: String?) {
-//        if (edict.betweenAfterTime != value) {
-//            edict.betweenAfterTime = value
-//            setEdictText(edict.toString())
-//            notifyPropertyChanged(BR.betweenAfterText)
-//        }
-//    }
-//    @Bindable // "after ___"
-//    fun getAfterText(): String? { return edict.afterTime }
-//    fun setAfterText(value: String?) {
-//        if (edict.afterTime != value) {
-//            edict.afterTime = value
-//            setEdictText(edict.toString())
-//            notifyPropertyChanged(BR.afterText)
-//        }
-//    }
-//
-//    @Bindable // "before ___"
-//    fun getBeforeText(): String? { return edict.beforeTime }
-//    fun setBeforeText(value: String?) {
-//        if (edict.beforeTime != value) {
-//            edict.beforeTime = value
-//            setEdictText(edict.toString())
-//            notifyPropertyChanged(BR.beforeText)
-//        }
-//    }
