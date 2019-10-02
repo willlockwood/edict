@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.willlockwood.edict.R
-import com.willlockwood.edict.adapter.EdictSessionAdapter
+import com.willlockwood.edict.adapter.EdictsPagerAdapter
 import com.willlockwood.edict.viewmodel.EdictVM
 import com.willlockwood.edict.viewmodel.ToolbarVM
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -21,10 +19,9 @@ class HomeFragment : Fragment() {
     private lateinit var edictVM: EdictVM
     private lateinit var toolbarVM: ToolbarVM
 
-    private lateinit var recyclerView: RecyclerView
-//    private lateinit var edictAdapter: EdictAdapter
-    private lateinit var edictAdapter: EdictSessionAdapter
-    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var viewPager: ViewPager
+    private lateinit var pagerAdapter: EdictsPagerAdapter
+    private lateinit var tabLayout: TabLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -35,15 +32,10 @@ class HomeFragment : Fragment() {
 
         setUpViewModels()
 
-        setUpRecyclerView()
-
-        observeEdictsForRecycler()
-
         setUpToolbar()
 
-        setUpButtons()
+        setUpPager()
     }
-
 
     private fun setUpViewModels() {
         edictVM = ViewModelProviders.of(requireActivity()).get(EdictVM::class.java)
@@ -54,35 +46,22 @@ class HomeFragment : Fragment() {
         toolbarVM.setCurrentLocation(ToolbarVM.AppLocation.HOME_FRAGMENT)
     }
 
-    private fun setUpButtons() {
-        add_edict_button.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_newEdictFragment) }
-        review_button.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_reviewPagerFragment) }
-        check_in_button.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_checkInPagerFragment) }
-    }
+    private fun setUpPager() {
+        viewPager = edicts_view_pager
+        tabLayout = tabs
 
-    private fun setUpRecyclerView() {
-        recyclerView = edict_recycler
-        edictAdapter = EdictSessionAdapter(this.context!!, edictVM)
-        recyclerView.adapter = edictAdapter
-        layoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = layoutManager
-    }
+        pagerAdapter = EdictsPagerAdapter(childFragmentManager)
+        viewPager.adapter = pagerAdapter
+        viewPager.currentItem = 0
 
-    private fun observeEdictsForRecycler() {
-        edictVM.getActiveEdictSessions().observe(viewLifecycleOwner, Observer {
-            edictAdapter.setEdicts(it)
+        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager.currentItem = tab.position
+            }
         })
-
-//        edictVM.getAllEdicts().observe(viewLifecycleOwner, Observer {
-//            edictAdapter.setEdicts(it)
-//        })
     }
-
-//    private fun setUpRecyclerView2() {
-//        recyclerView = edict_recycler
-//        edictAdapter = EdictAdapter(this.context!!)
-//        recyclerView.adapter = edictAdapter
-//        layoutManager = LinearLayoutManager(context)
-//        recyclerView.layoutManager = layoutManager
-//    }
 }

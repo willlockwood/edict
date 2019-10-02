@@ -24,10 +24,11 @@
             android:layout_height="match_parent"
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
+            app:backgroundColorFromLevel="@{edict.level}"
             >
 
             <TextView
-                android:id="@+id/text"
+                android:id="@+id/edict_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"

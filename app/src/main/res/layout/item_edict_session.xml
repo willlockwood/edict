@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
@@ -18,10 +19,10 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/recyclerViewCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:focusableInTouchMode="false"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardUseCompatPadding="true"
+        app:cardUseCompatPadding="false"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,24 +31,39 @@
             >
 
             <TextView
-                android:id="@+id/text"
+                android:id="@+id/edict_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="@{edict.toString()}"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 />
 
-            <TextView
-                android:id="@+id/blah"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{edictSession.toString()}"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="16dp"
+                app:iconChipStyle="@{edict.level}"
+                app:layout_constraintBottom_toBottomOf="@+id/edict_text"
+                app:layout_constraintStart_toEndOf="@+id/edict_text"
+                app:layout_constraintTop_toTopOf="@+id/edict_text"
                 />
+
+            <!--<ImageView-->
+            <!--android:id="@+id/edict_icon"-->
+            <!--android:layout_width="24dp"-->
+            <!--android:layout_height="24dp"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--app:backgroundIconFromLevel="@{edict.level}"-->
+            <!--app:layout_constraintLeft_toRightOf="@id/edict_text"-->
+            <!--app:layout_constraintTop_toTopOf="@id/edict_text"-->
+            <!--/>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

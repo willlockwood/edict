@@ -25,6 +25,7 @@ class CheckInPage(private val edictId: Int) : Fragment() {
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_check_in_edict, container, false)
         val view = binding.root
         edict = Edict()
+//        binding.setVariable(BR.context, context)
         binding.setVariable(BR.edict, edict) // Use a dummy edict until the observation kicks in
         return view
     }
@@ -40,6 +41,7 @@ class CheckInPage(private val edictId: Int) : Fragment() {
     private fun observeEdictById(edictId: Int) {
         edictVM.getLiveEdictById(edictId).observe(viewLifecycleOwner, Observer {
             if (it != null) {
+                setEdict(it)
                 binding.setVariable(BR.edict, it)
                 binding.notifyPropertyChanged(BR.edict) // Replace the dummy edict
             }
@@ -51,11 +53,11 @@ class CheckInPage(private val edictId: Int) : Fragment() {
     }
 
     fun resolveSession(edictSession: EdictSession, success: Boolean) {
-        edictVM.resolveEdictSession(edictSession, edict, success)
+        val currentEdict = getEdict()
+        edictVM.resolveEdictSession(edictSession, currentEdict, success)
     }
 
-//    fun getEdict(): Edict {
-//
-//        return edict
-//    }
+    private fun getEdict(): Edict { return this.edict }
+    private fun setEdict(edict: Edict) { this.edict = edict}
+
 }
