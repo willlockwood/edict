@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 @Database (
     entities = [Edict::class, EdictSession::class],
-    version = 13
+    version = 16
 )
 @TypeConverters(TimeConverters::class)
 abstract class EdictDatabase : RoomDatabase() {
