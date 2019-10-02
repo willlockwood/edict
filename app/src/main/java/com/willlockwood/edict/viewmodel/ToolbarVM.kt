@@ -34,7 +34,7 @@ class ToolbarVM(application: Application) : AndroidViewModel(application) {
 
         when (appLocation) {
             AppLocation.HOME_FRAGMENT -> {
-                setToolbarTitle("home")
+                setToolbarTitle("Edict")
                 setToolbarVisible(true)
             }
             AppLocation.REVIEW_FRAGMENT -> {
