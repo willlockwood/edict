@@ -17,7 +17,6 @@ class EdictRepository(
     fun insertEdict2(edict: Edict): Long = edictDao.insertEdict2(edict)
 
     fun updateEdict(edict: Edict) = edictDao.updateEdict(edict)
-
     fun updateEdictSession(edictSession: EdictSession) = edictSessionDao.updateEdictSession(edictSession)
 
     fun getLiveEdictById(id: Int): LiveData<Edict> = edictDao.getLiveEdictById(id)

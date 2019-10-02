@@ -17,8 +17,8 @@ class EdictVM(application: Application) : AndroidViewModel(application) {
     private val edictCheckDao = EdictDatabase.getDatabase(application, viewModelScope).edictSessionDao()
     private val repository = EdictRepository(edictDao, edictCheckDao)
 
-    fun uploadEdict(edict: Edict) = viewModelScope.launch(Dispatchers.IO) { repository.insertEdict(edict) }
-    fun insertEdict(edict: Edict): Long = repository.insertEdict2(edict)
+    fun insertEdict(edict: Edict) = viewModelScope.launch(Dispatchers.IO) { repository.insertEdict(edict) }
+//    fun insertEdict(edict: Edict): Long = repository.insertEdict2(edict)
 
     fun getAllEdicts(): LiveData<List<Edict>> = repository.getAllEdicts()
 
@@ -37,6 +37,11 @@ class EdictVM(application: Application) : AndroidViewModel(application) {
         repository.insertEdictSessions(newSession)
     }
 
+    fun updateEdictAndSession(edict: Edict, edictSession: EdictSession) = viewModelScope.launch(Dispatchers.IO) {
+        repository.insertEdict(edict)
+        repository.updateEdictSession(edictSession)
+    }
+
     fun insertEdictSessions(edictSession: EdictSession) = viewModelScope.launch(Dispatchers.IO) { repository.insertEdictSessions(edictSession) }
     fun insertEdictSessions(edictSessions: List<EdictSession>) = viewModelScope.launch(Dispatchers.IO) { repository.insertEdictSessions(edictSessions) }
 
@@ -48,7 +53,7 @@ class EdictVM(application: Application) : AndroidViewModel(application) {
             true -> edict.addToStreak()
             false -> edict.resetStreak()
         }
-        updateEdict(edict)
+        updateEdictAndSession(edict, edictSession)
     }
 
 }
