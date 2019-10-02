@@ -36,6 +36,9 @@
 
 
     <string name="default_review_time">480</string>
+    <string name="preferences_default_morning_deadline">500</string>
+    <string name="preferences_default_midday_deadline">800</string>
+    <string name="preferences_default_evening_deadline">1380</string>
     <string name="default_check_in_deadline">1400</string>
 
     <string-array name="edict_restriction_types_array">
