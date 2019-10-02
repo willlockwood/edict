@@ -21,6 +21,24 @@
             />
 
         <com.willlockwood.edict.preferences.TimePreference
+            android:key="morning_deadline"
+            android:title="Deadline for morning edicts"
+            android:defaultValue="@string/preferences_default_morning_deadline"
+            />
+
+        <com.willlockwood.edict.preferences.TimePreference
+            android:key="midday_deadline"
+            android:title="Deadline for mid-day edicts"
+            android:defaultValue="@string/preferences_default_midday_deadline"
+            />
+
+        <com.willlockwood.edict.preferences.TimePreference
+            android:key="evening_deadline"
+            android:title="Deadline for evening edicts"
+            android:defaultValue="@string/preferences_default_evening_deadline"
+            />
+
+        <com.willlockwood.edict.preferences.TimePreference
             android:key="deadline_time"
             android:title="Daily edict completion deadline"
             android:defaultValue="@string/default_check_in_deadline"
