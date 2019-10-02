@@ -43,8 +43,8 @@ class TimePreferenceDialog: PreferenceDialogFragmentCompat() {
     override fun onDialogClosed(positiveResult: Boolean) {
 
         if (positiveResult) {
-            var hours: Int? = null
-            var minutes: Int? = null
+            var hours: Int?
+            var minutes: Int?
             if (Build.VERSION.SDK_INT >= 23) {
                 hours = picker.hour;
                 minutes = picker.minute;
