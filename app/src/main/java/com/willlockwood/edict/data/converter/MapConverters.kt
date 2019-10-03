@@ -1,24 +1,35 @@
 package com.willlockwood.edict.data.converter
 
 import androidx.room.TypeConverter
-import org.threeten.bp.OffsetDateTime
-import org.threeten.bp.format.DateTimeFormatter
 
-object TimeConverters {
-
-    private val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+object MapConverters {
 
     @TypeConverter
     @JvmStatic
-    fun toOffsetDateTime(value: String?): OffsetDateTime? {
-        return value?.let {
-            return formatter.parse(value, OffsetDateTime::from)
+    fun toMap(value: String?): Map<String, Int>? {
+        if (value == "") {
+            return emptyMap()
         }
+
+        val pairStringList = value!!.split(";")
+        var returnMap = emptyMap<String, Int>()
+
+        if (pairStringList.isNotEmpty()) {
+            for (pair in pairStringList) {
+//                val split = pair.split(",")
+                returnMap = returnMap.plus(Pair(pair.split(",")[0], pair.split(",")[1].toInt()))
+            }
+        }
+        return returnMap
     }
 
     @TypeConverter
     @JvmStatic
-    fun fromOffsetDateTime(date: OffsetDateTime?): String? {
-        return date?.format(formatter)
+    fun fromMap(value: Map<String, Int>?): String? {
+        var pairStringList = emptyList<String>()
+        for (entry in value!!.entries) {
+            pairStringList = pairStringList.plus("${entry.key},${entry.value}")
+        }
+        return pairStringList.joinToString(";")
     }
 }
