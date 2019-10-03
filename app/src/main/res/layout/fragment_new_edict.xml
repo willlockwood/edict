@@ -650,7 +650,7 @@
                                 android:text="when it starts"
                                 android:textColor="@color/offWhite"
                                 android:textSize="18sp"
-                                android:checked="@={viewmodel.shouldNotifyAtStart}"
+                                android:checked="@={viewmodel.notifyStartToggled}"
                                 />
 
                             <TextView
@@ -658,7 +658,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="8dp"
-                                android:text="@{viewmodel.notifyAtStart}"
+                                android:text="@{viewmodel.notifyStartTime}"
                                 android:gravity="center_vertical"
                                 android:textColor="@color/offWhite"
                                 android:textSize="18sp"
@@ -682,7 +682,7 @@
                                 android:text="when it ends"
                                 android:textColor="@color/offWhite"
                                 android:textSize="18sp"
-                                android:checked="@={viewmodel.shouldNotifyAtEnd}"
+                                android:checked="@={viewmodel.notifyEndToggled}"
                                 />
 
                             <TextView
@@ -690,7 +690,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="8dp"
-                                android:text="@{viewmodel.notifyAtEnd}"
+                                android:text="@{viewmodel.notifyEndTime}"
                                 android:gravity="center_vertical"
                                 android:textColor="@color/offWhite"
                                 android:textSize="18sp"
@@ -713,7 +713,7 @@
                                 android:text="at..."
                                 android:textColor="@color/offWhite"
                                 android:textSize="18sp"
-                                android:checked="@={viewmodel.shouldNotifyAt}"
+                                android:checked="@={viewmodel.notifyAtToggled}"
                                 />
                             <!--app:useMaterialThemeColors="false"-->
 
@@ -724,7 +724,7 @@
                                 android:layout_marginLeft="8dp"
                                 android:background="@drawable/bottom_line_white"
                                 android:gravity="center_vertical"
-                                android:text="@{viewmodel.notifyAt}"
+                                android:text="@={viewmodel.notifyAtTime}"
                                 android:textColor="@color/offWhite"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
