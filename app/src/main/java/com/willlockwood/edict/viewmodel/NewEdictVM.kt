@@ -422,84 +422,79 @@ class NewEdictVM(
         }
     }
 
-    private var shouldNotifyAtStart = false
+
+    private var notifyStartTime: String? = null
     @Bindable
-    fun getShouldNotifyAtStart(): Boolean { return shouldNotifyAtStart }
-    fun setShouldNotifyAtStart(shouldNotifyAtStart: Boolean) {
-        val currentlyNotifyingAtStart = this.shouldNotifyAtStart
-        if (currentlyNotifyingAtStart != shouldNotifyAtStart) {
-            this.shouldNotifyAtStart = shouldNotifyAtStart
-            when (shouldNotifyAtStart) {
-//                false -> this.shouldNotifyAtStart = false
-                true -> setNotifyAtStart(edict.detailMinutes)
+    fun getNotifyStartTime(): String { return "($notifyStartTime)" }
+    fun setNotifyStartTime(notifyStartTime: String?) {
+        if (this.notifyStartTime != notifyStartTime) {
+            this.notifyStartTime = notifyStartTime
+            notifyPropertyChanged(BR.notifyStartTime)
+        }
+    }
+
+    private var notifyEndTime: String? = null
+    @Bindable
+    fun getNotifyEndTime(): String { return "($notifyEndTime)" }
+    fun setNotifyEndTime(notifyEndTime: String?) {
+        if (this.notifyEndTime != notifyEndTime) {
+            this.notifyEndTime = notifyEndTime
+            notifyPropertyChanged(BR.notifyEndTime)
+        }
+    }
+
+    private var notifyAtTime: String? = null
+    @Bindable
+    fun getNotifyAtTime(): String? { return this.notifyAtTime }
+    fun setNotifyAtTime(notifyAtTime: String?) {
+        if (this.notifyAtTime != notifyAtTime) {
+            this.notifyAtTime = notifyAtTime
+            if (notifyAtToggled) {
+                edict.notifyAtMinutes = TimeHelper.getMinutesFromTimeString(notifyAtTime)
             }
-            notifyPropertyChanged(BR.shouldNotifyAtStart)
+            notifyPropertyChanged(BR.notifyAtTime)
         }
     }
 
-
+    private var notifyStartToggled = false
     @Bindable
-    fun getNotifyAtStart(): String { return "(${TimeHelper.minutesToTimeString(edict.notifyStartMinutes)})" }
-    private fun setNotifyAtStart(minutes: Int?) {
-        if (minutes != edict.notifyStartMinutes) {
-            edict.notifyStartMinutes = minutes
-            notifyPropertyChanged(BR.notifyAtStart)
-        }
-    }
-
-    @Bindable
-    fun getNotifyAtEnd(): String { return "{${TimeHelper.minutesToTimeString(edict.notifyEndMinutes)})" }
-    private fun setNotifyAtEnd(minutes: Int?) {
-        if (minutes != edict.notifyEndMinutes) {
-            edict.notifyEndMinutes = minutes
-            notifyPropertyChanged(BR.notifyAtEnd)
-        }
-    }
-
-    private var shouldNotifyAtEnd: Boolean = false
-    @Bindable
-    fun getShouldNotifyAtEnd(): Boolean { return shouldNotifyAtEnd }
-    fun setShouldNotifyAtEnd(shouldNotifyAtEnd: Boolean) {
-        val currentlyNotifyingAtEnd = this.shouldNotifyAtEnd
-        if (currentlyNotifyingAtEnd != shouldNotifyAtEnd) {
-            this.shouldNotifyAtEnd = shouldNotifyAtEnd
-            when (shouldNotifyAtEnd) {
-                true -> when (edict.detailType) {
-                    "between" -> setNotifyAtEnd(edict.detailMinutes2)
-                    "before" -> setNotifyAtEnd(edict.detailMinutes2)
-                }
+    fun getNotifyStartToggled(): Boolean { return notifyStartToggled }
+    fun setNotifyStartToggled(notifyStartToggled: Boolean) {
+        if (this.notifyStartToggled != notifyStartToggled) {
+            this.notifyStartToggled = notifyStartToggled
+            edict.notifyStartMinutes = when (notifyStartToggled) {
+                true -> TimeHelper.getMinutesFromTimeString(this.notifyStartTime)
+                false -> null
             }
-            notifyPropertyChanged(BR.shouldNotifyAtEnd)
+            notifyPropertyChanged(BR.notifyStartToggled)
         }
     }
 
-    private var shouldNotifyAt: Boolean = false
+    private var notifyEndToggled: Boolean = false
     @Bindable
-    fun getShouldNotifyAt(): Boolean { return shouldNotifyAt }
-    fun setShouldNotifyAt(shouldNotifyAt: Boolean) {
-        val currentlyNotifyingAt= this.shouldNotifyAt
-        if (currentlyNotifyingAt != shouldNotifyAt) {
-            this.shouldNotifyAt = shouldNotifyAt
-            when (shouldNotifyAt) {
-                true -> when (edict.detailType) {
-                    "between" -> setNotifyAt(TimeHelper.minutesToTimeString(edict.detailMinutes2))
-                    "before" -> setNotifyAt(TimeHelper.minutesToTimeString(edict.detailMinutes))
-                    "after" -> setNotifyAt(TimeHelper.minutesToTimeString(edict.detailMinutes))
-                    else -> setNotifyAt(TimeHelper.minutesToTimeString(21))
-                }
+    fun getNotifyEndToggled(): Boolean { return notifyEndToggled }
+    fun setNotifyEndToggled(notifyEndToggled: Boolean) {
+        if (this.notifyEndToggled != notifyEndToggled) {
+            this.notifyEndToggled = notifyEndToggled
+            edict.notifyEndMinutes = when (notifyEndToggled) {
+                true -> TimeHelper.getMinutesFromTimeString(this.notifyEndTime)
+                false -> null
             }
-            notifyPropertyChanged(BR.shouldNotifyAt)
+            notifyPropertyChanged(BR.notifyEndToggled)
         }
     }
 
+    private var notifyAtToggled: Boolean = false
     @Bindable
-    fun getNotifyAt(): String? { return TimeHelper.minutesToTimeString(edict.notifyAtMinutes) }
-    private fun setNotifyAt(notifyAt: String?) {
-        val shouldNotifyAtText: Int? = TimeHelper.getMinutesFromTimeString(notifyAt)
-        val currentlyNotifyingAt= edict.notifyAtMinutes
-        if (currentlyNotifyingAt != shouldNotifyAtText) {
-            edict.notifyAtMinutes = shouldNotifyAtText
-            notifyPropertyChanged(BR.notifyAt)
+    fun getNotifyAtToggled(): Boolean { return notifyAtToggled }
+    fun setNotifyAtToggled(notifyAtToggled: Boolean) {
+        if (this.notifyAtToggled != notifyAtToggled) {
+            this.notifyAtToggled = notifyAtToggled
+            edict.notifyAtMinutes = when (notifyAtToggled) {
+                true -> TimeHelper.getMinutesFromTimeString(this.notifyAtTime)
+                else -> null
+            }
+            notifyPropertyChanged(BR.notifyAtToggled)
         }
     }
 
@@ -520,23 +515,40 @@ class NewEdictVM(
         if (currentlyFinalizing != value) {
             currentlyFinalizing = value
 
-            setShouldNotifyAt(true)
-            setShouldNotifyAt(false)
             when (edict.detailType) {
                 "before" -> {
-                    setShouldNotifyAtEnd(true)
-                    setShouldNotifyAtEnd(false)
+                    setNotifyEndTime(TimeHelper.minutesToTimeString(edict.detailMinutes))
+                    setNotifyEndToggled(true)
+                    setNotifyEndToggled(false)
+                    setNotifyAtTime(TimeHelper.minutesToTimeString(edict.detailMinutes))
+                    setNotifyAtToggled(true)
+                    setNotifyAtToggled(false)
                 }
                 "after" -> {
-                    setShouldNotifyAtStart(true)
-                    setShouldNotifyAtStart(false)
+                    setNotifyStartTime(TimeHelper.minutesToTimeString(edict.detailMinutes))
+                    setNotifyStartToggled(true)
+                    setNotifyStartToggled(false)
+                    setNotifyAtTime(TimeHelper.minutesToTimeString(edict.detailMinutes))
+                    setNotifyAtToggled(true)
+                    setNotifyAtToggled(false)
                 }
                 "between" -> {
-                    setShouldNotifyAtEnd(true)
-                    setShouldNotifyAtEnd(false)
-                    setShouldNotifyAtStart(true)
-                    setShouldNotifyAtStart(false)
+                    setNotifyStartTime(TimeHelper.minutesToTimeString(edict.detailMinutes))
+                    setNotifyStartToggled(true)
+                    setNotifyStartToggled(false)
+                    setNotifyEndTime(TimeHelper.minutesToTimeString(edict.detailMinutes2))
+                    setNotifyEndToggled(true)
+                    setNotifyEndToggled(false)
+                    setNotifyAtTime(TimeHelper.minutesToTimeString(edict.detailMinutes2))
+                    setNotifyAtToggled(true)
+                    setNotifyAtToggled(false)
                 }
+                else -> {
+                    setNotifyAtTime(TimeHelper.minutesToTimeString(720))
+                    setNotifyAtToggled(true)
+                    setNotifyAtToggled(false)
+                }
+
             }
             notifyPropertyChanged(BR.currentlyFinalizing)
         }
@@ -585,7 +597,7 @@ class NewEdictVM(
 
             val minutes = when (edict.deadlineType) {
                 "morning" -> sharedPreferences.getInt("morning_deadline", 5)
-                "midday" -> sharedPreferences.getInt("midday_deadline", 5)
+                "mid-day" -> sharedPreferences.getInt("midday_deadline", 5)
                 "evening" -> sharedPreferences.getInt("evening_deadline", 5)
                 else -> TimeHelper.getMinutesFromTimeString(getDeadlineText())
             }
@@ -594,16 +606,17 @@ class NewEdictVM(
     }
 
     private fun resetShouldNotify() {
-        val shouldNotifyAt = getShouldNotifyAt()
-        val shouldNotifyAtEnd = getShouldNotifyAtEnd()
-        val shouldNotifyAtStart = getShouldNotifyAtStart()
+        val shouldNotifyAt = getNotifyAtToggled()
+        val shouldNotifyAtEnd = getNotifyEndToggled()
+        val shouldNotifyAtStart = getNotifyStartToggled()
         if (!shouldNotifyAt) { edict.notifyAtMinutes = null }
         if (!shouldNotifyAtStart) { edict.notifyStartMinutes = null }
         if (!shouldNotifyAtEnd) { edict.notifyEndMinutes = null }
+        val blah = edict
     }
 
     fun getEdict(): Edict {
-        resetShouldNotify()
+//        resetShouldNotify()
         return edict
     }
 

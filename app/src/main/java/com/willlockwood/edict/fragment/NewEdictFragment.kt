@@ -79,7 +79,7 @@ class NewEdictFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     fun clickTimePicker(text: TextView) {
         val c = Calendar.getInstance()
-        val hour = c.get(Calendar.HOUR)
+        val hour = c.get(Calendar.HOUR_OF_DAY)
         val minute = c.get(Calendar.MINUTE)
 
         val tpd = TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener(

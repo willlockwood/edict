@@ -1,9 +1,11 @@
 package com.willlockwood.edict.activity
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
@@ -11,12 +13,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.willlockwood.edict.R
+import com.willlockwood.edict.data.model.EdictSession
 import com.willlockwood.edict.receiver.AlarmReceiver
 import com.willlockwood.edict.receiver.AlarmScheduler
 import com.willlockwood.edict.viewmodel.EdictVM
 import com.willlockwood.edict.viewmodel.NewEdictVM
 import com.willlockwood.edict.viewmodel.ToolbarVM
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,10 +53,16 @@ class MainActivity : AppCompatActivity() {
         toolbarVM = ViewModelProviders.of(this).get(ToolbarVM::class.java)
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun observeEdictsForSessionRefresh() {
         edictVM.getAllEdicts().observe(this, Observer {
             if (it.isNotEmpty()) {
-                setEdictSessionRefresh()
+                setEdictSessionRefresh() // when there's a change in edicts, make sure that the edict sessions are refreshed
+            }
+        })
+        edictVM.getActiveEdictSessions().observe(this, Observer {
+            if (it.isNotEmpty()) {
+                rescheduleAllNotificationsFromEdictSessions(it)
             }
         })
     }
@@ -70,6 +81,26 @@ class MainActivity : AppCompatActivity() {
         })
         supportActionBar?.elevation = 0f
         supportActionBar?.setLogo(R.drawable.ic_launcher_foreground)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    private fun rescheduleAllNotificationsFromEdictSessions(edictSessions: List<EdictSession>) {
+        var allExtraNotificationsToday = emptyArray<Triple<EdictSession, Int, String>>()
+        for (es in edictSessions) {
+            val esNotifMap = es.notificationMinutes
+            val mapEntries = esNotifMap.entries
+            if (mapEntries.isNotEmpty()) {
+                for (e in mapEntries) {
+                    allExtraNotificationsToday = allExtraNotificationsToday.plus(Triple(es, e.value, e.key))
+                }
+            }
+        }
+        allExtraNotificationsToday.sortBy { it.second }
+        val rightNow = Calendar.getInstance()
+        val minutes = rightNow.get(Calendar.HOUR_OF_DAY) * 60 + rightNow.get(Calendar.MINUTE)
+        allExtraNotificationsToday = allExtraNotificationsToday.filter { it.second > minutes }.toTypedArray()
+        val groupedExtraNotifications = allExtraNotificationsToday.groupBy { it.second }
+        AlarmScheduler.scheduleAllExtraAlarms(this, AlarmReceiver::class.java, groupedExtraNotifications)
     }
 
     private fun setEdictSessionRefresh() {
