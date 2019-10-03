@@ -3,8 +3,10 @@ package com.willlockwood.edict.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.willlockwood.edict.BR
@@ -14,7 +16,8 @@ import com.willlockwood.edict.data.model.Edict
 
 //
 class EdictRecyclerAdapter internal constructor(
-    private val context: Context
+    private val context: Context,
+    private val navController: NavController
 ) : RecyclerView.Adapter<EdictRecyclerAdapter.EdictViewHolder>() {
 //
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -25,6 +28,9 @@ class EdictRecyclerAdapter internal constructor(
     inner class EdictViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindView(edict: Edict) {
             binding.setVariable(BR.edict, edict)
+            binding.root.setOnClickListener {
+                navController.navigate(R.id.action_homeFragment_to_edictFragment, bundleOf("edictId" to edict.id))
+            }
         }
     }
 

@@ -45,7 +45,7 @@ class AllEdictsPage : Fragment() {
 
     private fun setUpRecyclerView() {
         recyclerView = edict_recycler
-        edictAdapter = EdictRecyclerAdapter(this.context!!)
+        edictAdapter = EdictRecyclerAdapter(this.context!!, findNavController())
         recyclerView.adapter = edictAdapter
         layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
