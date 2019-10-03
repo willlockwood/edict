@@ -10,7 +10,6 @@ import org.threeten.bp.OffsetDateTime
 
 @Entity(
     tableName="edict_sessions",
-//            indices = [androidx.room.Index(value = ["tag"], name = "tag")],
     foreignKeys = [
         ForeignKey(
             entity = Edict::class,

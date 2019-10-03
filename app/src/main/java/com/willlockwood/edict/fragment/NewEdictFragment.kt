@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
@@ -32,13 +31,12 @@ class NewEdictFragment : Fragment() {
     private lateinit var newEdictVM: NewEdictVM
     private lateinit var uploadVM: EdictVM
     private lateinit var toolbarVM: ToolbarVM
-    private lateinit var listener1: AdapterView.OnItemSelectedListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         setUpViewModels()
         val binding: ViewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.fragment_new_edict, container, false)
-        var view = binding.root
+        val view = binding.root
         binding.setVariable(BR.viewmodel, newEdictVM)
         return view
     }

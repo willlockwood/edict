@@ -65,15 +65,4 @@
     <color name="edict_level_7_light">#bc447b</color>
     <color name="edict_level_7_dark">#560027</color>
 
-
-    <!--<color name="edict_level_5">#18ffff</color>-->
-    <!--<color name="edict_level_5_light">#76ffff</color>-->
-    <!--<color name="edict_level_5_dark">#00cbcc</color>-->
-    <!--<color name="edict_level_6">#c51162</color>-->
-    <!--<color name="edict_level_6_light">#fd558f</color>-->
-    <!--<color name="edict_level_6_dark">#8e0038</color>-->
-    <!--<color name="edict_level_7">#d50000</color>-->
-    <!--<color name="edict_level_7_light">#ff5131</color>-->
-    <!--<color name="edict_level_7_dark">#9b0000</color>-->
-
 </resources>

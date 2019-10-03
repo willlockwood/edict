@@ -40,6 +40,10 @@ class ReviewPagerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpViewPager()
+    }
+
+    private fun setUpViewPager() {
         viewPager = review_edicts_view_pager
         pagerAdapter = ReviewEdictsPagerAdapter(childFragmentManager, emptyList())
 
@@ -63,11 +67,6 @@ class ReviewPagerFragment : Fragment() {
                 })
             }
         })
-
-
-
-
-
     }
 
     private fun setUpViewModels() {

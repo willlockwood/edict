@@ -21,15 +21,11 @@ class CheckInPagerFragment : Fragment() {
     private lateinit var edictVM: EdictVM
     private lateinit var toolbarVM: ToolbarVM
 
-    companion object {
-        var blah = "blah"
-    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setUpViewModels()
+
         setUpToolbar()
     }
 
@@ -40,6 +36,10 @@ class CheckInPagerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpViewPager()
+    }
+
+    private fun setUpViewPager() {
         viewPager = check_in_view_pager
 
         pagerAdapter = CheckInEdictsPagerAdapter(childFragmentManager, emptyList())
@@ -54,31 +54,13 @@ class CheckInPagerFragment : Fragment() {
                 progressBar.max = pagerAdapter.count
 
                 viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
-                    override fun onPageSelected(position: Int) {
-                        progressBar.progress = position + 1
-                    }
+                    override fun onPageSelected(position: Int) { progressBar.progress = position + 1 }
                     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
                     override fun onPageScrollStateChanged(state: Int) {}
                 })
             }
         })
-
-//        setUpButtons()
     }
-
-//    private fun enableButtons(enabled: Boolean) {
-//        success_btn.isEnabled = enabled
-//        failure_btn.isEnabled = enabled
-//    }
-//
-//    private fun setUpButtons() {
-//        success_btn.setOnClickListener {
-////            pagerAdapter.resolveCurrentSession(true)
-//        }
-//        failure_btn.setOnClickListener {
-////            pagerAdapter.resolveCurrentSession(false)
-//        }
-//    }
 
     private fun setUpViewModels() {
         edictVM = ViewModelProviders.of(requireActivity()).get(EdictVM::class.java)

@@ -45,6 +45,7 @@ class ToolbarVM(application: Application) : AndroidViewModel(application) {
                 setToolbarTitle(null)
                 setToolbarVisible(false)
             }
+            AppLocation.PREFERENCES -> TODO()
         }
 
         currentLocation.value = appLocation

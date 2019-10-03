@@ -55,16 +55,6 @@
                 app:layout_constraintTop_toTopOf="@+id/edict_text"
                 />
 
-            <!--<ImageView-->
-            <!--android:id="@+id/edict_icon"-->
-            <!--android:layout_width="24dp"-->
-            <!--android:layout_height="24dp"-->
-            <!--android:layout_marginLeft="16dp"-->
-            <!--app:backgroundIconFromLevel="@{edict.level}"-->
-            <!--app:layout_constraintLeft_toRightOf="@id/edict_text"-->
-            <!--app:layout_constraintTop_toTopOf="@id/edict_text"-->
-            <!--/>-->
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

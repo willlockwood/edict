@@ -605,18 +605,7 @@ class NewEdictVM(
         }
     }
 
-    private fun resetShouldNotify() {
-        val shouldNotifyAt = getNotifyAtToggled()
-        val shouldNotifyAtEnd = getNotifyEndToggled()
-        val shouldNotifyAtStart = getNotifyStartToggled()
-        if (!shouldNotifyAt) { edict.notifyAtMinutes = null }
-        if (!shouldNotifyAtStart) { edict.notifyStartMinutes = null }
-        if (!shouldNotifyAtEnd) { edict.notifyEndMinutes = null }
-        val blah = edict
-    }
-
     fun getEdict(): Edict {
-//        resetShouldNotify()
         return edict
     }
 

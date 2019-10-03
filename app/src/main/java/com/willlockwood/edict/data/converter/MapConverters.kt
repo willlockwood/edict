@@ -7,16 +7,13 @@ object MapConverters {
     @TypeConverter
     @JvmStatic
     fun toMap(value: String?): Map<String, Int>? {
-        if (value == "") {
-            return emptyMap()
-        }
+        if (value == "") { return emptyMap() }
 
         val pairStringList = value!!.split(";")
         var returnMap = emptyMap<String, Int>()
 
         if (pairStringList.isNotEmpty()) {
             for (pair in pairStringList) {
-//                val split = pair.split(",")
                 returnMap = returnMap.plus(Pair(pair.split(",")[0], pair.split(",")[1].toInt()))
             }
         }

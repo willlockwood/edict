@@ -47,7 +47,7 @@ class AlarmReceiver: BroadcastReceiver() {
                     .build()
                 jobScheduler.schedule(jobInfo)
             }
-            else -> Log.i(TAG, "extraNotifications")
+            else -> Log.i(TAG, "neither kind")
 
 
         }

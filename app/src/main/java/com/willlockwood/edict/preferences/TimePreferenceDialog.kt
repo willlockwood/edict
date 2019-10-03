@@ -23,8 +23,7 @@ class TimePreferenceDialog: PreferenceDialogFragmentCompat() {
             minutesAfterMidnight = (preference as TimePreference).getTime()
         }
 
-        // Set the time to the TimePicker
-        if (minutesAfterMidnight != null) {
+        if (minutesAfterMidnight != null) { // Set the time to the TimePicker
             val hours = minutesAfterMidnight / 60
             val minutes = minutesAfterMidnight % 60
             val is24Hour = DateFormat.is24HourFormat(context)

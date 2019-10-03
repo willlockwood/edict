@@ -44,8 +44,6 @@ data class Edict(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 
-//    enum class Status { READY, EMPTY_ACTIVITY, ACTIVITY_STILL_DEFAULT, BEFORE_NOT_BEFORE_AFTER, WHEN_STILL_DEFAULT, WHILE_STILL_DEFAULT }
-
     private fun onDaysString(text: String, andOr: String): String {
         return if (text.contains(", ")) {
             val list = text.split(", ")

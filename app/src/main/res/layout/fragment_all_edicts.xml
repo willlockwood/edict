@@ -19,16 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <!--<Button-->
-        <!--android:id="@+id/check_in_button"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:text="@string/home_check_in_btn_txt"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="@+id/edict_recycler"-->
-        <!--/>-->
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

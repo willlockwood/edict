@@ -26,11 +26,12 @@ class CheckInPage(private val edictId: Int, private val edictSession: EdictSessi
     private lateinit var viewPager: ViewPager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         viewPager = container as ViewPager
+
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_check_in_edict, container, false)
         val view = binding.root
         edict = Edict()
-//        binding.setVariable(BR.context, context)
         binding.setVariable(BR.edict, edict) // Use a dummy edict until the observation kicks in
         return view
     }
@@ -60,12 +61,8 @@ class CheckInPage(private val edictId: Int, private val edictSession: EdictSessi
     }
 
     private fun setUpButtons() {
-        success_btn.setOnClickListener {
-            resolveSession(edictSession, true)
-        }
-        failure_btn.setOnClickListener {
-            resolveSession(edictSession, false)
-        }
+        success_btn.setOnClickListener { resolveSession(edictSession, true) }
+        failure_btn.setOnClickListener { resolveSession(edictSession, false) }
     }
 
     private fun resolveSession(edictSession: EdictSession, success: Boolean){
@@ -85,6 +82,6 @@ class CheckInPage(private val edictId: Int, private val edictSession: EdictSessi
     }
 
     private fun getEdict(): Edict { return this.edict }
-    private fun setEdict(edict: Edict) { this.edict = edict}
+    private fun setEdict(edict: Edict) { this.edict = edict }
 
 }

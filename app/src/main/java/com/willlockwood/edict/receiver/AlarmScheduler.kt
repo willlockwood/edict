@@ -45,12 +45,9 @@ object AlarmScheduler {
 
             val receiver = ComponentName(context, cls)
             val packageManager = context.packageManager
-//            if (packageManager.getComponentEnabledSetting(receiver) != PackageManager.COMPONENT_ENABLED_STATE_ENABLED ) {
-                packageManager.setComponentEnabledSetting(receiver, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP)
-//            }
+            packageManager.setComponentEnabledSetting(receiver, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP)
 
             val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
-
 
             val intent = Intent(context, cls)
             val extras = bundleOf(
@@ -64,7 +61,6 @@ object AlarmScheduler {
             intent.putExtras(extras)
             val pendingIntent = PendingIntent.getBroadcast(context, minutes, intent, PendingIntent.FLAG_UPDATE_CURRENT)
             alarmManager.cancel(pendingIntent)
-//            alarmManager.set(AlarmManager.RTC_WAKEUP, setCalendar.timeInMillis, pendingIntent)
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, setCalendar.timeInMillis, pendingIntent)
         }
 
@@ -89,8 +85,6 @@ object AlarmScheduler {
         val rightNow = Calendar.getInstance()
         val setCalendar = Calendar.getInstance()
 
-//        setCalendar.set(Calendar.HOUR_OF_DAY, hour)
-//        setCalendar.set(Calendar.MINUTE, min)
         setCalendar.set(Calendar.HOUR_OF_DAY, TimeHelper.getHoursIntFromMinutes(minutes))
         setCalendar.set(Calendar.MINUTE, TimeHelper.getMinutesIntFromMinutes(minutes))
         setCalendar.set(Calendar.SECOND, 0)

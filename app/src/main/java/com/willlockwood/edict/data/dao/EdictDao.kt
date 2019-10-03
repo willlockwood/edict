@@ -14,7 +14,7 @@ interface EdictDao {
     fun insertEdict(edict: Edict)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertEdict2(edict: Edict): Long
+    fun insertEdictGetId(edict: Edict): Long
 
     @Update
     fun updateEdict(edict: Edict)

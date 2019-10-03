@@ -29,55 +29,12 @@ object EdictHelper {
         return when {
             edict.activity == "" -> ErrorStatus.EMPTY_ACTIVITY
             edict.activity == "do something" -> ErrorStatus.ACTIVITY_STILL_DEFAULT
-//            textToInt(betweenBeforeTime) > 0 && textToInt(betweenAfterTime) > 0 && textToInt(betweenBeforeTime) >= textToInt(betweenAfterTime) -> Status.BEFORE_NOT_BEFORE_AFTER
-//            textToInt(betweenBeforeTime) > 0 && textToInt(betweenAfterTime) > 0 && textToInt(betweenBeforeTime) >= textToInt(betweenAfterTime) -> Status.BEFORE_NOT_BEFORE_AFTER
+            edict.detailMinutes != null && edict.detailMinutes2 != null && edict.detailMinutes!! >= edict.detailMinutes2!! -> EdictHelper.ErrorStatus.BEFORE_NOT_BEFORE_AFTER
             edict.whileText == "doing something else" -> ErrorStatus.WHILE_STILL_DEFAULT
             edict.whenText == "something else happens" -> ErrorStatus.WHEN_STILL_DEFAULT
             else -> ErrorStatus.READY
         }
     }
-
-//    fun getEdictIsActiveNow(edict: Edict): Boolean {
-//
-//        if (!edict.isActiveToday()) return false
-//
-//        val rightNow = OffsetDateTime.now()
-//
-//        return when (edict.getEdictType()) {
-//            EdictType.ERROR -> false
-//            EdictType.ONLY_ON_DAYS -> false
-////            EdictType.NEVER_ON_DAYS ->
-//
-////            EdictType.NEVER_AFTER -> true
-////            EdictType.NEVER_AT -> true
-////            EdictType.NEVER_BETWEEN
-//            EdictType.NEVER_BEFORE -> edict.be
-////            EdictType.NEVER_EVER
-////            EdictType.NEVER_ON_DAYS
-////            EdictType.NEVER_ON
-////            EdictType.NEVER_WHEN
-////            EdictType.NEVER_WHILE
-////            EdictType.ONLY_AFTER
-////            EdictType.ONLY_AT
-////            EdictType.ONLY_BEFORE
-////            EdictType.ONLY_BETWEEN
-////            EdictType.ONLY_ON_DAYS
-////            EdictType.ONLY_ON
-////            EdictType.ONLY_WHEN
-////            EdictType.ONLY_WHILE
-////            EdictType.DO_EVERY_WEEK
-////                    EdictType.DO_EVERY_NUM_DAYS
-////                    EdictType.DO_EVERY_NUM_WEEKS
-////                    EdictType.DO_EVERY_TIME
-////                    EdictType.DO_ON_DAYS
-////                    EdictType.DO_ON
-////                    EdictType.DO_NUM_TIMES_PER_DAY
-////                    EdictType.DO_NUM_TIMES_PER_WEEK
-////            ERROR
-//        }
-//    }
-
-
 
     fun getEdictType(edict: Edict): EdictType {
         return when (edict.type) {

@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         setUpViewModels()
         setUpToolbar()
 
-        observeEdictsForSessionRefresh()
+        observeEdictsAndSessions()
     }
 
     private fun setUpViewModels() {
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
-    private fun observeEdictsForSessionRefresh() {
+    private fun observeEdictsAndSessions() {
         edictVM.getAllEdicts().observe(this, Observer {
             if (it.isNotEmpty()) {
                 setEdictSessionRefresh() // when there's a change in edicts, make sure that the edict sessions are refreshed

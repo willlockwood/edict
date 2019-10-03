@@ -10,14 +10,14 @@ object TimeHelper {
         return "$hours:$minutes $amPM"
     }
     fun getMinutesIntFromMinutes(min: Int): Int = min % 60
-    fun getMinutesStrFromMinutes(min: Int): String {
+    private fun getMinutesStrFromMinutes(min: Int): String {
         return when {
             getMinutesIntFromMinutes(min) < 10 -> "0" + getMinutesIntFromMinutes(min).toString()
             else -> getMinutesIntFromMinutes(min).toString()
         }
     }
     fun getHoursIntFromMinutes(min: Int): Int = min / 60
-    fun getHoursStrFromMinutes(min: Int): String {
+    private fun getHoursStrFromMinutes(min: Int): String {
         val hourInt = (getHoursIntFromMinutes(min))
         return when {
             hourInt < 1 -> "12"
@@ -25,7 +25,7 @@ object TimeHelper {
             else -> "$hourInt"
         }
     }
-    fun getAmPmStrFromMinutes(min: Int): String {
+    private fun getAmPmStrFromMinutes(min: Int): String {
         return when {
             min < 720 -> "AM"
             else -> "PM"

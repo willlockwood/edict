@@ -36,7 +36,6 @@ object NotifHelper {
         val channelId = "${context.packageName}-${context.getString(R.string.app_name)}"
 
         val edicts = intentExtras.getString("edicts")?.split(";")!!
-        val time = intentExtras.getInt("time")!!
         val deadlines = intentExtras.getString("deadlines")?.split(";")!!
         val notifyTypes = intentExtras.getString("notifyTypes")?.split(";")!!
 
@@ -66,8 +65,7 @@ object NotifHelper {
             priority = NotificationCompat.PRIORITY_HIGH
             setAutoCancel(true)
 
-            // This is the intent attached to the notification
-            val notificationIntent = Intent(context, MainActivity::class.java)
+            val notificationIntent = Intent(context, MainActivity::class.java) // This is the intent attached to the notification
             val extras = Bundle()
             // TODO: figure out a better system than putting string extras to identify notification types
             extras.putString("action", "extra_notification")
