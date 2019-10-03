@@ -18,7 +18,7 @@ class CheckInEdictsPagerAdapter(fragmentManager: FragmentManager,
     }
 
     override fun getItem(position: Int): Fragment {
-        this.fragment =  CheckInPage(edictSessions[position].edict)
+        this.fragment =  CheckInPage(edictSessions[position].edict, edictSessions[position], edictSessions, position)
         edictSession = edictSessions[position]
         return fragment
     }
@@ -31,8 +31,6 @@ class CheckInEdictsPagerAdapter(fragmentManager: FragmentManager,
         edictSessions = sessions
         notifyDataSetChanged()
     }
+    fun getEdictSessions(): List<EdictSession> { return this.edictSessions }
 
-    fun resolveCurrentSession(success: Boolean) {
-        fragment.resolveSession(edictSession, success)
-    }
 }

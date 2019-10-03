@@ -13,13 +13,15 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/check_in_view_pager"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/failure_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
+
+        <!--app:layout_constraintBottom_toTopOf="@+id/failure_btn"-->
 
     </androidx.viewpager.widget.ViewPager>
 
@@ -40,31 +42,31 @@
         app:layout_constraintStart_toStartOf="@+id/check_in_view_pager"
         />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/failure_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintBottom_toTopOf="@+id/check_in_progress_bar"
-        app:layout_constraintEnd_toStartOf="@+id/success_btn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/check_in_view_pager"
-        app:srcCompat="@drawable/ic_close_black_24dp"
-        />
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
+        <!--android:id="@+id/failure_btn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:clickable="true"-->
+        <!--android:focusable="true"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/check_in_progress_bar"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/success_btn"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/check_in_view_pager"-->
+        <!--app:srcCompat="@drawable/ic_close_black_24dp"-->
+        <!--/>-->
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/success_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/failure_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/failure_btn"
-        app:layout_constraintTop_toTopOf="@+id/failure_btn"
-        app:srcCompat="@drawable/ic_check_black_24dp"
-        />
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
+        <!--android:id="@+id/success_btn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:clickable="true"-->
+        <!--android:focusable="true"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/failure_btn"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/failure_btn"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/failure_btn"-->
+        <!--app:srcCompat="@drawable/ic_check_black_24dp"-->
+        <!--/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

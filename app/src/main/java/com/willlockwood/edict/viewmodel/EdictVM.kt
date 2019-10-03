@@ -39,7 +39,8 @@ class EdictVM(application: Application) : AndroidViewModel(application) {
 
     fun updateEdictAndSession(edict: Edict, edictSession: EdictSession) = viewModelScope.launch(Dispatchers.IO) {
         repository.insertEdict(edict)
-        repository.updateEdictSession(edictSession)
+        repository.insertEdictSessions(edictSession)
+//        repository.updateEdictSession(edictSession)
     }
 
     fun insertEdictSessions(edictSession: EdictSession) = viewModelScope.launch(Dispatchers.IO) { repository.insertEdictSessions(edictSession) }

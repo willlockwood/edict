@@ -21,6 +21,11 @@ class CheckInPagerFragment : Fragment() {
     private lateinit var edictVM: EdictVM
     private lateinit var toolbarVM: ToolbarVM
 
+    companion object {
+        var blah = "blah"
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,7 +47,8 @@ class CheckInPagerFragment : Fragment() {
         viewPager.currentItem = 0
 
         edictVM.getActiveEdictSessions().observe(viewLifecycleOwner, Observer {
-            if (it != null) {
+            // TODO: this "getEdictSessions().isEmpty()" is here as a way to achieve an "observeOnce()" effect. find a more secure way to do this
+            if (it != null && pagerAdapter.getEdictSessions().isEmpty()) {
                 pagerAdapter.setEdictSessions(it)
                 val progressBar = check_in_progress_bar
                 progressBar.max = pagerAdapter.count
@@ -57,17 +63,22 @@ class CheckInPagerFragment : Fragment() {
             }
         })
 
-        setUpButtons()
+//        setUpButtons()
     }
 
-    private fun setUpButtons() {
-        success_btn.setOnClickListener {
-            pagerAdapter.resolveCurrentSession(true)
-        }
-        failure_btn.setOnClickListener {
-            pagerAdapter.resolveCurrentSession(false)
-        }
-    }
+//    private fun enableButtons(enabled: Boolean) {
+//        success_btn.isEnabled = enabled
+//        failure_btn.isEnabled = enabled
+//    }
+//
+//    private fun setUpButtons() {
+//        success_btn.setOnClickListener {
+////            pagerAdapter.resolveCurrentSession(true)
+//        }
+//        failure_btn.setOnClickListener {
+////            pagerAdapter.resolveCurrentSession(false)
+//        }
+//    }
 
     private fun setUpViewModels() {
         edictVM = ViewModelProviders.of(requireActivity()).get(EdictVM::class.java)
