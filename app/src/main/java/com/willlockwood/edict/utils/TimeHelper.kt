@@ -34,7 +34,7 @@ object TimeHelper {
     fun getMinutesFromTimeString(time: String?): Int? {
         if (time == null || time == "") return null
         val hoursString = time.split(":")[0]
-        val amPmAddition = when (time.split(":")[0]) {
+        val amPmAddition = when (time.split(" ")[1]) {
             "AM" -> 0
             else -> 12
         }
