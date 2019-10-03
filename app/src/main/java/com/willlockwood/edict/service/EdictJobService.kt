@@ -14,13 +14,13 @@ import kotlinx.coroutines.launch
 class EdictJobService : JobService() {
 
     enum class JobID {
-        NEW_ACTIVE_SESSIONS_NOTIFICATION
+        NEW_ACTIVE_SESSIONS_NOTIFICATION, SEND_EXTRA_NOTIFICATION
     }
 
     override fun onStartJob(jobParameters: JobParameters?): Boolean {
-
         return when (jobParameters?.jobId) {
             JobID.NEW_ACTIVE_SESSIONS_NOTIFICATION.ordinal -> notifyNewActiveSessions()
+            JobID.SEND_EXTRA_NOTIFICATION.ordinal -> sendExtraNotifications(jobParameters)
             else -> false
         }
     }
@@ -29,9 +29,16 @@ class EdictJobService : JobService() {
         return false
     }
 
+    private fun sendExtraNotifications(jobParameters: JobParameters?): Boolean {
+        val extras = jobParameters!!.extras
+        NotifHelper.createExtraNotification(applicationContext, extras)
+        return false
+    }
+
     private fun notifyNewActiveSessions(): Boolean {
         val database = EdictDatabase.getDatabase(applicationContext, GlobalScope)
 
+        // TODO: check if this observeForever is a problem
         database.edictDao().getAllEdicts().observeForever {
             if (it != null) {
                 var sessions = emptyList<EdictSession>()
