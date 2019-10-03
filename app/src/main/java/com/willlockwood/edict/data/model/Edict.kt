@@ -72,7 +72,12 @@ data class Edict(
     }
 
     fun createEdictSession(): EdictSession {
-        return EdictSession(id)
+        var notifyMap = emptyMap<String, Int>()
+        if (notifyStartMinutes != null) { notifyMap = notifyMap.plus(Pair("start", notifyStartMinutes!!)) }
+        if (notifyEndMinutes != null) { notifyMap = notifyMap.plus(Pair("end", notifyEndMinutes!!)) }
+        if (notifyAtMinutes != null) { notifyMap = notifyMap.plus(Pair("at", notifyAtMinutes!!)) }
+
+        return EdictSession(id, this.toString(), notificationMinutes = notifyMap, deadlineMinutes = deadlineMinutes)
     }
 
     fun addToStreak() {

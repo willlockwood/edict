@@ -22,8 +22,12 @@ import org.threeten.bp.OffsetDateTime
 )
 data class EdictSession(
     var edict: Int,
+    var edictText: String,
     var success: Boolean? = null,
     var checked: Boolean = false,
+
+    var notificationMinutes: Map<String, Int>,
+    var deadlineMinutes: Int?,
 
     @TypeConverters(TimeConverters::class)
     var created: OffsetDateTime? = null,
