@@ -26,7 +26,9 @@ data class EdictSession(
     var checked: Boolean = false,
 
     var notificationMinutes: Map<String, Int>,
-    var deadlineMinutes: Int?,
+    var startMinutes: Int,
+    var endMinutes: Int,
+    var deadlineMinutes: Int,
 
     @TypeConverters(TimeConverters::class)
     var created: OffsetDateTime? = null,

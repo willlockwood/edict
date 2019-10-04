@@ -39,7 +39,7 @@ data class Edict(
     var notifyAtMinutes: Int? = null,
 
     var deadlineType: String? = null,
-    var deadlineMinutes: Int? = null
+    var deadlineMinutes: Int = 1200
 ) : BaseObservable() {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
@@ -75,7 +75,22 @@ data class Edict(
         if (notifyEndMinutes != null) { notifyMap = notifyMap.plus(Pair("end", notifyEndMinutes!!)) }
         if (notifyAtMinutes != null) { notifyMap = notifyMap.plus(Pair("at", notifyAtMinutes!!)) }
 
-        return EdictSession(id, this.toString(), notificationMinutes = notifyMap, deadlineMinutes = deadlineMinutes)
+        val endTime = when (detailType) {
+            "before" -> detailMinutes!!
+            "between" -> detailMinutes2!!
+            else -> deadlineMinutes
+        }
+        val startTime = when (detailType) {
+            "after" -> detailMinutes!!
+            "between" -> detailMinutes!!
+            else -> 0
+        }
+
+        return EdictSession(id, this.toString(),
+                                notificationMinutes = notifyMap,
+                                deadlineMinutes = deadlineMinutes,
+                                startMinutes = startTime,
+                                endMinutes = endTime)
     }
 
     fun addToStreak() {
@@ -120,7 +135,6 @@ data class Edict(
                     "after" -> "$type $activity $detailType ${TimeHelper.minutesToTimeString(detailMinutes)}."
                     "before" -> "$type $activity $detailType ${TimeHelper.minutesToTimeString(detailMinutes)}."
                     "between" -> "$type $activity $detailType ${TimeHelper.minutesToTimeString(detailMinutes)} and ${TimeHelper.minutesToTimeString(detailMinutes2)}."
-
                     "while" -> "$type $activity $detailType $whileText."
                     "when" -> "$type $activity $detailType $whenText."
                     "ever" -> "$type $activity, $detailType."

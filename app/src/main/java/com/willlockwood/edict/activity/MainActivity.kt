@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun observeEdictsAndSessions() {
+        includeForTesting()
         edictVM.getAllEdicts().observe(this, Observer {
             if (it.isNotEmpty()) {
                 setEdictSessionRefresh() // when there's a change in edicts, make sure that the edict sessions are refreshed
@@ -119,6 +120,14 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> navController.navigate(R.id.open_settings_fragment)
         }
         return true
+    }
+
+    private fun includeForTesting() {
+//        edictVM.insertEdictAndNewSession(Edict("Never", "sleep", "after", detailMinutes = 600, level=0, deadlineMinutes = 1000))
+//        edictVM.insertEdictAndNewSession(Edict("Never", "go to bed", "before", detailMinutes = 900, level=1, deadlineMinutes = 1100))
+//        edictVM.insertEdictAndNewSession(Edict("Never", "eat", "between", detailMinutes = 500, detailMinutes2 = 1200, level=2, deadlineMinutes = 1300))
+//        edictVM.insertEdictAndNewSession(Edict("Never", "run", "while", whileText = "something else", level=3, deadlineMinutes = 900))
+//        edictVM.insertEdictAndNewSession(Edict("Never", "poop", "at", atText = "school", level=4, deadlineMinutes = 700))
     }
 
 }

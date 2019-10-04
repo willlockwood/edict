@@ -569,7 +569,7 @@ class NewEdictVM(
     fun setDeadlineText(value: String?) {
         val minutes: Int? = TimeHelper.getMinutesFromTimeString(value)
         if (edict.deadlineMinutes != minutes || minutes == null || value == null) {
-            edict.deadlineMinutes = minutes
+            edict.deadlineMinutes = minutes!!
             setEdictText(edict.toString())
             notifyPropertyChanged(BR.deadlineText)
         }
