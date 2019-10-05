@@ -1,10 +1,10 @@
 package com.willlockwood.edict.utils
 
-import android.content.res.ColorStateList
 import android.os.Build
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -13,49 +13,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.willlockwood.edict.R
 
 object BindingAdapters {
-
-    enum class ColorType {
-        NORMAL, LIGHT, DARK
-    }
-
-    private fun getColorId(level: Int, colorType: ColorType): Int {
-        return when (colorType) {
-            ColorType.NORMAL -> when (level) {
-                0 -> R.color.edict_level_0
-                1 -> R.color.edict_level_1
-                2 -> R.color.edict_level_2
-                3 -> R.color.edict_level_3
-                4 -> R.color.edict_level_4
-                5 -> R.color.edict_level_5
-                6 -> R.color.edict_level_6
-                7 -> R.color.edict_level_7
-                else -> R.color.edict_level_7
-            }
-            ColorType.LIGHT -> when (level) {
-                0 -> R.color.edict_level_0_light
-                1 -> R.color.edict_level_1_light
-                2 -> R.color.edict_level_2_light
-                3 -> R.color.edict_level_3_light
-                4 -> R.color.edict_level_4_light
-                5 -> R.color.edict_level_5_light
-                6 -> R.color.edict_level_6_light
-                7 -> R.color.edict_level_7_light
-                else -> R.color.edict_level_7_light
-            }
-            ColorType.DARK -> when (level) {
-                0 -> R.color.edict_level_0_dark
-                1 -> R.color.edict_level_1_dark
-                2 -> R.color.edict_level_2_dark
-                3 -> R.color.edict_level_3_dark
-                4 -> R.color.edict_level_4_dark
-                5 -> R.color.edict_level_5_dark
-                6 -> R.color.edict_level_6_dark
-                7 -> R.color.edict_level_7_dark
-                else -> R.color.edict_level_7_dark
-            }
-            else -> R.color.edict_level_0
-        }
-    }
 
     @BindingAdapter(value = ["visibilityBasedOnSelection"], requireAll = false)
     @JvmStatic
@@ -120,6 +77,12 @@ object BindingAdapters {
         }
     }
 
+    @BindingAdapter("srcIconFromLevel")
+    @JvmStatic
+    fun setSrcIconFromLevel(view: ImageView, edictLevel: Int){
+        view.setImageDrawable(LevelHelper.getIconDrawable(view.context, edictLevel))
+    }
+
     @BindingAdapter("invisibilityFromBoolean")
     @JvmStatic
     fun setInvisibilityFromBoolean(view: ConstraintLayout, invisibilityFromBoolean: Boolean){
@@ -140,75 +103,76 @@ object BindingAdapters {
     @BindingAdapter("iconChipStyle")
     @JvmStatic
     fun setIconChipStyle(view: Chip, edictLevel: Int){
-        when (edictLevel) {
-            0 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_trend_down_black_24dp)
-            1 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_trend_up_black_24dp)
-            2 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_snowflake_white_24dp)
-            3 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_flame_white_24dp)
-            4 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_lightning_black_24dp)
-            5 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_heart_white_24dp)
-            6 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_infinity_white_24dp)
-            7 -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.ic_launcher_foreground)
-            else -> view.chipIcon = ContextCompat.getDrawable(view.context, R.drawable.level_icon_lightning_black_24dp)
-        }
-        val colorId = getColorId(edictLevel, ColorType.NORMAL)
-        view.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(view.context, colorId))
+        view.chipIcon = LevelHelper.getIconDrawable(view.context, edictLevel)
+        view.chipBackgroundColor = LevelHelper.getColorStateList(view.context, edictLevel, LevelHelper.ColorType.NORMAL)
     }
 
     @BindingAdapter("backgroundColorFromLevel")
     @JvmStatic
-    fun setBackgroundColorFromLevel(view: View, edictLevel: Int){
-        val colorId = getColorId(edictLevel, ColorType.NORMAL)
-        view.setBackgroundColor(ContextCompat.getColor(view.context, colorId))
+    fun setBackgroundColorFromLevel(view: View, level: Int){
+        view.setBackgroundColor(LevelHelper.getColor(view.context, level, LevelHelper.ColorType.NORMAL))
     }
 
     @BindingAdapter("backgroundColorFromLevel")
     @JvmStatic
-    fun setBackgroundColorFromLevel(view: ConstraintLayout, edictLevel: Int){
-        val colorId = getColorId(edictLevel, ColorType.NORMAL)
-        view.setBackgroundColor(ContextCompat.getColor(view.context, colorId))
+    fun setBackgroundColorFromLevel(view: ConstraintLayout, level: Int){
+        view.setBackgroundColor(LevelHelper.getColor(view.context, level, LevelHelper.ColorType.NORMAL))
+    }
+
+    @BindingAdapter("cardBackgroundColorFromLevel")
+    @JvmStatic
+    fun setCardBackgroundColorFromLevel(view: CardView, level: Int){
+        view.setCardBackgroundColor(LevelHelper.getColor(view.context, level, LevelHelper.ColorType.NORMAL))
     }
 
     @BindingAdapter("backgroundColorLightFromLevel")
     @JvmStatic
     fun setBackgroundColorLightFromLevel(view: ConstraintLayout, edictLevel: Int){
-        val colorId = getColorId(edictLevel, ColorType.LIGHT)
-        view.setBackgroundColor(ContextCompat.getColor(view.context, colorId))
+        view.setBackgroundColor(LevelHelper.getColor(view.context, edictLevel, LevelHelper.ColorType.LIGHT))
     }
 
     @BindingAdapter("backgroundColorDarkFromLevel")
     @JvmStatic
     fun setBackgroundColorDarkFromLevel(view: View, edictLevel: Int){
-        val colorId = getColorId(edictLevel, ColorType.DARK)
-        view.setBackgroundColor(ContextCompat.getColor(view.context, colorId))
+        view.setBackgroundColor(LevelHelper.getColor(view.context, edictLevel, LevelHelper.ColorType.DARK))
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @BindingAdapter("progressTintDarkFromLevel")
     @JvmStatic
     fun setProgressTintDarkFromLevel(view: ProgressBar, edictLevel: Int){
-        val colorId = getColorId(edictLevel, ColorType.DARK)
-        view.progressTintList = ContextCompat.getColorStateList(view.context, colorId)
-//        view.setBackgroundColor(ContextCompat.getColor(view.context, colorId))
+        view.progressTintList = LevelHelper.getColorStateList(view.context, edictLevel, LevelHelper.ColorType.DARK)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @BindingAdapter("backgroundColorTintDarkFromLevel")
     @JvmStatic
     fun setBackgroundColorTintDarkFromLevel(view: FloatingActionButton, edictLevel: Int){
-        val colorId = getColorId(edictLevel, ColorType.DARK)
-        view.backgroundTintList = ContextCompat.getColorStateList(view.context, colorId)
+        view.backgroundTintList = LevelHelper.getColorStateList(view.context, edictLevel, LevelHelper.ColorType.DARK)
     }
 
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
-    @BindingAdapter("backgroundIconFromLevel")
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @BindingAdapter("iconColorFromLevel")
     @JvmStatic
-    fun setBackgroundIconFromLevel(view: ImageView, edictLevel: Int){
-        when (edictLevel) {
-            0 -> view.background = ContextCompat.getDrawable(view.context, R.drawable.level_icon_trend_down_black_24dp)
-            1 -> view.background = ContextCompat.getDrawable(view.context, R.drawable.level_icon_trend_up_black_24dp)
-            2 -> view.background = ContextCompat.getDrawable(view.context, R.drawable.level_icon_snowflake_black_24dp)
-            else -> view.background = ContextCompat.getDrawable(view.context, R.drawable.level_icon_flame_black_24dp)
+    fun setIconColorFromLevel(view: ImageView, level: Int) {
+        view.imageTintList = LevelHelper.getColorStateList(view.context, level, LevelHelper.ColorType.TEXT)
+    }
+
+    @BindingAdapter("textColorFromLevel")
+    @JvmStatic
+    fun setTextColorFromLevel(view: TextView, level: Int) {
+        view.setTextColor(LevelHelper.getTextColor(level))
+    }
+
+    @BindingAdapter("checkedIconFromBoolean")
+    @JvmStatic
+    fun setCheckedIconFromBoolean(view: ImageView, success: Boolean?){
+        if (success != null) {
+            if (success) {
+                view.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.ic_check_black_24dp))
+            } else {
+                view.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.ic_close_black_24dp))
+            }
         }
     }
 
