@@ -66,7 +66,12 @@
         android:name="com.willlockwood.edict.fragment.EdictFragment"
         android:label="fragment_edict"
         tools:layout="@layout/fragment_edict"
-        />
+        >
+        <action
+            android:id="@+id/action_edictFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            />
+    </fragment>
     <fragment
         android:id="@+id/checkInPagerFragment"
         android:name="com.willlockwood.edict.fragment.CheckInPagerFragment"
