@@ -23,6 +23,21 @@ object EdictHelper {
         }
     }
 
+    fun getLevel(edict: Edict): Int {
+        val streak = edict.currentStreak
+        return when {
+            streak < 1 -> 0
+            streak < 2 -> 1
+            streak < 4 -> 2
+            streak < 8 -> 3
+            streak < 16 -> 4
+            streak < 32 -> 5
+            streak < 64 -> 6
+            streak < 128 -> 7
+            else -> 8
+        }
+    }
+
     enum class ErrorStatus { READY, EMPTY_ACTIVITY, ACTIVITY_STILL_DEFAULT, BEFORE_NOT_BEFORE_AFTER, WHEN_STILL_DEFAULT, WHILE_STILL_DEFAULT }
 
     fun getErrorStatus(edict: Edict): ErrorStatus {

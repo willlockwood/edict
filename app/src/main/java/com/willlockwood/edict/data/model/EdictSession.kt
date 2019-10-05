@@ -30,6 +30,8 @@ data class EdictSession(
     var endMinutes: Int,
     var deadlineMinutes: Int,
 
+    var startingLevel: Int,
+
     @TypeConverters(TimeConverters::class)
     var created: OffsetDateTime? = null,
 

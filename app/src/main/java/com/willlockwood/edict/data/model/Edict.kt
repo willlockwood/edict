@@ -90,20 +90,21 @@ data class Edict(
                                 notificationMinutes = notifyMap,
                                 deadlineMinutes = deadlineMinutes,
                                 startMinutes = startTime,
-                                endMinutes = endTime)
+                                endMinutes = endTime,
+                                startingLevel = level)
     }
 
     fun addToStreak() {
         currentStreak += 1
-        levelUp()
+        refreshLevel()
     }
 
     fun resetStreak() {
         currentStreak = 0
     }
 
-    fun levelUp() {
-        level += 1
+    private fun refreshLevel() {
+        level = EdictHelper.getLevel(this)
     }
 
     override fun toString(): String {
