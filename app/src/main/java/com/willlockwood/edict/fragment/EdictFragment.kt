@@ -10,11 +10,17 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.willlockwood.edict.BR
 import com.willlockwood.edict.R
+import com.willlockwood.edict.adapter.EdictFragmentSessionAdapter
 import com.willlockwood.edict.data.model.Edict
+import com.willlockwood.edict.viewmodel.EdictFragmentVM
 import com.willlockwood.edict.viewmodel.EdictVM
 import com.willlockwood.edict.viewmodel.ToolbarVM
+import kotlinx.android.synthetic.main.fragment_edict.*
 
 
 class EdictFragment : Fragment() {
@@ -23,7 +29,12 @@ class EdictFragment : Fragment() {
     private lateinit var edictVM: EdictVM
     private lateinit var toolbarVM: ToolbarVM
     private lateinit var edict: Edict
+    private lateinit var viewmodel: EdictFragmentVM
     private var edictId: Int = -1
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var sessionAdapter: EdictFragmentSessionAdapter
+    private lateinit var layoutManager: LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,10 +45,7 @@ class EdictFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.fragment_edict, container, false)
-        val view = binding.root
-        edict = Edict()
-        binding.setVariable(BR.edict, edict)
-        return view
+        return binding.root
     }
 
 
@@ -47,6 +55,26 @@ class EdictFragment : Fragment() {
         setUpViewModels()
 
         observeEdictById()
+
+        setUpRecyclerView()
+
+        setUpDeleteButton()
+    }
+
+    private fun setUpRecyclerView() {
+        recyclerView = sessions_recycler
+        sessionAdapter = EdictFragmentSessionAdapter(context!!)
+        recyclerView.adapter = sessionAdapter
+        layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = layoutManager
+    }
+
+    private fun setUpDeleteButton() {
+        give_up_text.setOnClickListener {
+            val edict = viewmodel.getEdict()
+            edictVM.deleteEdict(edict)
+            findNavController().navigate(R.id.action_edictFragment_to_homeFragment)
+        }
     }
 
     private fun setUpViewModels() {
@@ -58,9 +86,16 @@ class EdictFragment : Fragment() {
         edictVM.getLiveEdictById(edictId).observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 this.edict = it
-                binding.setVariable(BR.edict, it)
-                binding.notifyPropertyChanged(BR.edict) // Replace the dummy edict
+                observeEdictSessions(it)
             }
+        })
+
+    }
+    fun observeEdictSessions(edict: Edict) {
+        edictVM.getEdictSessionsById(edict.id).observe(viewLifecycleOwner, Observer {
+            viewmodel = EdictFragmentVM(edict, it)
+            binding.setVariable(BR.viewmodel, viewmodel)
+            sessionAdapter.setEdicts(it)
         })
     }
 

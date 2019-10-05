@@ -33,17 +33,18 @@ class EdictSessionVH (
             getEdict()
         }
 
-        val deadlineMinutes = edictSession.deadlineMinutes
-        val startMinutes = edictSession.startMinutes
-        var rightNow = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) * 60 + Calendar.getInstance().get(Calendar.MINUTE)
+        val deadlineMinutes = edictSession.deadlineMinutes - edictSession.startMinutes
+        val endMinutes = edictSession.endMinutes - edictSession.startMinutes
+        val startMinutes = edictSession.startMinutes - edictSession.startMinutes
+        var rightNow = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) * 60 + Calendar.getInstance().get(Calendar.MINUTE) - edictSession.startMinutes
         binding.setVariable(BR.timeMin, startMinutes)
-        binding.setVariable(BR.timeMax, deadlineMinutes)
-        binding.setVariable(BR.timeLeft, rightNow)
+        binding.setVariable(BR.timeMax, endMinutes)
+        binding.setVariable(BR.rightNow, rightNow)
         val countDownTimer = object : CountDownTimer(60000 * (deadlineMinutes - startMinutes).toLong(), 1000.toLong()) {
             override fun onFinish() {}
             override fun onTick(p0: Long) {
-                rightNow++
-                binding.setVariable(BR.timeLeft, rightNow)
+                rightNow = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) * 60 + Calendar.getInstance().get(Calendar.MINUTE) - edictSession.startMinutes
+                binding.setVariable(BR.rightNow, rightNow)
             }
         }
         countDownTimer.start()
