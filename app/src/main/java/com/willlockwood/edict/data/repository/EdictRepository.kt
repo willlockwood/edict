@@ -13,6 +13,7 @@ class EdictRepository(
 
     fun getAllEdicts(): LiveData<List<Edict>> = edictDao.getAllEdicts()
 
+    fun deleteEdict(edict: Edict) = edictDao.deleteEdict(edict)
     fun insertEdict(edict: Edict) = edictDao.insertEdict(edict)
     fun insertEdictGetId(edict: Edict): Long = edictDao.insertEdictGetId(edict)
 
@@ -23,9 +24,11 @@ class EdictRepository(
 
     suspend fun insertEdictSessions(edictSession: EdictSession) = edictSessionDao.insertEdictSessions(edictSession)
 
+    fun getEdictSessionsById(id: Int): LiveData<List<EdictSession>> = edictSessionDao.getEdictSessionsByEdictId(id)
+
 //    Unused so far
 //    fun updateEdict(edict: Edict) = edictDao.updateEdict(edict)
 //    fun updateEdictSession(edictSession: EdictSession) = edictSessionDao.updateEdictSession(edictSession)
-//    fun getEdictSessionsById(id: Int): LiveData<List<EdictSession>> = edictSessionDao.getEdictSessionsByEdictId(id)
+
 //    suspend fun insertEdictSessions(edictSessions: List<EdictSession>) = edictSessionDao.insertEdictSessions(edictSessions)
 }

@@ -19,6 +19,7 @@ class EdictVM(application: Application) : AndroidViewModel(application) {
 
     fun getAllEdicts(): LiveData<List<Edict>> = repository.getAllEdicts()
 
+    fun deleteEdict(edict: Edict) = viewModelScope.launch(Dispatchers.IO) { repository.deleteEdict(edict) }
     fun getLiveEdictById(id: Int): LiveData<Edict> = repository.getLiveEdictById(id)
     suspend fun getEdictById(id: Int): Edict = repository.getEdictById(id)
 
@@ -45,12 +46,14 @@ class EdictVM(application: Application) : AndroidViewModel(application) {
         updateEdictAndSession(edict, edictSession)
     }
 
+    fun getEdictSessionsById(id: Int): LiveData<List<EdictSession>> = repository.getEdictSessionsById(id)
+
 //    unused so far
 //    fun insertEdict(edict: Edict) = viewModelScope.launch(Dispatchers.IO) { repository.insertEdict(edict) }
 //    fun insertEdictGetId(edict: Edict): Long = repository.insertEdictGetId(edict)
 //    fun updateEdict(edict: Edict) = viewModelScope.launch(Dispatchers.IO) { repository.updateEdict(edict) }
 //    fun updateEdictSession(edictSession: EdictSession) = viewModelScope.launch(Dispatchers.IO) { repository.updateEdictSession(edictSession) }
-//    fun getEdictSessionsById(id: Int) = repository.getEdictSessionsById(id)
+
 //    fun insertEdictSessions(edictSession: EdictSession) = viewModelScope.launch(Dispatchers.IO) { repository.insertEdictSessions(edictSession) }
 //    fun insertEdictSessions(edictSessions: List<EdictSession>) = viewModelScope.launch(Dispatchers.IO) { repository.insertEdictSessions(edictSessions) }
 

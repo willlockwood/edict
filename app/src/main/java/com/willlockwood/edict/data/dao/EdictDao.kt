@@ -19,6 +19,9 @@ interface EdictDao {
     @Update
     fun updateEdict(edict: Edict)
 
+    @Delete
+    fun deleteEdict(edict: Edict)
+
     @Query("SELECT * from edicts where :id == id")
     fun getLiveEdictById(id: Int): LiveData<Edict>
 
