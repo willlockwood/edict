@@ -48,6 +48,15 @@ class EdictVM(application: Application) : AndroidViewModel(application) {
 
     fun getEdictSessionsById(id: Int): LiveData<List<EdictSession>> = repository.getEdictSessionsById(id)
 
+    fun updateDeadlineForEdicts(deadlineType: String, minutes: Int) = viewModelScope.launch(Dispatchers.IO) {
+        val edictsToUpdate = repository.getEdictsByDeadlineType(deadlineType)
+        for (edict in edictsToUpdate) {
+            edict.deadlineMinutes = minutes
+            // TODO: Figure out how to batch these database calls in a reliable way
+            repository.updateEdict(edict)
+        }
+    }
+
 //    unused so far
 //    fun insertEdict(edict: Edict) = viewModelScope.launch(Dispatchers.IO) { repository.insertEdict(edict) }
 //    fun insertEdictGetId(edict: Edict): Long = repository.insertEdictGetId(edict)

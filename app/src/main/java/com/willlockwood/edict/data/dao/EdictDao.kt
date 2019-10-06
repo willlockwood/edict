@@ -10,14 +10,20 @@ interface EdictDao {
     @Query("SELECT * from edicts")
     fun getAllEdicts(): LiveData<List<Edict>>
 
+    @Query("SELECT * from edicts where :deadlineType == deadlineType")
+    fun getEdictsWithDeadlineType(deadlineType: String): List<Edict>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertEdict(edicts: List<Edict>)
+
+    @Update
+    fun updateEdict(edict: Edict)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertEdict(edict: Edict)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertEdictGetId(edict: Edict): Long
-
-    @Update
-    fun updateEdict(edict: Edict)
 
     @Delete
     fun deleteEdict(edict: Edict)

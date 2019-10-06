@@ -12,8 +12,10 @@ class EdictRepository(
 ) {
 
     fun getAllEdicts(): LiveData<List<Edict>> = edictDao.getAllEdicts()
+    fun getEdictsByDeadlineType(deadlineType: String): List<Edict> = edictDao.getEdictsWithDeadlineType(deadlineType)
 
     fun deleteEdict(edict: Edict) = edictDao.deleteEdict(edict)
+    fun updateEdict(edict: Edict) = edictDao.updateEdict(edict)
     fun insertEdict(edict: Edict) = edictDao.insertEdict(edict)
     fun insertEdictGetId(edict: Edict): Long = edictDao.insertEdictGetId(edict)
 
