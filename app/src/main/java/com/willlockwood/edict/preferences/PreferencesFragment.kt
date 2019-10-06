@@ -15,10 +15,13 @@ class PreferencesFragment : PreferenceFragmentCompat() {
     }
 
     override fun onDisplayPreferenceDialog(preference: Preference?) {
+
+        val preferences = preferenceManager.sharedPreferences
+
         var dialogFragment: DialogFragment? = null
         if (preference is TimePreference) {
             dialogFragment =
-                TimePreferenceDialog.newInstance(preference.key)
+                TimePreferenceDialog.newInstance(preference.key, preferences)
         }
         if (dialogFragment != null) {
             dialogFragment.setTargetFragment(this, 0)

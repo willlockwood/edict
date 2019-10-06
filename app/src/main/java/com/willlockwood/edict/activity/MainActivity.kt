@@ -1,6 +1,7 @@
 package com.willlockwood.edict.activity
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var edictVM: EdictVM
     private lateinit var newEdictVM: NewEdictVM
     private lateinit var toolbarVM: ToolbarVM
+    private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var navController: NavController
 
@@ -43,6 +45,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         setUpViewModels()
+
+        setUpSharedPreferences()
+
         setUpToolbar()
 
         observeEdictsAndSessions()
@@ -66,6 +71,11 @@ class MainActivity : AppCompatActivity() {
                 rescheduleAllNotificationsFromEdictSessions(it)
             }
         })
+    }
+
+    private fun setUpSharedPreferences() {
+        sharedPreferences = getSharedPreferences("com.willlockwood.edict_preferences", Context.MODE_PRIVATE)
+        sharedPreferences.registerOnSharedPreferenceChangeListener(onSharedPreferencesChangeListener)
     }
 
     private fun setUpToolbar() {
@@ -105,8 +115,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setEdictSessionRefresh() {
-        val sharedPref = getSharedPreferences("com.willlockwood.edict_preferences", Context.MODE_PRIVATE)
-        val minutes = sharedPref.getInt("review_time", 0)
+        val minutes = sharedPreferences.getInt("review_time", -1)
         AlarmScheduler.scheduleAlarm(this, AlarmReceiver::class.java, minutes, AlarmScheduler.AlarmType.REFRESH_SESSIONS)
     }
 
@@ -120,6 +129,21 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> navController.navigate(R.id.open_settings_fragment)
         }
         return true
+    }
+
+    private val onSharedPreferencesChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPrefs, key ->
+        when {
+            listOf("morning_deadline", "midday_deadline", "evening_deadline").contains(key) -> {
+                val minutes = sharedPrefs.getInt(key, -1)
+                if (minutes >= 0) {
+                    when (key) {
+                        "morning_deadline" -> edictVM.updateDeadlineForEdicts("morning", minutes)
+                        "midday_deadline" -> edictVM.updateDeadlineForEdicts("mid-day", minutes)
+                        "evening_deadline" -> edictVM.updateDeadlineForEdicts("evening", minutes)
+                    }
+                }
+            }
+        }
     }
 
     private fun includeForTesting() {

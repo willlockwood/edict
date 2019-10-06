@@ -10,17 +10,7 @@ import com.willlockwood.edict.utils.TimeHelper
 class EdictFragmentVM(
     private val edict: Edict,
     private val sessions: List<EdictSession>
-//    ,
-//    private val sharedPreferences: SharedPreferences
 ) : BaseObservable() {
-
-//    private val morningMin = sharedPreferences.getInt("morning_deadline", 0)
-//    private val middayMin = sharedPreferences.getInt("midday_deadline", 1)
-//    private val eveningMin = sharedPreferences.getInt("evening_deadline", 2)
-
-    private val morningMin = 0
-    private val middayMin = 1
-    private val eveningMin = 2
 
     @Bindable
     fun getDeadlineString(): String {
@@ -29,6 +19,7 @@ class EdictFragmentVM(
             "morning" -> "In the morning ($timeString)"
             "mid-day" -> "In the middle of the day ($timeString)"
             "evening" -> "In the evening ($timeString)"
+            "at" -> "At $timeString"
             else -> "${edict.deadlineMinutes} ${edict.deadlineType}"
         }
     }
