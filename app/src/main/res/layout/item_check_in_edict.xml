@@ -55,18 +55,54 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edict_text"
                 app:srcCompat="@drawable/ic_close_black_24dp"
+                app:iconColorFromLevel="@{edict.level}"
                 />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:iconChipStyle="@{edict.level}"
+            <!--<com.google.android.material.chip.Chip-->
+                <!--android:id="@+id/chip"-->
+                <!--android:layout_width="50dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--app:chipCornerRadius="25dp"-->
+                <!--app:chipEndPadding="0dp"-->
+                <!--app:iconChipStyle="@{edict.level}"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/success_btn"-->
+                <!--app:layout_constraintEnd_toStartOf="@+id/success_btn"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/failure_btn"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/success_btn"-->
+                <!--/>-->
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/level_icon_chip"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:cardBackgroundColorFromLevel="@{edict.level}"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:cardMaxElevation="0dp"
+                app:contentPaddingLeft="0dp"
                 app:layout_constraintBottom_toBottomOf="@+id/success_btn"
                 app:layout_constraintEnd_toStartOf="@+id/success_btn"
                 app:layout_constraintStart_toEndOf="@+id/failure_btn"
                 app:layout_constraintTop_toTopOf="@+id/success_btn"
-                />
+                >
+
+                <ImageView
+                    android:id="@+id/thisLevelIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="4dp"
+                    app:backgroundColorFromLevel="@{edict.level}"
+                    app:iconColorFromLevel="@{edict.level}"
+                    app:srcIconFromLevel="@{edict.level}"
+                    />
+
+            </androidx.cardview.widget.CardView>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/success_btn"
@@ -79,6 +115,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/edict_text"
                 app:srcCompat="@drawable/ic_check_black_24dp"
                 app:backgroundColorTintDarkFromLevel="@{edict.level}"
+                app:iconColorFromLevel="@{edict.level}"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

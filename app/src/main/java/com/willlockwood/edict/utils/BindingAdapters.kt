@@ -79,8 +79,8 @@ object BindingAdapters {
 
     @BindingAdapter("srcIconFromLevel")
     @JvmStatic
-    fun setSrcIconFromLevel(view: ImageView, edictLevel: Int){
-        view.setImageDrawable(LevelHelper.getIconDrawable(view.context, edictLevel))
+    fun setSrcIconFromLevel(view: ImageView, level: Int){
+        view.setImageDrawable(LevelHelper.getIconDrawable(view.context, level))
     }
 
     @BindingAdapter("invisibilityFromBoolean")
@@ -102,9 +102,9 @@ object BindingAdapters {
 
     @BindingAdapter("iconChipStyle")
     @JvmStatic
-    fun setIconChipStyle(view: Chip, edictLevel: Int){
-        view.chipIcon = LevelHelper.getIconDrawable(view.context, edictLevel)
-        view.chipBackgroundColor = LevelHelper.getColorStateList(view.context, edictLevel, LevelHelper.ColorType.NORMAL)
+    fun setIconChipStyle(view: Chip, level: Int){
+        view.chipIcon = LevelHelper.getIconDrawable(view.context, level)
+        view.chipBackgroundColor = LevelHelper.getColorStateList(view.context, level, LevelHelper.ColorType.NORMAL)
     }
 
     @BindingAdapter("backgroundColorFromLevel")
@@ -127,28 +127,36 @@ object BindingAdapters {
 
     @BindingAdapter("backgroundColorLightFromLevel")
     @JvmStatic
-    fun setBackgroundColorLightFromLevel(view: ConstraintLayout, edictLevel: Int){
-        view.setBackgroundColor(LevelHelper.getColor(view.context, edictLevel, LevelHelper.ColorType.LIGHT))
+    fun setBackgroundColorLightFromLevel(view: ConstraintLayout, level: Int){
+        view.setBackgroundColor(LevelHelper.getColor(view.context, level, LevelHelper.ColorType.LIGHT))
     }
 
     @BindingAdapter("backgroundColorDarkFromLevel")
     @JvmStatic
-    fun setBackgroundColorDarkFromLevel(view: View, edictLevel: Int){
-        view.setBackgroundColor(LevelHelper.getColor(view.context, edictLevel, LevelHelper.ColorType.DARK))
+    fun setBackgroundColorDarkFromLevel(view: View, level: Int){
+        view.setBackgroundColor(LevelHelper.getColor(view.context, level, LevelHelper.ColorType.DARK))
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @BindingAdapter("progressTintDarkFromLevel")
     @JvmStatic
-    fun setProgressTintDarkFromLevel(view: ProgressBar, edictLevel: Int){
-        view.progressTintList = LevelHelper.getColorStateList(view.context, edictLevel, LevelHelper.ColorType.DARK)
+    fun setProgressTintDarkFromLevel(view: ProgressBar, level: Int){
+        view.progressTintList = LevelHelper.getColorStateList(view.context, level, LevelHelper.ColorType.DARK)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @BindingAdapter("backgroundColorTintDarkFromLevel")
     @JvmStatic
-    fun setBackgroundColorTintDarkFromLevel(view: FloatingActionButton, edictLevel: Int){
-        view.backgroundTintList = LevelHelper.getColorStateList(view.context, edictLevel, LevelHelper.ColorType.DARK)
+    fun setBackgroundColorTintDarkFromLevel(view: FloatingActionButton, level: Int){
+        view.backgroundTintList = LevelHelper.getColorStateList(view.context, level, LevelHelper.ColorType.DARK)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @BindingAdapter("iconColorFromLevel")
+    @JvmStatic
+    fun setIconColorFromLevel(view: FloatingActionButton, level: Int){
+        // TODO: maybe start putting all these different color-related binding adapters into viewmodels instead of all jammed in here. just have a binding VM return colorStateLists to the xml attributes, etc.
+        view.imageTintList = LevelHelper.getColorStateList(view.context, level, LevelHelper.ColorType.TEXT)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
