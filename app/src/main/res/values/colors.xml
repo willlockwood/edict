@@ -29,7 +29,7 @@
     <color name="colorAccentDark">#7200ca</color>
 
     <color name="offWhite">#F2F2F2</color>
-    <color name="lightGray">#3F4040</color>
+    <color name="lightGray">#838383</color>
     <color name="darkGray">#070707</color>
 
     <color name="black">#000000</color>
@@ -43,6 +43,12 @@
     <color name="edict_level_0">#f4f4f4</color>
     <color name="edict_level_0_light">#ffffff</color>
     <color name="edict_level_0_dark">#c1c1c1</color>
+
+    <!--<color name="edict_level_0">#3D3D3D</color>-->
+    <!--<color name="edict_level_0_light">#5C5C5C</color>-->
+    <!--<color name="edict_level_0_dark">#1F1F1F</color>-->
+
+
     <color name="edict_level_1">#00c853</color>
     <color name="edict_level_1_light">#5efc82</color>
     <color name="edict_level_1_dark">#009624</color>

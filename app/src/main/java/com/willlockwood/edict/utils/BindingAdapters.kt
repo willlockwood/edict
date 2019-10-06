@@ -6,11 +6,12 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.Guideline
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.willlockwood.edict.R
+
 
 object BindingAdapters {
 
@@ -18,18 +19,18 @@ object BindingAdapters {
     @JvmStatic
     fun setVisibilityBasedOnSelection(view: View, visibilityBasedOnSelection: String?){
         when {
-            view.id == R.id.between_layout      && visibilityBasedOnSelection == "between" ->   view.visibility = View.VISIBLE
-            view.id == R.id.after_txt           && visibilityBasedOnSelection == "after" ->     view.visibility = View.VISIBLE
-            view.id == R.id.at_txt              && visibilityBasedOnSelection == "at" ->        view.visibility = View.VISIBLE
-            view.id == R.id.on_layout           && visibilityBasedOnSelection == "on" ->        view.visibility = View.VISIBLE
-            view.id == R.id.before_txt          && visibilityBasedOnSelection == "before" ->    view.visibility = View.VISIBLE
-            view.id == R.id.when_txt            && visibilityBasedOnSelection == "when" ->      view.visibility = View.VISIBLE
-            view.id == R.id.while_txt           && visibilityBasedOnSelection == "while" ->     view.visibility = View.VISIBLE
-            view.id == R.id.every_layout        && visibilityBasedOnSelection == "every" ->     view.visibility = View.VISIBLE
-            view.id == R.id.every_time_txt      && visibilityBasedOnSelection == "time" ->      view.visibility = View.VISIBLE
-            view.id == R.id.every_number_layout && visibilityBasedOnSelection == "#" ->         view.visibility = View.VISIBLE
-            view.id == R.id.number_layout       && visibilityBasedOnSelection == "#" ->         view.visibility = View.VISIBLE
-            view.id == R.id.deadline_custom_time && visibilityBasedOnSelection == "at" ->         view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.between_layout      && visibilityBasedOnSelection == "between" ->   view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.after_txt           && visibilityBasedOnSelection == "after" ->     view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.at_txt              && visibilityBasedOnSelection == "at" ->        view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.on_layout           && visibilityBasedOnSelection == "on" ->        view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.before_txt          && visibilityBasedOnSelection == "before" ->    view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.when_txt            && visibilityBasedOnSelection == "when" ->      view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.while_txt           && visibilityBasedOnSelection == "while" ->     view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.every_layout        && visibilityBasedOnSelection == "every" ->     view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.every_time_txt      && visibilityBasedOnSelection == "time" ->      view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.every_number_layout && visibilityBasedOnSelection == "#" ->         view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.number_layout       && visibilityBasedOnSelection == "#" ->         view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.deadline_custom_time && visibilityBasedOnSelection == "at" ->         view.visibility = View.VISIBLE
             else -> view.visibility = View.GONE
         }
     }
@@ -69,10 +70,10 @@ object BindingAdapters {
     @JvmStatic
     fun setLayoutVisibilityFromDetailType(view: LinearLayout, detailType: String){
         when {
-            view.id == R.id.notify_start && detailType == "between" -> view.visibility = View.VISIBLE
-            view.id == R.id.notify_start && detailType == "after" -> view.visibility = View.VISIBLE
-            view.id == R.id.notify_end && detailType == "between" -> view.visibility = View.VISIBLE
-            view.id == R.id.notify_end && detailType == "before" -> view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.notify_start && detailType == "between" -> view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.notify_start && detailType == "after" -> view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.notify_end && detailType == "between" -> view.visibility = View.VISIBLE
+            view.id == com.willlockwood.edict.R.id.notify_end && detailType == "before" -> view.visibility = View.VISIBLE
             else -> view.visibility = View.GONE
         }
     }
@@ -141,6 +142,7 @@ object BindingAdapters {
     @BindingAdapter("progressTintDarkFromLevel")
     @JvmStatic
     fun setProgressTintDarkFromLevel(view: ProgressBar, level: Int){
+        view.progressBackgroundTintList = LevelHelper.getColorStateList(view.context, level, LevelHelper.ColorType.LIGHT)
         view.progressTintList = LevelHelper.getColorStateList(view.context, level, LevelHelper.ColorType.DARK)
     }
 
@@ -177,9 +179,9 @@ object BindingAdapters {
     fun setCheckedIconFromBoolean(view: ImageView, success: Boolean?){
         if (success != null) {
             if (success) {
-                view.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.ic_check_black_24dp))
+                view.setImageDrawable(ContextCompat.getDrawable(view.context, com.willlockwood.edict.R.drawable.ic_check_black_24dp))
             } else {
-                view.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.ic_close_black_24dp))
+                view.setImageDrawable(ContextCompat.getDrawable(view.context, com.willlockwood.edict.R.drawable.ic_close_black_24dp))
             }
         }
     }
@@ -202,5 +204,13 @@ object BindingAdapters {
         view.maxValue = data.size - 1
         view.displayedValues = data
         view.value = 0
+    }
+
+    @BindingAdapter("guidePercent")
+    @JvmStatic
+    fun setGuidePercent(guideline: Guideline, percent: Float) {
+        val params = guideline.getLayoutParams() as ConstraintLayout.LayoutParams
+        params.guidePercent = percent
+        guideline.layoutParams = params
     }
 }

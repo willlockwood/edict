@@ -11,6 +11,10 @@
             type="com.willlockwood.edict.data.model.EdictSession"
             />
         <variable
+            name="viewmodel"
+            type="com.willlockwood.edict.viewmodel.EdictSessionVM"
+            />
+        <variable
             name="edict"
             type="com.willlockwood.edict.data.model.Edict"
             />
@@ -31,7 +35,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/recyclerViewCard"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:focusableInTouchMode="false"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardUseCompatPadding="false"
@@ -43,6 +47,38 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             >
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/session_start_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:guidePercent="@{viewmodel.sessionStart}"
+                />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/session_end_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:guidePercent="@{viewmodel.sessionEnd}"
+                />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/check_in_start_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:guidePercent="@{viewmodel.checkInStart}"
+                />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/check_in_end_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:guidePercent="@{viewmodel.checkInEnd}"
+                />
 
             <TextView
                 android:id="@+id/edict_text"
@@ -61,15 +97,42 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:max="@{edictSession.endMinutes}"
-                android:min="@{edictSession.startMinutes}"
-                android:progress="@{rightNow}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/edict_text"
-                app:layout_constraintStart_toStartOf="@+id/edict_text"
+                android:max="1440"
+                android:progress="@{viewmodel.minutesIntoDay}"
+                android:progressBackgroundTint="@color/white"
+                android:progressTint="@color/lightGray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edict_text"
+                />
+
+            <ProgressBar
+                android:id="@+id/progress_session"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:max="@{viewmodel.sessionLength}"
+                android:progress="@{viewmodel.minutesIntoSession}"
+                app:layout_constraintBottom_toBottomOf="@id/progress_day"
+                app:layout_constraintEnd_toEndOf="@+id/session_end_guide"
+                app:layout_constraintStart_toStartOf="@+id/session_start_guide"
+                app:layout_constraintTop_toTopOf="@id/progress_day"
                 app:progressTintDarkFromLevel="@{edict.level}"
+                />
+
+            <ProgressBar
+                android:id="@+id/progress_check_in"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:max="@{viewmodel.checkInLength}"
+                android:progress="@{viewmodel.minutesIntoCheckIn}"
+                android:progressBackgroundTint="@color/edict_level_5_light"
+                android:progressTint="@color/offWhite"
+                app:layout_constraintEnd_toEndOf="@+id/check_in_end_guide"
+                app:layout_constraintStart_toStartOf="@+id/check_in_start_guide"
+                app:layout_constraintTop_toTopOf="@+id/progress_session"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,8 @@
-package com.willlockwood.edict
+package com.willlockwood.edict.viewholder
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.willlockwood.edict.BR
 import com.willlockwood.edict.data.model.EdictSession
 import org.threeten.bp.format.TextStyle
 import java.util.*
