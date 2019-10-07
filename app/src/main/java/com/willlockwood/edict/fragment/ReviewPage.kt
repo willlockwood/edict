@@ -17,7 +17,7 @@ import com.willlockwood.edict.viewmodel.EdictVM
 class ReviewPage(private val edictId: Int) : Fragment() {
 
     private lateinit var binding: ViewDataBinding
-    private lateinit var viewmodel: EdictVM
+    private lateinit var edictVM: EdictVM
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_review_edict, container, false)
@@ -33,13 +33,13 @@ class ReviewPage(private val edictId: Int) : Fragment() {
     }
 
     private fun observeEdictById(edictId: Int) {
-        viewmodel.getLiveEdictById(edictId).observe(viewLifecycleOwner, Observer {
+        edictVM.getLiveEdictById(edictId).observe(viewLifecycleOwner, Observer {
             binding.setVariable(BR.edict, it)
             binding.notifyPropertyChanged(BR.edict) // Replace the dummy edict
         })
     }
 
     private fun setUpViewModels() {
-        viewmodel = ViewModelProviders.of(this).get(EdictVM::class.java)
+        edictVM = ViewModelProviders.of(this).get(EdictVM::class.java)
     }
 }

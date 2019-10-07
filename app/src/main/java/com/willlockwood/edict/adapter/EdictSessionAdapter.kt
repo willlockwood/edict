@@ -7,15 +7,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.willlockwood.edict.viewholder.EdictSessionVH
 import com.willlockwood.edict.R
 import com.willlockwood.edict.adapter.diffutil.EdictSessionDiffCallback
 import com.willlockwood.edict.data.model.EdictSession
+import com.willlockwood.edict.viewholder.EdictSessionVH
 import com.willlockwood.edict.viewmodel.EdictVM
 
 //
 class EdictSessionAdapter internal constructor(
-    private val context: Context,
+    context: Context,
     private val edictVM: EdictVM
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

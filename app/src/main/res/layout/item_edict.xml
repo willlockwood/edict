@@ -66,6 +66,7 @@
                     app:backgroundColorFromLevel="@{edict.level}"
                     app:iconColorFromLevel="@{edict.level}"
                     app:srcIconFromLevel="@{edict.level}"
+                    android:contentDescription="Edict level icon"
                     />
             </androidx.cardview.widget.CardView>
 

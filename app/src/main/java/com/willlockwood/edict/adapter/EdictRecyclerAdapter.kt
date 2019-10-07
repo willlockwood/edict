@@ -16,7 +16,7 @@ import com.willlockwood.edict.data.model.Edict
 
 //
 class EdictRecyclerAdapter internal constructor(
-    private val context: Context,
+    context: Context,
     private val navController: NavController
 ) : RecyclerView.Adapter<EdictRecyclerAdapter.EdictViewHolder>() {
 //

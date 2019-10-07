@@ -7,14 +7,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.willlockwood.edict.viewholder.EdictFragmentEdictSessionVH
 import com.willlockwood.edict.R
 import com.willlockwood.edict.adapter.diffutil.EdictSessionDiffCallback
 import com.willlockwood.edict.data.model.EdictSession
+import com.willlockwood.edict.viewholder.EdictFragmentEdictSessionVH
 
 //
 class EdictFragmentSessionAdapter internal constructor(
-    private val context: Context
+    context: Context
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)

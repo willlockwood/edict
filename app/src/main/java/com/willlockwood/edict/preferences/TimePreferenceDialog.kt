@@ -54,11 +54,11 @@ class TimePreferenceDialog: PreferenceDialogFragmentCompat() {
             var hours: Int?
             var minutes: Int?
             if (Build.VERSION.SDK_INT >= 23) {
-                hours = picker.hour;
-                minutes = picker.minute;
+                hours = picker.hour
+                minutes = picker.minute
             } else {
-                hours = picker.getCurrentHour();
-                minutes = picker.getCurrentMinute();
+                hours = picker.getCurrentHour()
+                minutes = picker.getCurrentMinute()
             }
 
             val minutesAfterMidnight = (hours * 60) + minutes
@@ -88,7 +88,7 @@ class TimePreferenceDialog: PreferenceDialogFragmentCompat() {
         }
     }
 
-    fun deadlineConflicts(deadlineKey: String, deadlines: ArrayList<Int>, time: Int): DeadlineConflicts {
+    private fun deadlineConflicts(deadlineKey: String, deadlines: ArrayList<Int>, time: Int): DeadlineConflicts {
         return when (deadlineKey) {
             "morning_deadline" -> when (time > deadlines[1]) {
                 true -> DeadlineConflicts.MORNING_ERROR

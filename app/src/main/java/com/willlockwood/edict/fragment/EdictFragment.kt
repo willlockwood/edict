@@ -29,7 +29,7 @@ class EdictFragment : Fragment() {
     private lateinit var edictVM: EdictVM
     private lateinit var toolbarVM: ToolbarVM
     private lateinit var edict: Edict
-    private lateinit var viewmodel: EdictFragmentVM
+    private lateinit var edictFragmentVM: EdictFragmentVM
     private var edictId: Int = -1
 
     private lateinit var recyclerView: RecyclerView
@@ -71,7 +71,7 @@ class EdictFragment : Fragment() {
 
     private fun setUpDeleteButton() {
         give_up_text.setOnClickListener {
-            val edict = viewmodel.getEdict()
+            val edict = edictFragmentVM.getEdict()
             edictVM.deleteEdict(edict)
             findNavController().navigate(R.id.action_edictFragment_to_homeFragment)
         }
@@ -91,10 +91,10 @@ class EdictFragment : Fragment() {
         })
 
     }
-    fun observeEdictSessions(edict: Edict) {
+    private fun observeEdictSessions(edict: Edict) {
         edictVM.getEdictSessionsById(edict.id).observe(viewLifecycleOwner, Observer {
-            viewmodel = EdictFragmentVM(edict, it)
-            binding.setVariable(BR.viewmodel, viewmodel)
+            edictFragmentVM = EdictFragmentVM(edict, it)
+            binding.setVariable(BR.vm, edictFragmentVM)
             sessionAdapter.setEdicts(it)
         })
     }

@@ -15,20 +15,20 @@ import com.willlockwood.edict.service.EdictJobService
 
 class AlarmReceiver: BroadcastReceiver() {
 
-    val TAG = "AlarmReceiver"
+    private val TAG = "AlarmReceiver"
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onReceive(context: Context, intent: Intent?) {
         Log.d(TAG, "onReceive: ")
 
-        val action_string = intent!!.getStringExtra("action")
+        val actionString = intent!!.getStringExtra("action")
         val ids = intent.getStringExtra("ids")
         val time = intent.getIntExtra("time", -1)
         val edicts = intent.getStringExtra("edicts")
         val deadlines = intent.getStringExtra("deadlines")
         val notifyTypes = intent.getStringExtra("notifyTypes")
 
-        when (action_string) {
+        when (actionString) {
             "refresh_sessions" -> {
                 val jobScheduler: JobScheduler = context.getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
                 val componentName = ComponentName(context, EdictJobService::class.java)

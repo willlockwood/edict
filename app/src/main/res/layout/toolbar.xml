@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:background="#00000000"
+        android:contentDescription="Edict Logo"
         />
 
     <TextView

@@ -19,7 +19,7 @@ import java.util.*
 
 object AlarmScheduler {
 
-    val NONE = 0
+    private const val NONE = 0
     val DAILY_REMINDER_REQUEST_CODE = 100
     val DAILY_REFRESH_REQUEST_CODE = 101
     val TAG = "NotifScheduler"

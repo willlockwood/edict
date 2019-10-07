@@ -157,7 +157,7 @@ object BindingAdapters {
     @BindingAdapter("iconColorFromLevel")
     @JvmStatic
     fun setIconColorFromLevel(view: FloatingActionButton, level: Int){
-        // TODO: maybe start putting all these different color-related binding adapters into viewmodels instead of all jammed in here. just have a binding VM return colorStateLists to the xml attributes, etc.
+        // TODO: maybe start putting all these different color-related binding adapters into ViewModels instead of all jammed in here. just have a binding VM return colorStateLists to the xml attributes, etc.
         view.imageTintList = LevelHelper.getColorStateList(view.context, level, LevelHelper.ColorType.TEXT)
     }
 
@@ -209,7 +209,7 @@ object BindingAdapters {
     @BindingAdapter("guidePercent")
     @JvmStatic
     fun setGuidePercent(guideline: Guideline, percent: Float) {
-        val params = guideline.getLayoutParams() as ConstraintLayout.LayoutParams
+        val params = guideline.layoutParams as ConstraintLayout.LayoutParams
         params.guidePercent = percent
         guideline.layoutParams = params
     }

@@ -60,7 +60,7 @@ abstract class EdictDatabase : RoomDatabase() {
             }
         }
 
-        suspend fun populateDatabase(edictDao: EdictDao) {
+        fun populateDatabase(edictDao: EdictDao) {
 
         }
     }

@@ -426,7 +426,7 @@ class NewEdictVM(
     private var notifyStartTime: String? = null
     @Bindable
     fun getNotifyStartTime(): String { return "($notifyStartTime)" }
-    fun setNotifyStartTime(notifyStartTime: String?) {
+    private fun setNotifyStartTime(notifyStartTime: String?) {
         if (this.notifyStartTime != notifyStartTime) {
             this.notifyStartTime = notifyStartTime
             notifyPropertyChanged(BR.notifyStartTime)

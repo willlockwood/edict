@@ -31,7 +31,4 @@ class EdictDiffCallback(private val oldList: List<Edict>, private val newList: L
 //        }
     }
 
-    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-        return super.getChangePayload(oldItemPosition, newItemPosition)
-    }
 }

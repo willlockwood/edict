@@ -37,7 +37,7 @@ class NewEdictFragment : Fragment() {
         setUpViewModels()
         val binding: ViewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.fragment_new_edict, container, false)
         val view = binding.root
-        binding.setVariable(BR.viewmodel, newEdictVM)
+        binding.setVariable(BR.vm, newEdictVM)
         return view
     }
 

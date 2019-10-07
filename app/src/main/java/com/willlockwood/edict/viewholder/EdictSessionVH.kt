@@ -18,7 +18,7 @@ class EdictSessionVH (
 ): RecyclerView.ViewHolder(binding.root) {
 
     private lateinit var edict: Edict
-    private lateinit var viewmodel: EdictSessionVM
+    private lateinit var edictSessionVM: EdictSessionVM
 
     fun bindView(edictSession: EdictSession, edictVM: EdictVM){
 
@@ -26,8 +26,8 @@ class EdictSessionVH (
             edict = edictVM.getEdictById(edictSession.edict)
 
             withContext(Dispatchers.Main) {
-                viewmodel = EdictSessionVM(edict)
-                binding.setVariable(BR.viewmodel, viewmodel)
+                edictSessionVM = EdictSessionVM(edict)
+                binding.setVariable(BR.vm, edictSessionVM)
                 binding.setVariable(BR.edict, edict)
                 binding.setVariable(BR.edictSession, edictSession)
             }
@@ -37,7 +37,6 @@ class EdictSessionVH (
             getEdict()
         }
 
-        val deadlineMinutes = edictSession.deadlineMinutes - edictSession.startMinutes
         val endMinutes = edictSession.endMinutes - edictSession.startMinutes
         val startMinutes = edictSession.startMinutes - edictSession.startMinutes
         var rightNow = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) * 60 + Calendar.getInstance().get(Calendar.MINUTE) - edictSession.startMinutes
@@ -45,14 +44,5 @@ class EdictSessionVH (
         binding.setVariable(BR.timeMin, startMinutes)
         binding.setVariable(BR.timeMax, endMinutes)
         binding.setVariable(BR.rightNow, rightNow)
-//        val countDownTimer = object : CountDownTimer(60000 * (deadlineMinutes - startMinutes).toLong(), 1000.toLong()) {
-//            override fun onFinish() {}
-//            override fun onTick(p0: Long) {
-//                rightNow = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) * 60 + Calendar.getInstance().get(Calendar.MINUTE) - edictSession.startMinutes
-//                viewmodel.setCurrentMinutes(rightNow)
-//                binding.setVariable(BR.rightNow, rightNow)
-//            }
-//        }
-//        countDownTimer.start()
     }
 }
