@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.willlockwood.edict.data.model.NewEdict.TimeType"/>
+        <variable
+            name="vm"
+            type="com.willlockwood.edict.viewmodel.binding.NewNewEdictVM"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.EdictFragment"
+        >
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/NewEdictHeader2Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="When will this be in effect?"
+            app:layout_constraintBottom_toTopOf="@+id/time_type_picker"
+            app:layout_constraintStart_toStartOf="@+id/time_type_picker"
+            />
+
+        <NumberPicker
+            android:id="@+id/time_type_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="130dp"
+            android:value="@={ vm.timeTypeIdx }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/time_text_et"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:values="@{ vm.timeTypeValues }"
+            />
+
+        <EditText
+            android:id="@+id/time_text_et"
+            style="@style/NewEdictEditText2"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:hint="@{vm.timeTextHint}"
+            android:inputType="textPersonName"
+            android:minWidth="0dp"
+            android:paddingBottom="22dp"
+            android:text="@={vm.timeText}"
+            android:visibility="@{vm.timeType == TimeType.ALL_DAY || vm.timeType == TimeType.BEFORE_TIME || vm.timeType == TimeType.AFTER_TIME || vm.timeType == TimeType.BETWEEN_TIME ? View.INVISIBLE : View.VISIBLE }"
+            app:layout_constraintBottom_toBottomOf="@+id/time_type_picker"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/time_type_picker"
+            app:layout_constraintTop_toTopOf="@+id/time_type_picker"
+            />
+
+        <TextView
+            android:id="@+id/time_start_txt"
+            style="@style/NewEdictTimeText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="@{ vm.timeStart }"
+            android:textColor="@{ vm.timeText.length() > 0 ? @color/white_hint_text : @color/colorPrimary }"
+            android:visibility="@{ vm.timeType == TimeType.BETWEEN_TIME || vm.timeType == TimeType.AFTER_TIME ? View.VISIBLE : View.GONE }"
+            app:layout_constraintBottom_toBottomOf="@+id/time_type_picker"
+            app:layout_constraintStart_toEndOf="@+id/time_type_picker"
+            app:layout_constraintTop_toTopOf="@+id/time_type_picker"
+            />
+
+        <TextView
+            android:id="@+id/to_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:text="and"
+            android:textSize="16sp"
+            android:visibility="@{vm.timeType == TimeType.BETWEEN_TIME ? View.VISIBLE : View.GONE }"
+            app:layout_constraintBottom_toBottomOf="@+id/time_start_txt"
+            app:layout_constraintStart_toEndOf="@+id/time_start_txt"
+            app:layout_constraintTop_toTopOf="@+id/time_start_txt"
+            />
+
+        <TextView
+            android:id="@+id/time_end_txt"
+            style="@style/NewEdictTimeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="@{ vm.timeEnd }"
+            android:textColor="@{ vm.timeText.length() > 0 ? @color/white_hint_text : @color/colorPrimary }"
+            android:visibility="@{ vm.timeType == TimeType.BETWEEN_TIME || vm.timeType == TimeType.BEFORE_TIME ? View.VISIBLE : View.GONE }"
+            app:layout_constraintBottom_toBottomOf="@+id/to_txt"
+            app:layout_constraintStart_toEndOf="@+id/to_txt"
+            app:layout_constraintTop_toTopOf="@+id/to_txt"
+            />
+
+        <Button
+            android:id="@+id/time_continue_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="continue"
+            app:layout_constraintEnd_toEndOf="@+id/time_text_et"
+            app:layout_constraintTop_toBottomOf="@+id/time_text_et"
+            />
+
+        <TextView
+            android:id="@+id/time_txt"
+            style="@style/ExampleText.Highlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/ic_time_black_24dp"
+            android:text="@{vm.newEdict.timeString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/rule_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/rule_txt"
+            app:layout_constraintTop_toTopOf="@+id/rule_txt"
+            />
+
+        <TextView
+            android:id="@+id/rule_txt"
+            style="@style/ExampleText.NotHighlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:drawableBottom="@drawable/ic_launcher_foreground"
+            android:text="@{vm.newEdict.ruleString()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/time_txt"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/days_txt"
+            />
+
+        <TextView
+            android:id="@+id/days_txt"
+            style="@style/ExampleText.NotHighlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/ic_day_black_24dp"
+            android:text="@{vm.newEdict.daysString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/rule_txt"
+            app:layout_constraintEnd_toStartOf="@+id/rule_txt"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rule_txt"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    </ScrollView>-->
+
+</layout>

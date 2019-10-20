@@ -29,6 +29,10 @@
             android:id="@+id/action_homeFragment_to_checkInPagerFragment"
             app:destination="@id/checkInPagerFragment"
             />
+        <action
+            android:id="@+id/action_homeFragment_to_introFragment"
+            app:destination="@id/newEdictIntro"
+            />
     </fragment>
     <fragment
         android:id="@+id/newEdictFragment"
@@ -51,6 +55,7 @@
             android:id="@+id/action_reviewEdicts_to_homeFragment"
             app:destination="@id/homeFragment"
             />
+
     </fragment>
     <fragment
         android:id="@+id/settings"
@@ -83,4 +88,124 @@
             app:destination="@id/homeFragment"
             />
     </fragment>
+    <fragment
+        android:id="@+id/newEdictIntro"
+        android:name="com.willlockwood.edict.fragment.NewEdict.NewEdictIntro"
+        android:label="newEdictIntro"
+        >
+        <action
+            android:id="@+id/action_newEdictIntro_to_newEdictScope"
+            app:destination="@id/newEdictScope"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/newEdictType"
+        android:name="com.willlockwood.edict.fragment.NewEdict.NewEdictType"
+        android:label="NewEdictType"
+        >
+        <action
+            android:id="@+id/action_newEdictType_to_newEdictScale"
+            app:destination="@id/newEdictScale"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/newEdictScope"
+        android:name="com.willlockwood.edict.fragment.NewEdict.NewEdictScope"
+        android:label="NewEdictScope"
+        >
+        <action
+            android:id="@+id/action_newEdictScope_to_newEdictDays"
+            app:destination="@id/newEdictDays"
+            />
+        <action
+            android:id="@+id/action_newEdictScope_to_newEdictType"
+            app:destination="@id/newEdictType"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/newEdictScale"
+        android:name="com.willlockwood.edict.fragment.NewEdict.NewEdictScale"
+        android:label="fragment_new_edict_scale"
+        >
+        <action
+            android:id="@+id/action_newEdictScale_to_newEdictText"
+            app:destination="@id/newEdictText"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/newEdictText"
+        android:name="com.willlockwood.edict.fragment.NewEdict.NewEdictText"
+        android:label="fragment_new_edict_text"
+        tools:layout="@layout/fragment_new_edict_text"
+        >
+        <action
+            android:id="@+id/action_newEdictText_to_newEdictTime"
+            app:destination="@id/newEdictTime"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/newEdictDays"
+        android:name="com.willlockwood.edict.fragment.NewEdict.NewEdictDays"
+        android:label="NewEdictDays"
+        >
+        <action
+            android:id="@+id/action_newEdictDays_to_newEdictType"
+            app:destination="@id/newEdictType"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/newEdictTime"
+        android:name="com.willlockwood.edict.fragment.NewEdict.NewEdictTime"
+        android:label="NewEdictTime"
+        >
+        <action
+            android:id="@+id/action_newEdictTime_to_newEdictDeadline"
+            app:destination="@id/newEdictDeadline"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/newEdictReview"
+        android:name="com.willlockwood.edict.fragment.NewEdict.NewEdictReview"
+        android:label="NewEdictReview"
+        >
+        <action
+            android:id="@+id/action_newEdictReview_to_newEdictScope"
+            app:destination="@id/newEdictScope"
+            />
+        <action
+            android:id="@+id/action_newEdictReview_to_newEdictType"
+            app:destination="@id/newEdictType"
+            />
+        <action
+            android:id="@+id/action_newEdictReview_to_newEdictTime"
+            app:destination="@id/newEdictTime"
+            />
+        <action
+            android:id="@+id/action_newEdictReview_to_newEdictDeadline"
+            app:destination="@id/newEdictDeadline"
+            />
+        <action
+            android:id="@+id/action_newEdictReview_to_newEdictReminders"
+            app:destination="@id/newEdictReminders"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/newEdictDeadline"
+        android:name="com.willlockwood.edict.fragment.NewEdict.NewEdictDeadline"
+        android:label="NewEdictDeadline"
+        >
+        <action
+            android:id="@+id/action_newEdictDeadline_to_newEdictReminders"
+            app:destination="@id/newEdictReminders"
+            />
+    </fragment>
+    <action
+        android:id="@+id/action_global_newEdictReview"
+        app:destination="@id/newEdictReview"
+        />
+    <fragment
+        android:id="@+id/newEdictReminders"
+        android:name="com.willlockwood.edict.fragment.NewEdict.NewEdictReminders"
+        android:label="NewEdictReminders"
+        />
 </navigation>

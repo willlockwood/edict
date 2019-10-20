@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="vm"
+            type="com.willlockwood.edict.viewmodel.binding.NewNewEdictVM"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.EdictFragment"
+        >
+
+        <TextView
+            android:id="@+id/example_sub_header"
+            style="@style/ExampleText.Subheader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Example:"
+            app:layout_constraintStart_toStartOf="@+id/days_txt"
+            app:layout_constraintTop_toTopOf="@+id/check_in_txt"
+            />
+
+        <TextView
+            android:id="@+id/days_txt"
+            style="@style/ExampleText.NotHighlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/ic_day_black_24dp"
+            android:text="Every day,"
+            app:layout_constraintBottom_toBottomOf="@+id/rule_txt"
+            app:layout_constraintEnd_toStartOf="@+id/rule_txt"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rule_txt"
+            />
+
+        <TextView
+            android:id="@+id/rule_txt"
+            style="@style/ExampleText.NotHighlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:drawableBottom="@drawable/ic_launcher_foreground"
+            android:text="meditate for 30 minutes"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/time_txt"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/days_txt"
+            />
+
+        <TextView
+            android:id="@+id/time_txt"
+            style="@style/ExampleText.NotHighlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/ic_time_black_24dp"
+            android:text="before work."
+            app:layout_constraintBottom_toBottomOf="@+id/rule_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/rule_txt"
+            app:layout_constraintTop_toTopOf="@+id/rule_txt"
+            />
+
+        <TextView
+            android:id="@+id/check_in_txt"
+            style="@style/ExampleText.NotHighlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:drawableLeft="@drawable/ic_check_black_24dp"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:text="8-10 pm"
+            app:layout_constraintBottom_toTopOf="@+id/time_txt"
+            app:layout_constraintEnd_toEndOf="@+id/time_txt"
+            />
+
+        <TextView
+            android:id="@+id/ol_text_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:drawableLeft="@drawable/ic_day_black_24dp"
+            android:drawablePadding="8dp"
+            android:text="On which days will the edict be active?"
+            app:layout_constraintBottom_toTopOf="@+id/ol_text_2"
+            app:layout_constraintStart_toStartOf="@+id/ol_text_3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            />
+
+        <TextView
+            android:id="@+id/ol_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:drawableLeft="@drawable/ic_launcher_foreground"
+            android:drawablePadding="8dp"
+            android:text="What is your new routine/restriction?"
+            app:drawableTint="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/ol_text_3"
+            app:layout_constraintStart_toStartOf="@+id/ol_text_3"
+            app:layout_constraintTop_toBottomOf="@+id/ol_text_1"
+            />
+
+        <TextView
+            android:id="@+id/ol_text_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:drawableLeft="@drawable/ic_time_black_24dp"
+            android:drawablePadding="8dp"
+            android:text="When in the day will the edict be active?"
+            app:layout_constraintBottom_toTopOf="@+id/ol_text_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ol_text_2"
+            />
+
+        <TextView
+            android:id="@+id/ol_text_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:drawableLeft="@drawable/ic_check_black_24dp"
+            android:drawablePadding="8dp"
+            android:text="When will you report your success?"
+            app:layout_constraintBottom_toTopOf="@+id/ol_text_5"
+            app:layout_constraintStart_toStartOf="@+id/ol_text_3"
+            app:layout_constraintTop_toBottomOf="@+id/ol_text_3"
+            />
+
+        <TextView
+            android:id="@+id/ol_text_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_notifications_black_24dp"
+            android:drawablePadding="8dp"
+            android:text="When should you be notified?"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/ol_text_3"
+            app:layout_constraintTop_toBottomOf="@+id/ol_text_4"
+            />
+
+        <TextView
+            android:id="@+id/intro_header"
+            style="@style/NewEdictHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Write a new edict:"
+            app:layout_constraintBottom_toTopOf="@+id/ol_text_1"
+            app:layout_constraintStart_toStartOf="@+id/ol_text_1"
+            />
+
+        <Button
+            android:id="@+id/new_edict_intro_start"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="start"
+            app:layout_constraintEnd_toEndOf="@+id/ol_text_3"
+            app:layout_constraintTop_toBottomOf="@+id/ol_text_5"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

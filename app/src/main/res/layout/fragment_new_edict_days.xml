@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="java.util.Calendar"/>
+        <import type="com.willlockwood.edict.data.model.NewEdict.Scope"/>
+        <variable
+            name="vm"
+            type="com.willlockwood.edict.viewmodel.binding.NewNewEdictVM"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.EdictFragment"
+        >
+
+        <LinearLayout
+            android:id="@+id/days_picker_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.newEdict.scope == Scope.SOME_DAYS ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@+id/include"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            >
+
+            <ToggleButton
+                android:id="@+id/days_sunday_btn"
+                style="@style/toggleButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/toggle_bg"
+                android:checked="@{vm.days.contains(Calendar.SUNDAY)}"
+                android:onClick="@{() -> vm.setDays(Calendar.SUNDAY)}"
+                android:textOff="S"
+                android:textOn="S"
+                />
+
+            <ToggleButton
+                android:id="@+id/days_monday_btn"
+                style="@style/toggleButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/toggle_bg"
+                android:checked="@{vm.days.contains(Calendar.MONDAY)}"
+                android:onClick="@{() -> vm.setDays(Calendar.MONDAY)}"
+                android:textOff="M"
+                android:textOn="M"
+                />
+
+            <ToggleButton
+                android:id="@+id/days_tuesday_btn"
+                style="@style/toggleButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/toggle_bg"
+                android:checked="@{vm.days.contains(Calendar.TUESDAY)}"
+                android:onClick="@{() -> vm.setDays(Calendar.TUESDAY)}"
+                android:textOff="T"
+                android:textOn="T"
+                />
+
+            <ToggleButton
+                android:id="@+id/days_wednesday_btn"
+                style="@style/toggleButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/toggle_bg"
+                android:checked="@{vm.days.contains(Calendar.WEDNESDAY)}"
+                android:onClick="@{() -> vm.setDays(Calendar.WEDNESDAY)}"
+                android:textOff="W"
+                android:textOn="W"
+                />
+
+            <ToggleButton
+                android:id="@+id/days_thursday_btn"
+                style="@style/toggleButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/toggle_bg"
+                android:checked="@{vm.days.contains(Calendar.THURSDAY)}"
+                android:onClick="@{() -> vm.setDays(Calendar.THURSDAY)}"
+                android:textOff="T"
+                android:textOn="T"
+                />
+
+            <ToggleButton
+                android:id="@+id/days_friday_btn"
+                style="@style/toggleButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/toggle_bg"
+                android:checked="@{vm.days.contains(Calendar.FRIDAY)}"
+                android:onClick="@{() -> vm.setDays(Calendar.FRIDAY)}"
+                android:textOff="F"
+                android:textOn="F"
+                />
+
+            <ToggleButton
+                android:id="@+id/days_saturday_btn"
+                style="@style/toggleButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/toggle_bg"
+                android:checked="@{vm.days.contains(Calendar.SATURDAY)}"
+                android:onClick="@{() -> vm.setDays(Calendar.SATURDAY)}"
+                android:textOff="S"
+                android:textOn="S"
+                />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/days_et"
+            style="@style/NewEdictEditText2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint='e.g., "workdays"'
+            android:inputType="textPersonName"
+            android:text="@={vm.daysText}"
+            android:visibility="@{vm.newEdict.scope == Scope.SOME_DAYS ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/days_picker_layout"
+            app:layout_constraintStart_toStartOf="@+id/days_picker_layout"
+            app:layout_constraintTop_toBottomOf="@+id/include"
+            app:layout_constraintVertical_chainStyle="packed"
+            />
+
+        <TextView
+            android:id="@+id/var_days_txt_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Every"
+            android:textSize="16sp"
+            android:visibility="@{vm.newEdict.scope == Scope.VAR_DAYS ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@+id/var_days_et"
+            app:layout_constraintEnd_toStartOf="@+id/var_days_et"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/var_days_et"
+            />
+
+        <EditText
+            android:id="@+id/var_days_et"
+            style="@style/NewEdictEditText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="#"
+            android:inputType="number"
+            android:text="@={vm.daysInt}"
+            android:visibility="@{vm.newEdict.scope == Scope.VAR_DAYS ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/var_days_txt_2"
+            app:layout_constraintStart_toEndOf="@+id/var_days_txt_1"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/var_days_txt_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="days"
+            android:visibility="@{vm.newEdict.scope == Scope.VAR_DAYS ? View.VISIBLE : View.GONE}"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/var_days_et"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/var_days_et"
+            app:layout_constraintTop_toTopOf="@+id/var_days_et"
+            />
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/divider_or"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="@{vm.newEdict.scope == Scope.SOME_DAYS ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@+id/days_et"
+            app:layout_constraintEnd_toEndOf="@+id/days_picker_layout"
+            app:layout_constraintStart_toStartOf="@+id/days_picker_layout"
+            app:layout_constraintTop_toBottomOf="@+id/days_picker_layout"
+            />
+
+        <Button
+            android:id="@+id/days_continue_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="continue"
+            android:visibility="@{ vm.daysCanContinue ? View.VISIBLE : View.INVISIBLE }"
+            app:layout_constraintEnd_toEndOf="@+id/days_et"
+            app:layout_constraintTop_toBottomOf="@+id/days_et"
+            />
+
+        <TextView
+            android:id="@+id/days_txt"
+            style="@style/ExampleText.Highlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/ic_day_black_24dp"
+            android:text="@{vm.newEdict.daysString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/rule_txt"
+            app:layout_constraintEnd_toStartOf="@+id/rule_txt"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rule_txt"
+            />
+
+        <TextView
+            android:id="@+id/rule_txt"
+            style="@style/ExampleText.NotHighlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:drawableBottom="@drawable/ic_launcher_foreground"
+            android:text="@{vm.newEdict.ruleString()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/time_txt"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/days_txt"
+            />
+
+        <TextView
+            android:id="@+id/time_txt"
+            style="@style/ExampleText.NotHighlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/ic_time_black_24dp"
+            android:text="@{vm.newEdict.timeString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/rule_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/rule_txt"
+            app:layout_constraintTop_toTopOf="@+id/rule_txt"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

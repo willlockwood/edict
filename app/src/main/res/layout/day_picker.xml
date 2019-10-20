@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+    <ToggleButton
+        android:id="@+id/days_sunday_btn"
+        style="@style/toggleButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/toggle_bg"
+
+        android:textOff="S"
+        android:textOn="S"
+        />
+
+    <ToggleButton
+        android:id="@+id/days_monday_btn"
+        style="@style/toggleButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/toggle_bg"
+
+        android:textOff="M"
+        android:textOn="M"
+        />
+
+    <ToggleButton
+        android:id="@+id/days_tuesday_btn"
+        style="@style/toggleButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/toggle_bg"
+
+        android:textOff="T"
+        android:textOn="T"
+        />
+
+    <ToggleButton
+        android:id="@+id/days_wednesday_btn"
+        style="@style/toggleButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/toggle_bg"
+        android:textOff="W"
+        android:textOn="W"
+        />
+
+    <ToggleButton
+        android:id="@+id/days_thursday_btn"
+        style="@style/toggleButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/toggle_bg"
+
+        android:textOff="T"
+        android:textOn="T"
+        />
+
+    <ToggleButton
+        android:id="@+id/days_friday_btn"
+        style="@style/toggleButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/toggle_bg"
+
+        android:textOff="F"
+        android:textOn="F"
+        />
+
+    <ToggleButton
+        android:id="@+id/days_saturday_btn"
+        style="@style/toggleButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/toggle_bg"
+        android:textOff="S"
+        android:textOn="S"
+        />
+</LinearLayout>

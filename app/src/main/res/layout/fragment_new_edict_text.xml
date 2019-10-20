@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.willlockwood.edict.data.model.NewEdict.Scope"/>
+        <variable
+            name="vm"
+            type="com.willlockwood.edict.viewmodel.binding.NewNewEdictVM"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.EdictFragment"
+        >
+
+        <TextView
+            android:id="@+id/refresh_example_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:padding="0dp"
+            android:paddingLeft="0dp"
+            android:paddingTop="4dp"
+            android:paddingRight="0dp"
+            android:paddingBottom="4dp"
+            android:text="NEW EXAMPLE"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/days_txt"
+            style="@style/ExampleText.NotHighlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/ic_day_black_24dp"
+            android:text="@{vm.newEdict.daysString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/rule_txt"
+            app:layout_constraintEnd_toStartOf="@+id/rule_txt"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rule_txt"
+            />
+
+        <TextView
+            android:id="@+id/rule_txt"
+            style="@style/ExampleText.Highlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:drawableBottom="@drawable/ic_launcher_foreground"
+            android:text="@{vm.newEdict.ruleString()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/time_txt"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/days_txt"
+            />
+
+        <TextView
+            android:id="@+id/time_txt"
+            style="@style/ExampleText.NotHighlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/ic_time_black_24dp"
+            android:text="@{vm.newEdict.timeString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/rule_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/rule_txt"
+            app:layout_constraintTop_toTopOf="@+id/rule_txt"
+            />
+
+        <Button
+            android:id="@+id/time_continue_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="continue"
+            android:visibility="@{vm.ruleCanContinue ? View.VISIBLE : View.INVISIBLE }"
+            app:layout_constraintEnd_toEndOf="@+id/text_layout"
+            app:layout_constraintTop_toBottomOf="@+id/text_layout"
+            />
+
+        <LinearLayout
+            android:id="@+id/text_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginRight="48dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <EditText
+                android:id="@+id/start_et"
+                style="@style/NewEdictEditText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.45"
+                android:hint="@{vm.currentRuleExampleList[0]}"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:text="@={vm.ruleAction}"
+                />
+
+            <EditText
+                android:id="@+id/var_et"
+                style="@style/NewEdictEditText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:hint="@{vm.currentRuleExampleList[1]}"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:text="@={vm.ruleVar}"
+                android:visibility="@{vm.scalable ? View.VISIBLE : View.GONE}"
+                />
+
+            <EditText
+                android:id="@+id/end_et"
+                style="@style/NewEdictEditText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.45"
+                android:hint="@{vm.currentRuleExampleList[2]}"
+                android:imeOptions="actionDone"
+                android:inputType="textPersonName"
+                android:text="@={vm.ruleUnit}"
+                android:visibility="@{vm.scalable ? View.VISIBLE : View.GONE}"
+                />
+
+        </LinearLayout>
+
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/example_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            >-->
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/example_inner_layout"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="16dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                >-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/days_txt"-->
+<!--                    style="@style/ExampleText.NotHighlighted"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@{vm.newEdict.daysString()}"-->
+<!--                    app:layout_constraintBottom_toTopOf="@+id/days_icon"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/rule_txt"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/days_txt2"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_marginBottom="8dp"-->
+<!--                    android:drawableLeft="@drawable/ic_check_black_24dp"-->
+<!--                    android:drawablePadding="4dp"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:text="8-10 pm"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textStyle="italic"-->
+<!--                    android:visibility="gone"-->
+<!--                    app:drawableTint="@color/white"-->
+<!--                    app:layout_constraintBottom_toTopOf="@+id/days_txt"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/days_icon"-->
+<!--                    style="@style/ExampleText.NotHighlighted"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/days_txt"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/days_txt"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/days_txt"-->
+<!--                    app:srcCompat="@drawable/ic_day_black_24dp"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/rule_txt"-->
+<!--                    style="@style/ExampleText.NotHighlighted"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@{vm.newEdict.ruleString()}"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/days_txt"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/rules_txt2"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/days_txt"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/days_txt"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/rules_txt2"-->
+<!--                    style="@style/ExampleText.NotHighlighted"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@{vm.newEdict.timeString()}"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/days_txt"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/rule_txt"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/days_txt"-->
+<!--                    />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/rules_icon"-->
+<!--                    style="@style/ExampleText.NotHighlighted"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/rules_txt2"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/rules_txt2"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/rules_icon2"-->
+<!--                    app:srcCompat="@drawable/ic_time_black_24dp"-->
+<!--                    />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/rules_icon2"-->
+<!--                    style="@style/ExampleText.Highlighted"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/rule_txt"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/rule_txt"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/days_icon"-->
+<!--                    app:srcCompat="@drawable/ic_launcher_foreground"-->
+<!--                    />-->
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

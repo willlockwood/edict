@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.willlockwood.edict.data.model.NewEdict.TimeType"/>
+        <import type="com.willlockwood.edict.data.model.NewEdict.CheckInStartType"/>
+        <import type="com.willlockwood.edict.data.model.NewEdict.CheckInEndType"/>
+        <variable
+            name="vm"
+            type="com.willlockwood.edict.viewmodel.binding.NewNewEdictVM"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.EdictFragment"
+        >
+
+
+        <TextView
+            android:id="@+id/check_in_end_header"
+            style="@style/NewEdictHeader2Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="When will you check-in?"
+            app:layout_constraintBottom_toTopOf="@+id/from_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/from_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:gravity="center_vertical"
+            android:text="From"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/start_time"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/check_in_end_header"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@={ vm.checkInStart }"
+            app:layout_constraintBottom_toBottomOf="@+id/to_txt"
+            app:layout_constraintEnd_toStartOf="@+id/to_txt"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/from_txt"
+            app:layout_constraintTop_toTopOf="@+id/to_txt"
+            />
+
+        <TextView
+            android:id="@+id/end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="@={ vm.checkInEnd }"
+            app:layout_constraintBottom_toBottomOf="@+id/to_txt"
+            app:layout_constraintStart_toEndOf="@+id/to_txt"
+            app:layout_constraintTop_toTopOf="@+id/to_txt"
+            />
+
+        <TextView
+            android:id="@+id/to_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:gravity="center_vertical"
+            android:text="to"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/end_time"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/start_time"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <Button
+            android:id="@+id/continue_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="continue"
+            android:visibility="@{vm.checkInCanContinue ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintEnd_toEndOf="@+id/check_in_end_header"
+            app:layout_constraintTop_toBottomOf="@+id/end_time"
+            />
+
+        <TextView
+            android:id="@+id/check_in_txt"
+            style="@style/ExampleText.Highlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:drawableLeft="@drawable/ic_check_black_24dp"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:text="8-10 pm"
+            app:layout_constraintBottom_toTopOf="@+id/time_txt"
+            app:layout_constraintEnd_toEndOf="@+id/time_txt"
+            app:layout_constraintTop_toTopOf="@+id/example_sub_header"
+            />
+
+        <TextView
+            android:id="@+id/time_txt"
+            style="@style/ExampleText.NotHighlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/ic_time_black_24dp"
+            android:text="@{vm.newEdict.timeString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/rule_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/rule_txt"
+            app:layout_constraintTop_toTopOf="@+id/rule_txt"
+            />
+
+        <TextView
+            android:id="@+id/days_txt"
+            style="@style/ExampleText.NotHighlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/ic_day_black_24dp"
+            android:text="@{vm.newEdict.daysString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/rule_txt"
+            app:layout_constraintEnd_toStartOf="@+id/rule_txt"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rule_txt"
+            />
+
+        <TextView
+            android:id="@+id/rule_txt"
+            style="@style/ExampleText.NotHighlighted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:drawableBottom="@drawable/ic_launcher_foreground"
+            android:text="@{vm.newEdict.ruleString()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/time_txt"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/days_txt"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    </ScrollView>-->
+
+</layout>
