@@ -2,6 +2,12 @@ package com.willlockwood.edict.utils
 
 object TimeHelper {
 
+    fun minutesToTimeStringShort(min: Int?): String {
+        return minutesToTimeString(min)
+            .replace(" ", "")
+            .replace(":00", "")
+            .toLowerCase()
+    }
     fun minutesToTimeString(min: Int?): String {
         if (min == null) return ""
         val minutes = getMinutesStrFromMinutes(min)

@@ -8,7 +8,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         setUpSharedPreferences()
 
-        setUpToolbar()
+//        setUpToolbar()
 
         observeEdictsAndSessions()
     }
@@ -78,21 +77,21 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences.registerOnSharedPreferenceChangeListener(onSharedPreferencesChangeListener)
     }
 
-    private fun setUpToolbar() {
-        setSupportActionBar(toolbar as Toolbar)
-        toolbarVM.getToolbarTitle().observe(this, Observer {
-            // TODO: figure out why there is no space between title and logo
-            supportActionBar?.title = "  $it"
-        })
-        toolbarVM.getToolbarVisible().observe(this, Observer {
-            when (it) {
-                true -> supportActionBar?.show()
-                false -> supportActionBar?.hide()
-            }
-        })
-        supportActionBar?.elevation = 0f
-        supportActionBar?.setLogo(R.drawable.ic_launcher_foreground)
-    }
+//    private fun setUpToolbar() {
+//        setSupportActionBar(toolbar as Toolbar)
+//        toolbarVM.getToolbarTitle().observe(this, Observer {
+//            // TODO: figure out why there is no space between title and logo
+//            supportActionBar?.title = "  $it"
+//        })
+//        toolbarVM.getToolbarVisible().observe(this, Observer {
+//            when (it) {
+//                true -> supportActionBar?.show()
+//                false -> supportActionBar?.hide()
+//            }
+//        })
+//        supportActionBar?.elevation = 0f
+//        supportActionBar?.setLogo(R.drawable.ic_launcher_foreground)
+//    }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun rescheduleAllNotificationsFromEdictSessions(edictSessions: List<EdictSession>) {

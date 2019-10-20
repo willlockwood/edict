@@ -58,6 +58,7 @@ class AllEdictsPage : Fragment() {
     }
 
     private fun setUpButtons() {
-        fab.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_newEdictFragment) }
+//        fab.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_newEdictFragment) }
+        fab.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_introFragment) }
     }
 }

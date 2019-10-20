@@ -14,15 +14,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.willlockwood.edict.BR
 import com.willlockwood.edict.R
-import com.willlockwood.edict.utils.EdictHelper
 import com.willlockwood.edict.utils.TimeHelper
 import com.willlockwood.edict.viewmodel.EdictVM
 import com.willlockwood.edict.viewmodel.NewEdictVM
 import com.willlockwood.edict.viewmodel.ToolbarVM
-import kotlinx.android.synthetic.main.fragment_new_edict.*
 import java.util.*
 
 
@@ -35,7 +32,7 @@ class NewEdictFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         setUpViewModels()
-        val binding: ViewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.fragment_new_edict, container, false)
+        val binding: ViewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.fragment_new_edict_reminders, container, false)
         val view = binding.root
         binding.setVariable(BR.vm, newEdictVM)
         return view
@@ -52,26 +49,26 @@ class NewEdictFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun setUpClickListeners() {
-        between_time_txt_1.setOnClickListener { clickTimePicker(it as TextView) }
-        between_time_txt_2.setOnClickListener { clickTimePicker(it as TextView) }
-        after_txt.setOnClickListener { clickTimePicker(it as TextView) }
-        before_txt.setOnClickListener { clickTimePicker(it as TextView) }
-        notify_at_text.setOnClickListener { clickTimePicker(it as TextView) }
-        deadline_custom_time.setOnClickListener { clickTimePicker(it as TextView) }
-
-        finalize_button.setOnClickListener {
-            val edict = newEdictVM.getEdict()
-            if (edict.getErrorStatus() == EdictHelper.ErrorStatus.READY) {
-                newEdictVM.setCurrentlyFinalizing(true)
-            } else {
-                newEdictVM.setFinalizeButtonPressed(true)
-            }
-        }
-        upload_button.setOnClickListener {
-            val edict = newEdictVM.getEdict()
-            uploadVM.insertEdictAndNewSession(edict)
-            findNavController().navigate(R.id.action_newEdictFragment_to_homeFragment)
-        }
+//        between_time_txt_1.setOnClickListener { clickTimePicker(it as TextView) }
+//        between_time_txt_2.setOnClickListener { clickTimePicker(it as TextView) }
+//        after_txt.setOnClickListener { clickTimePicker(it as TextView) }
+//        before_txt.setOnClickListener { clickTimePicker(it as TextView) }
+//        notify_at_text.setOnClickListener { clickTimePicker(it as TextView) }
+//        deadline_custom_time.setOnClickListener { clickTimePicker(it as TextView) }
+//
+//        finalize_button.setOnClickListener {
+//            val edict = newEdictVM.getEdict()
+//            if (edict.getErrorStatus() == EdictHelper.ErrorStatus.READY) {
+//                newEdictVM.setCurrentlyFinalizing(true)
+//            } else {
+//                newEdictVM.setFinalizeButtonPressed(true)
+//            }
+//        }
+//        upload_button.setOnClickListener {
+//            val edict = newEdictVM.getEdict()
+//            uploadVM.insertEdictAndNewSession(edict)
+//            findNavController().navigate(R.id.action_newEdictFragment_to_homeFragment)
+//        }
     }
 
     @RequiresApi(Build.VERSION_CODES.N)

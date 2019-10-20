@@ -8,7 +8,9 @@ import androidx.lifecycle.MutableLiveData
 class ToolbarVM(application: Application) : AndroidViewModel(application) {
 
     enum class AppLocation {
-        HOME_FRAGMENT, REVIEW_FRAGMENT, CHECK_IN_FRAGMENT, PREFERENCES
+        HOME_FRAGMENT, REVIEW_FRAGMENT, CHECK_IN_FRAGMENT, PREFERENCES,
+        NEW_EDICT_INTRO, NEW_EDICT_SCOPE, NEW_EDICT_SCALE, NEW_EDICT_DAYS, NEW_EDICT_TYPE,
+        NEW_EDICT_TEXT, NEW_EDICT_TIME, NEW_EDICT_REMINDERS, NEW_EDICT_DEADLINE, NEW_EDICT_REVIEW
     }
 
     private var toolbarTitle = MutableLiveData<String>()
@@ -31,7 +33,6 @@ class ToolbarVM(application: Application) : AndroidViewModel(application) {
 
     fun getCurrentLocation(): LiveData<AppLocation> = currentLocation
     fun setCurrentLocation(appLocation: AppLocation) {
-
         when (appLocation) {
             AppLocation.HOME_FRAGMENT -> {
                 setToolbarTitle("Edict")
@@ -45,7 +46,17 @@ class ToolbarVM(application: Application) : AndroidViewModel(application) {
                 setToolbarTitle(null)
                 setToolbarVisible(false)
             }
-            AppLocation.PREFERENCES -> TODO()
+            AppLocation.PREFERENCES -> setToolbarTitle("Settings")
+            AppLocation.NEW_EDICT_INTRO -> setToolbarTitle("New edict")
+            AppLocation.NEW_EDICT_SCOPE -> setToolbarTitle("Days active")
+            AppLocation.NEW_EDICT_DAYS -> setToolbarTitle("Days active")
+            AppLocation.NEW_EDICT_TYPE -> setToolbarTitle("Rule")
+            AppLocation.NEW_EDICT_SCALE -> setToolbarTitle("Rule")
+            AppLocation.NEW_EDICT_TEXT -> setToolbarTitle("Rule")
+            AppLocation.NEW_EDICT_TIME -> setToolbarTitle("Times active")
+            AppLocation.NEW_EDICT_DEADLINE -> setToolbarTitle("Check-in window")
+            AppLocation.NEW_EDICT_REMINDERS -> setToolbarTitle("Reminders")
+            AppLocation.NEW_EDICT_REVIEW -> setToolbarTitle("Review and edit")
         }
 
         currentLocation.value = appLocation

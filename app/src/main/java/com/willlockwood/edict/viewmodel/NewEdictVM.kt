@@ -384,13 +384,13 @@ class NewEdictVM(
 
     fun addDay(view: View) {
         val day = when (view.id) {
-            R.id.sun_chip -> "Sunday"
-            R.id.mon_chip -> "Monday"
-            R.id.tue_chip -> "Tuesday"
-            R.id.wed_chip -> "Wednesday"
-            R.id.thu_chip -> "Thursday"
-            R.id.fri_chip -> "Friday"
-            R.id.sat_chip -> "Saturday"
+            R.id.days_sunday_btn -> "Sunday"
+            R.id.days_monday_btn -> "Monday"
+            R.id.days_tuesday_btn -> "Tuesday"
+            R.id.days_wednesday_btn -> "Wednesday"
+            R.id.days_thursday_btn -> "Thursday"
+            R.id.days_friday_btn -> "Friday"
+            R.id.days_saturday_btn -> "Saturday"
             else -> "this shouldn't be the case"
         }
         onDays[day] = (view as Chip).isChecked

@@ -89,7 +89,7 @@ class ReviewPagerFragment : Fragment() {
         override fun transformPage(page: View, position: Float) {
 
             val colorFactor = 0.8f
-            val shadeOfWhite= ArgbEvaluator().evaluate(colorFactor.pow(position), page.context.getColor(R.color.colorPrimary), page.context.getColor(R.color.white)) as Int
+            val shadeOfWhite= ArgbEvaluator().evaluate(colorFactor.pow(position), page.context.getColor(R.color.background), page.context.getColor(R.color.white)) as Int
 
             val distanceScale = 0.4f
             val totalDistanceHorizontal = page.width * distanceScale

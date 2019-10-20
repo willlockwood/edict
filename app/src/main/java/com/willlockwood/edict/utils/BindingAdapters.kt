@@ -19,18 +19,18 @@ object BindingAdapters {
     @JvmStatic
     fun setVisibilityBasedOnSelection(view: View, visibilityBasedOnSelection: String?){
         when {
-            view.id == com.willlockwood.edict.R.id.between_layout      && visibilityBasedOnSelection == "between" ->   view.visibility = View.VISIBLE
-            view.id == com.willlockwood.edict.R.id.after_txt           && visibilityBasedOnSelection == "after" ->     view.visibility = View.VISIBLE
-            view.id == com.willlockwood.edict.R.id.at_txt              && visibilityBasedOnSelection == "at" ->        view.visibility = View.VISIBLE
-            view.id == com.willlockwood.edict.R.id.on_layout           && visibilityBasedOnSelection == "on" ->        view.visibility = View.VISIBLE
-            view.id == com.willlockwood.edict.R.id.before_txt          && visibilityBasedOnSelection == "before" ->    view.visibility = View.VISIBLE
-            view.id == com.willlockwood.edict.R.id.when_txt            && visibilityBasedOnSelection == "when" ->      view.visibility = View.VISIBLE
-            view.id == com.willlockwood.edict.R.id.while_txt           && visibilityBasedOnSelection == "while" ->     view.visibility = View.VISIBLE
-            view.id == com.willlockwood.edict.R.id.every_layout        && visibilityBasedOnSelection == "every" ->     view.visibility = View.VISIBLE
-            view.id == com.willlockwood.edict.R.id.every_time_txt      && visibilityBasedOnSelection == "time" ->      view.visibility = View.VISIBLE
-            view.id == com.willlockwood.edict.R.id.every_number_layout && visibilityBasedOnSelection == "#" ->         view.visibility = View.VISIBLE
-            view.id == com.willlockwood.edict.R.id.number_layout       && visibilityBasedOnSelection == "#" ->         view.visibility = View.VISIBLE
-            view.id == com.willlockwood.edict.R.id.deadline_custom_time && visibilityBasedOnSelection == "at" ->         view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.between_layout      && visibilityBasedOnSelection == "between" ->   view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.after_txt           && visibilityBasedOnSelection == "after" ->     view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.at_txt              && visibilityBasedOnSelection == "at" ->        view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.on_layout           && visibilityBasedOnSelection == "on" ->        view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.before_txt          && visibilityBasedOnSelection == "before" ->    view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.when_txt            && visibilityBasedOnSelection == "when" ->      view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.while_txt           && visibilityBasedOnSelection == "while" ->     view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.every_layout        && visibilityBasedOnSelection == "every" ->     view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.every_time_txt      && visibilityBasedOnSelection == "time" ->      view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.every_number_layout && visibilityBasedOnSelection == "#" ->         view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.number_layout       && visibilityBasedOnSelection == "#" ->         view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.deadline_custom_time && visibilityBasedOnSelection == "at" ->         view.visibility = View.VISIBLE
             else -> view.visibility = View.GONE
         }
     }
@@ -70,10 +70,10 @@ object BindingAdapters {
     @JvmStatic
     fun setLayoutVisibilityFromDetailType(view: LinearLayout, detailType: String){
         when {
-            view.id == com.willlockwood.edict.R.id.notify_start && detailType == "between" -> view.visibility = View.VISIBLE
-            view.id == com.willlockwood.edict.R.id.notify_start && detailType == "after" -> view.visibility = View.VISIBLE
-            view.id == com.willlockwood.edict.R.id.notify_end && detailType == "between" -> view.visibility = View.VISIBLE
-            view.id == com.willlockwood.edict.R.id.notify_end && detailType == "before" -> view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.notify_start && detailType == "between" -> view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.notify_start && detailType == "after" -> view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.notify_end && detailType == "between" -> view.visibility = View.VISIBLE
+//            view.id == com.willlockwood.edict.R.id.notify_end && detailType == "before" -> view.visibility = View.VISIBLE
             else -> view.visibility = View.GONE
         }
     }
