@@ -72,7 +72,7 @@
                 />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/check_in_end_guide"
+                android:id="@+id/end_guide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -129,7 +129,7 @@
                 android:progress="@{vm.minutesIntoCheckIn}"
                 android:progressBackgroundTint="@color/edict_level_5_light"
                 android:progressTint="@color/offWhite"
-                app:layout_constraintEnd_toEndOf="@+id/check_in_end_guide"
+                app:layout_constraintEnd_toEndOf="@+id/end_guide"
                 app:layout_constraintStart_toStartOf="@+id/check_in_start_guide"
                 app:layout_constraintTop_toTopOf="@+id/progress_session"
                 />

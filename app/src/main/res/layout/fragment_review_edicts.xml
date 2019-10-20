@@ -6,7 +6,6 @@
     android:id="@+id/check_in_pager_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     tools:context=".fragment.ReviewPagerFragment"
     >
 
@@ -25,8 +24,6 @@
     <ProgressBar
         android:id="@+id/review_progress_bar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:progress="1"
-        android:progressTint="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -34,6 +31,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:progress="1"
+        android:progressTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/review_edicts_view_pager"
         app:layout_constraintEnd_toEndOf="@+id/review_edicts_view_pager"
         app:layout_constraintStart_toStartOf="@+id/review_edicts_view_pager"
