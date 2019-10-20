@@ -5,5 +5,5 @@
         android:color="@color/white" />
 
     <item android:state_checked="false"
-        android:color="@color/colorPrimary" />
+        android:color="@color/edict_level_7" />
 </selector>
