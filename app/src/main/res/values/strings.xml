@@ -57,6 +57,46 @@
         <item>between</item>
     </string-array>
 
+    <string-array name="deadline_before_entries_array">
+        <item>1 hr.</item>
+        <item>2 hr.</item>
+        <item>3 hr.</item>
+        <item>4 hr.</item>
+        <item>5 hr.</item>
+        <item>6 hr.</item>
+        <item>7 hr.</item>
+        <item>8 hr.</item>
+    </string-array>
+
+    <string-array name="preferences_days_days_values">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+
+    <string-array name="preferences_days_days_entries">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+
+    <string-array name="preferences_days_scope_entries">
+        <item>Routine</item>
+        <item>Restriction</item>
+    </string-array>
+
+    <string-array name="empty_array"/>
+
+    <string name="rule_header_warning">Don\'t include phrases like \"after 3pm\" or \"every day\". You\'ll have a chance to add those later."</string>
+
     <string name="notif_new_sessions_title">New edicts are active</string>
     <string name="notif_new_sessions_message">New edicts message</string>
     <string name="notif_new_sessions_big_text">New edicts big text</string>

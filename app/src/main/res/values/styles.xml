@@ -2,39 +2,62 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorOnPrimary">@color/onColorPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/onColorSecondary</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/lightText</item>
+        <item name="colorSurface">#FFFFFF</item>
+        <item name="colorOnSurface">@color/colorPrimary</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorOnBackground">#@color/colorPrimary</item>
     </style>
 
-    <!--<style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">-->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
-    <!--</style>-->
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="TextAppearance.MaterialComponents.Headline2" parent="AppTheme">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textColor">@color/onColorSecondary</item>
     </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="AppButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">?attr/colorSecondary</item>
+        <item name="android:tint">?attr/colorOnSecondary</item>
+    </style>
+
+    <style name="AppButton.Pressed" parent="AppButton">
+        <item name="backgroundTint">?attr/colorOnSecondary</item>
+        <item name="android:tint">?attr/colorSecondary</item>
+    </style>
 
     <style name="NewEdictTimeText">
         <item name="android:textSize">@dimen/new_edict_time_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@drawable/bottom_line_white</item>
+        <item name="android:tint">@color/colorPrimary</item>
+    </style>
+
+    <style name="Widget.Button.Toggle" parent="android:Widget">
+        <item name="android:background">@drawable/toggle_bg</item>
+    </style>
+
+    <style name="toggleButton" parent="AppTheme">
+        <item name="android:buttonStyleToggle">@style/Widget.Button.Toggle</item>
+        <item name="android:textColor">@drawable/toggle_text_color</item>
     </style>
 
     <style name="MyActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="android:background">@color/colorPrimary</item>
+<!--        <item name="android:background">@color/colorPrimary</item>-->
         <item name="android:icon">@drawable/ic_launcher_foreground</item>
     </style>
 
     <style name="NewEdictBasicText">
         <item name="android:textSize">@dimen/new_edict_basic_text_size</item>
-        <item name="android:background">@color/colorPrimary</item>
+<!--        <item name="android:background">@color/colorPrimary</item>-->
         <item name="android:textColor">@color/white</item>
     </style>
 
@@ -43,6 +66,7 @@
         <item name="android:paddingTop">14dp</item>
         <item name="android:textSize">@dimen/new_edict_basic_text_size</item>
         <item name="android:textColor">@color/white</item>
+
         <item name="android:background">@drawable/edit_text</item>
 
         <item name="colorControlNormal">@color/white</item>
@@ -50,29 +74,183 @@
         <!--<item name="android:"-->
     </style>
 
+<!--    <style name="NewEdictConstraintLayout">-->
+<!--&lt;!&ndash;        <item name="android:background">@color/lightGray</item>&ndash;&gt;-->
+<!--    </style>-->
+    <style name="NewEdictExampleText">
+<!--        <item name="android:textColor">@color/white</item>-->
+        <item name="android:textStyle">italic</item>
+    </style>
+    <style name="NewEdictEditText2" parent="Theme.MaterialComponents.Light.NoActionBar">
+<!--        <item name="android:textColor">@color/white</item>-->
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColorHint">@color/white_hint_text</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+    <style name="NewEdictListItemText">
+<!--        <item name="android:textColor">@color/white</item>-->
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="NewEdictHeader2Text">
+<!--        <item name="android:textColor">@color/white</item>-->
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+<!--        <item name="android:background">@drawable/edit_text</item>-->
+    </style>
+
+    <style name="NewEdictRadioButton" parent="Theme.MaterialComponents.Light.NoActionBar">
+<!--        <item name="android:textColor">@color/white</item>-->
+        <item name="buttonTint">@color/white</item>
+    </style>
+
+    <style name="mySpinnerItemStyle" parent="Widget.AppCompat.Spinner.DropDown">
+<!--        <item name="android:textColor">@color/white</item>-->
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColorHint">@color/white_hint_text</item>
+        <item name="backgroundTint">@color/white_hint_text</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
+    <style name="mySpinnerStyle" parent="Widget.AppCompat.Spinner">
+<!--        <item name="android:textColor">@color/white</item>-->
+        <item name="android:tint">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColorHint">@color/white_hint_text</item>
+        <item name="backgroundTint">@color/white_hint_text</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
+    <style name="ReviewEdictLayout">
+        <item name="android:background">@drawable/bottom_line_thin_gray</item>
+    </style>
+    <style name="ReviewEdictHeaderText">
+<!--        <item name="android:textColor">@color/colorPrimaryDark</item>-->
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="ReviewEdictValueText">
+<!--        <item name="android:textColor">@color/colorPrimary</item>-->
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="NewEdictBigText">
+<!--        <item name="android:textColor">@color/white</item>-->
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="NewEdictHeaderText">
+<!--        <item name="android:textColor">@color/white</item>-->
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">22dp</item>
+    </style>
+
+    <style name="NewEdictButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+<!--        <item name="strokeColor">@color/white</item>-->
+        <item name="strokeWidth">2dp</item>
+<!--        <item name="android:textColor">@color/white</item>-->
+<!--        <item name="rippleColor">@color/white</item>-->
+    </style>
+
+
     <style name="NumberPickerText">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/offWhite</item>
         <item name="android:textColorHint">@color/offWhite</item>
     </style>
 
-    <style name="ErrorText">
-        <item name="android:textColor">@color/maroonHighlighted</item>
-        <item name="android:textSize">14sp</item>
-    </style>
+<!--    <style name="ErrorText">-->
+<!--        <item name="android:textColor">@color/maroonHighlighted</item>-->
+<!--        <item name="android:textSize">14sp</item>-->
+<!--    </style>-->
 
     <style name="CheckedChip">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/offWhite</item>
     </style>
 
-    <style name="AppTheme.Picker" parent="Theme.MaterialComponents.Light.NoActionBar" >
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:color">@color/white</item>
+    <style name="AppTheme.Picker" parent="Theme.MaterialComponents.Light" >
+<!--        <item name="android:textColorPrimary">@color/white</item>-->
+<!--        <item name="android:color">@color/white</item>-->
         <item name="android:textSize">@dimen/new_edict_basic_text_size</item>
-        <item name="colorControlNormal">@color/white</item>
+<!--        <item name="colorControlNormal">@color/white</item>-->
     </style>
 
+    <style name="DayChipGroup" parent="Widget.MaterialComponents.ChipGroup">
+        <item name="chipSpacingHorizontal">0dp</item>
+    </style>
+    <style name="DayChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/onColorPrimary</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="chipStartPadding">11dp</item>
+        <item name="chipEndPadding">0dp</item>
+        <item name="iconStartPadding">0dp</item>
+        <item name="iconEndPadding">0dp</item>
+        <item name="closeIconStartPadding">0dp</item>
+        <item name="closeIconEndPadding">0dp</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="chipIconVisible">false</item>
+        <item name="closeIconVisible">false</item>
+    </style>
+
+    <style name="ExampleText" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textStyle">italic</item>
+        <item name="android:minWidth">50dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="ExampleText.Subheader" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="ExampleText.Highlighted" parent="ExampleText">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/onColorPrimary</item>
+        <item name="android:tint">@color/onColorPrimary</item>
+        <item name="drawableTint">@color/onColorPrimary</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+    </style>
+
+    <style name="ExampleText.NotHighlighted" parent="ExampleText">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:tint">@color/colorPrimary</item>
+        <item name="drawableTint">@color/colorPrimary</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+    </style>
+
+    <style name="newEdictSelectedExampleIcon">
+<!--        <item name="android:background">@color/colorSecondary</item>-->
+<!--        <item name="android:tint">@color/colorAccent</item>-->
+    </style>
+    <style name="newEdictNotSelectedExampleIcon">
+    </style>
+    <style name="newEdictSelectedExampleText">
+<!--        <item name="android:paddingBottom">8dp</item>-->
+<!--        <item name="android:paddingLeft">4dp</item>-->
+<!--        <item name="android:paddingRight">4dp</item>-->
+<!--        <item name="android:minWidth">50dp</item>-->
+<!--        <item name="android:gravity">center_horizontal</item>-->
+<!--        <item name="android:textStyle">italic</item>-->
+    </style>
+    <style name="newEdictNotSelectedExampleText">
+<!--        <item name="android:paddingBottom">8dp</item>-->
+<!--        <item name="android:minWidth">50dp</item>-->
+<!--        <item name="android:gravity">center_horizontal</item>-->
+<!--        <item name="android:textStyle">italic</item>-->
+    </style>
 
 
 </resources>
