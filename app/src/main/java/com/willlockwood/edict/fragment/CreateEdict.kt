@@ -139,7 +139,6 @@ class CreateEdict : Fragment(),
     private fun setUpToolbar() {
         toolbar = (requireActivity() as AppCompatActivity).supportActionBar!!
         if (toolbar.isShowing) {
-            toolbar.setShowHideAnimationEnabled(false)
             toolbar.hide()
         }
 
@@ -155,10 +154,6 @@ class CreateEdict : Fragment(),
             }
         }
     }
-
-//    override fun setToolbarTitle(title: String) {
-////        (requireActivity() as MainActivity).changeToolbarTitle(title)
-//    }
 
     override fun setTimesType(type: NewEdict.TimeType) {
         viewmodel.setTimeType(type)
