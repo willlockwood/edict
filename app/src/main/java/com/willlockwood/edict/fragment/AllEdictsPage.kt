@@ -15,7 +15,18 @@ import com.willlockwood.edict.adapter.EdictRecyclerAdapter
 import com.willlockwood.edict.viewmodel.EdictVM
 import kotlinx.android.synthetic.main.fragment_all_edicts.*
 
-class AllEdictsPage : Fragment() {
+class AllEdictsPage : Fragment()
+//    , FloatingActionsMenu.OnFloatingActionsMenuUpdateListener
+{
+
+
+//    override fun onMenuCollapsed() {
+//        multiple_actions.setBackgroundColor(requireContext().resources.getColor(R.color.transparent))
+//    }
+//
+//    override fun onMenuExpanded() {
+//        multiple_actions.setBackgroundColor(requireContext().resources.getColor(R.color.fab_menu_scrim))
+//    }
 
     private lateinit var edictVM: EdictVM
 
@@ -35,6 +46,8 @@ class AllEdictsPage : Fragment() {
         setUpRecyclerView()
 
         observeEdictsForRecycler()
+
+        setUpToolbar()
 
         setUpButtons()
     }
@@ -57,8 +70,9 @@ class AllEdictsPage : Fragment() {
         })
     }
 
-    private fun setUpButtons() {
-//        fab.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_newEdictFragment) }
-        fab.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_introFragment) }
+    private fun setUpToolbar() {
+//        (requireActivity() as AppCompatActivity).supportActionBar!!.show()
     }
+
+    private fun setUpButtons() {}
 }

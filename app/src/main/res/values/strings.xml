@@ -58,14 +58,12 @@
     </string-array>
 
     <string-array name="deadline_before_entries_array">
-        <item>1 hr.</item>
-        <item>2 hr.</item>
-        <item>3 hr.</item>
-        <item>4 hr.</item>
-        <item>5 hr.</item>
-        <item>6 hr.</item>
-        <item>7 hr.</item>
-        <item>8 hr.</item>
+        <item>0:15</item>
+        <item>0:30</item>
+        <item>0:45</item>
+        <item>1:00</item>
+        <item>1:30</item>
+        <item>2:00</item>
     </string-array>
 
     <string-array name="preferences_days_days_values">
@@ -93,7 +91,7 @@
         <item>Restriction</item>
     </string-array>
 
-    <string-array name="empty_array"/>
+    <string-array name="empty_array" />
 
     <string name="rule_header_warning">Don\'t include phrases like \"after 3pm\" or \"every day\". You\'ll have a chance to add those later."</string>
 
@@ -102,5 +100,7 @@
     <string name="notif_new_sessions_big_text">New edicts big text</string>
     <string name="home_check_in_btn_txt">Check In</string>
     <string name="home_review_btn_txt">Review Edicts</string>
+
+    <string name="fontFamily">Open Sans</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.willlockwood.edict.utils
 
+import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.widget.*
@@ -11,9 +12,29 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.willlockwood.edict.R
 
 
 object BindingAdapters {
+
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @BindingAdapter("textErrorBackground")
+    @JvmStatic
+    fun setTextErrorBackground(view: TextView, textErrorBackground: Boolean) {
+        if (textErrorBackground) {
+            view.setBackgroundResource(R.drawable.text_background_error)
+            val drawable = ContextCompat.getDrawable(view.context, R.drawable.ic_warning_black_10dp)
+            view.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
+            view.setPaddingRelative(20, 0, 20, 0)
+            view.compoundDrawablePadding = 30
+            view.setTextColor(Color.BLACK)
+        } else {
+            view.setBackgroundResource(R.color.transparent)
+            view.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
+            view.setPaddingRelative(0, 0, 0, 0)
+            view.setTextColor(ContextCompat.getColor(view.context, R.color.darkText))
+        }
+    }
 
     @BindingAdapter(value = ["visibilityBasedOnSelection"], requireAll = false)
     @JvmStatic

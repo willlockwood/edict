@@ -1,0 +1,988 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <import type="com.willlockwood.edict.data.model.NewEdict.Type"/>
+        <import type="com.willlockwood.edict.data.model.NewEdict.Scope"/>
+        <import type="com.willlockwood.edict.data.model.NewEdict.TimeType"/>
+        <import type="com.willlockwood.edict.data.model.NewEdict.NotificationType"/>
+        <import type="com.willlockwood.edict.fragment.CreateEdict.DialogType"/>
+
+        <import type="android.view.View"/>
+        <import type="org.threeten.bp.DayOfWeek"/>
+        <variable
+            name="viewmodel"
+            type="com.willlockwood.edict.viewmodel.binding.CreateEdictBVM"
+            />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:fitsSystemWindows="true"
+        >
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/collapsible_toolbar_height"
+            android:theme="@style/AppTheme"
+            app:elevation="5dp"
+            >
+
+            <net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@{viewmodel.type == Type.RESTRICTION ? @color/restrictionColor : @color/routineColor }"
+                app:contentScrim="@{viewmodel.type == Type.RESTRICTION ? @color/restrictionColor : @color/routineColor }"
+                app:collapsedTitleTextAppearance="@style/TextAppearance.CollapsedTitle"
+                app:expandedTitleTextAppearance="@style/TextAppearance.ExpandedTitle"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:fitsSystemWindows="true"
+                app:lineSpacingMultiplier="1.2"
+                app:maxLines="3"
+                app:title="@{viewmodel.fullText}"
+                app:titleEnabled="true"
+                >
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@{viewmodel.type == Type.RESTRICTION ? @color/restrictionColor : @color/routineColor }"
+                    app:navigationIcon="@{viewmodel.type == Type.RESTRICTION ? @drawable/ic_restriction_white_24dp : @drawable/ic_routine_white_24dp }"
+                    app:elevation="5dp"
+                    app:layout_collapseMode="pin"
+                    />
+
+            </net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout>
+
+<!--            <include-->
+<!--                layout="@layout/divider_thin"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                />-->
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/toolbarFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            app:layout_anchor="@id/appBarLayout"
+            app:layout_anchorGravity="bottom|right|end"
+            app:srcCompat="@drawable/ic_check_white_24dp"
+            />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:fitsSystemWindows="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:fitsSystemWindows="false"
+                android:orientation="vertical"
+                >
+
+                <include
+                    layout="@layout/divider_thin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/days_layout"
+                    style="@style/CreateEdictLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="68dp"
+                    android:onClick="@{ () -> viewmodel.openDialog(DialogType.DAYS) }"
+                    >
+
+                    <ImageView
+                        android:id="@+id/days_icon"
+                        style="@style/Preference.Icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/days_header"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_day_black_24dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/days_header"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="64dp"
+                        android:layout_marginLeft="64dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        android:text="Days in effect"
+                        app:layout_constraintBottom_toTopOf="@+id/days_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <ImageView
+                        android:id="@+id/days_warning"
+                        style="@style/Preference.Icon.Warning"
+                        android:visibility="@{viewmodel.daysSubheaderError ? View.VISIBLE : View.GONE }"
+                        app:layout_constraintBottom_toBottomOf="@id/days_header"
+                        app:layout_constraintStart_toEndOf="@id/days_header"
+                        app:layout_constraintTop_toTopOf="@id/days_header"
+                        />
+
+                    <TextView
+                        android:id="@+id/days_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        android:text="@{viewmodel.daysSubheader}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/days_header"
+                        app:layout_constraintTop_toBottomOf="@+id/days_header"
+                        />
+                    <!--                    app:textErrorBackground="@{ viewmodel.daysSubheaderError }"-->
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/some_days_layout"
+                    style="@style/CreateEdictLayout.Small"
+                    android:layout_width="match_parent"
+                    android:animateLayoutChanges="true"
+                    android:visibility="@{viewmodel.scope == Scope.SOME_DAYS ? View.VISIBLE : View.GONE}"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/days_picker_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="64dp"
+                        android:layout_marginLeft="64dp"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        >
+
+                        <ToggleButton
+                            android:id="@+id/days_sunday_btn"
+                            style="@style/toggleButton.Day"
+                            android:background="@drawable/toggle_bg"
+                            android:checked="@{viewmodel.newEdict.days.contains(DayOfWeek.SUNDAY)}"
+                            android:onClick="@{() -> viewmodel.toggleDay(DayOfWeek.SUNDAY)}"
+                            android:textOff="S"
+                            android:textOn="S"
+                            />
+
+                        <ToggleButton
+                            android:id="@+id/days_monday_btn"
+                            style="@style/toggleButton.Day"
+                            android:background="@drawable/toggle_bg"
+                            android:checked="@{viewmodel.newEdict.days.contains(DayOfWeek.MONDAY)}"
+                            android:onClick="@{() -> viewmodel.toggleDay(DayOfWeek.MONDAY)}"
+                            android:textOff="M"
+                            android:textOn="M"
+                            />
+
+                        <ToggleButton
+                            android:id="@+id/days_tuesday_btn"
+                            style="@style/toggleButton.Day"
+                            android:background="@drawable/toggle_bg"
+                            android:checked="@{viewmodel.newEdict.days.contains(DayOfWeek.TUESDAY)}"
+                            android:onClick="@{() -> viewmodel.toggleDay(DayOfWeek.TUESDAY)}"
+                            android:textOff="T"
+                            android:textOn="T"
+                            />
+
+                        <ToggleButton
+                            android:id="@+id/days_wednesday_btn"
+                            style="@style/toggleButton.Day"
+                            android:background="@drawable/toggle_bg"
+                            android:checked="@{viewmodel.newEdict.days.contains(DayOfWeek.WEDNESDAY)}"
+                            android:onClick="@{() -> viewmodel.toggleDay(DayOfWeek.WEDNESDAY)}"
+                            android:textOff="W"
+                            android:textOn="W"
+                            />
+
+                        <ToggleButton
+                            android:id="@+id/days_thursday_btn"
+                            style="@style/toggleButton.Day"
+                            android:background="@drawable/toggle_bg"
+                            android:checked="@{viewmodel.newEdict.days.contains(DayOfWeek.THURSDAY)}"
+                            android:onClick="@{() -> viewmodel.toggleDay(DayOfWeek.THURSDAY)}"
+                            android:textOff="T"
+                            android:textOn="T"
+                            />
+
+                        <ToggleButton
+                            android:id="@+id/days_friday_btn"
+                            style="@style/toggleButton.Day"
+                            android:background="@drawable/toggle_bg"
+                            android:checked="@{viewmodel.newEdict.days.contains(DayOfWeek.FRIDAY)}"
+                            android:onClick="@{() -> viewmodel.toggleDay(DayOfWeek.FRIDAY)}"
+                            android:textOff="F"
+                            android:textOn="F"
+                            />
+
+                        <ToggleButton
+                            android:id="@+id/days_saturday_btn"
+                            style="@style/toggleButton.Day"
+                            android:background="@drawable/toggle_bg"
+                            android:checked="@{viewmodel.newEdict.days.contains(DayOfWeek.SATURDAY)}"
+                            android:onClick="@{() -> viewmodel.toggleDay(DayOfWeek.SATURDAY)}"
+                            android:textOff="S"
+                            android:textOn="S"
+                            />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/days_text_layout"
+                    style="@style/CreateEdictLayout.Small.NoIcon"
+                    android:layout_width="match_parent"
+                    android:animateLayoutChanges="true"
+                    android:visibility="@{viewmodel.scope == Scope.TEXT_DAYS ? View.VISIBLE : View.GONE}"
+                    >
+
+                    <EditText
+                        android:id="@+id/days_on_txt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        android:background="#00FFFFFF"
+                        android:ems="10"
+                        android:hint='(e.g., "workdays")'
+                        android:imeOptions="actionDone"
+                        android:inputType="textPersonName"
+                        android:text="@={viewmodel.daysText}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/var_days_layout"
+                    style="@style/CreateEdictLayout.Small.NoIcon"
+                    android:layout_width="match_parent"
+                    android:animateLayoutChanges="true"
+                    android:visibility="@{viewmodel.scope == Scope.VAR_DAYS ? View.VISIBLE : View.GONE}"
+                    >
+
+                    <TextView
+                        android:id="@+id/var_days_every_text"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Every"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <EditText
+                        android:id="@+id/var_days_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:background="#00FFFFFF"
+                        android:gravity="center_horizontal"
+                        android:hint="#"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:minWidth="15dp"
+                        android:text="@={viewmodel.daysInt}"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/var_days_every_text"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/var_days_days_text"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:text="days"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/var_days_et"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <include
+                    layout="@layout/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/action_layout"
+                    style="@style/CreateEdictLayout"
+                    android:layout_width="match_parent"
+                    android:onClick="@{ () -> viewmodel.openDialog(DialogType.ACTION) }"
+                    >
+
+                    <ImageView
+                        android:id="@+id/action_icon"
+                        style="@style/Preference.Icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:visibility="@{ viewmodel.type == Type.ROUTINE ? View.VISIBLE : View.GONE }"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/action_header"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_routine_black_24dp"
+                        />
+
+                    <ImageView
+                        android:id="@+id/action_icon_2"
+                        style="@style/Preference.Icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:visibility="@{ viewmodel.type == Type.RESTRICTION ? View.VISIBLE : View.GONE }"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/action_header"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_restriction_black_24dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/action_header"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="64dp"
+                        android:layout_marginLeft="64dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        android:text="@{ viewmodel.actionHeader }"
+                        app:layout_constraintBottom_toTopOf="@+id/action_subheader"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <ImageView
+                        android:id="@+id/action_warning"
+                        style="@style/Preference.Icon.Warning"
+                        android:visibility="@{ viewmodel.actionSubheaderError ? View.VISIBLE : View.GONE }"
+                        app:layout_constraintBottom_toBottomOf="@id/action_header"
+                        app:layout_constraintStart_toEndOf="@id/action_header"
+                        app:layout_constraintTop_toTopOf="@id/action_header"
+                        />
+
+                    <TextView
+                        android:id="@+id/action_subheader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        android:text="@{ viewmodel.actionSubheader }"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/action_header"
+                        app:layout_constraintTop_toBottomOf="@+id/action_header"
+                        />
+                    <!--                    app:textErrorBackground="@{ viewmodel.actionSubheaderError }"-->
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/scalable_layout"
+                    style="@style/CreateEdictLayout.Small.NoIcon"
+                    android:layout_width="match_parent"
+                    android:onClick="@{() -> scalableSwitch.performClick()}"
+                    >
+
+                    <TextView
+                        android:id="@+id/scalable_txt"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="More challenging over time"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/scalable_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{viewmodel.scalable}"
+                        android:onClick="@{ () -> viewmodel.openDialog(DialogType.ACTION, scalableSwitch.checked ) }"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <include
+                    layout="@layout/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/time_layout"
+                    style="@style/CreateEdictLayout"
+                    android:layout_width="match_parent"
+                    android:onClick="@{ () -> viewmodel.openDialog(DialogType.TIMES) }"
+                    >
+
+                    <ImageView
+                        android:id="@+id/time_icon"
+                        style="@style/Preference.Icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/time_header"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_time_black_24dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/time_header"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="64dp"
+                        android:layout_marginLeft="64dp"
+                        android:text="Times in effect"
+                        app:layout_constraintBottom_toTopOf="@+id/time_subheader"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <ImageView
+                        android:id="@+id/time_warning"
+                        style="@style/Preference.Icon.Warning"
+                        android:visibility="@{viewmodel.timesSubheaderError ? View.VISIBLE : View.GONE }"
+                        app:layout_constraintBottom_toBottomOf="@id/time_header"
+                        app:layout_constraintStart_toEndOf="@id/time_header"
+                        app:layout_constraintTop_toTopOf="@id/time_header"
+                        />
+
+                    <TextView
+                        android:id="@+id/time_subheader"
+                        style="@style/Preference.Text.Subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        android:text="@{ viewmodel.timeSubheader }"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/time_header"
+                        app:layout_constraintTop_toBottomOf="@+id/time_header"
+
+                        />
+                    <!--                    app:textErrorBackground="@{ viewmodel.timesSubheaderError }"-->
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/time_time_layout"
+                    style="@style/CreateEdictLayout.Small.NoIcon.EndsWithTime"
+                    android:layout_width="match_parent"
+                    android:animateLayoutChanges="true"
+                    android:visibility="@{viewmodel.timeType == TimeType.AFTER_TIME || viewmodel.timeType == TimeType.BEFORE_TIME || viewmodel.timeType == TimeType.BETWEEN_TIME ? View.VISIBLE : View.GONE }"
+                    >
+
+                    <TextView
+                        android:id="@+id/time_time_text"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewmodel.timeTypeWord}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/time_time_start"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/time_time_start"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewmodel.timeStart}"
+                        android:visibility="@{viewmodel.timeType == TimeType.AFTER_TIME || viewmodel.timeType == TimeType.BETWEEN_TIME ? View.VISIBLE : View.GONE }"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/time_time_and"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/time_time_and"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="and"
+                        android:visibility="@{viewmodel.timeType == TimeType.BETWEEN_TIME ? View.VISIBLE : View.GONE }"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/time_time_end"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/time_time_end"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewmodel.timeEnd}"
+                        android:visibility="@{viewmodel.timeType == TimeType.BEFORE_TIME || viewmodel.timeType == TimeType.BETWEEN_TIME ? View.VISIBLE : View.GONE }"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/time_text_layout"
+                    style="@style/CreateEdictLayout.Small.NoIcon"
+                    android:layout_width="match_parent"
+                    android:animateLayoutChanges="true"
+                    android:visibility="@{viewmodel.timeType == TimeType.AFTER_TEXT || viewmodel.timeType == TimeType.BEFORE_TEXT || viewmodel.timeType == TimeType.BETWEEN_TEXT || viewmodel.timeType == TimeType.WHEN || viewmodel.timeType == TimeType.WHILE ? View.VISIBLE : View.GONE }"
+                    >
+
+                    <TextView
+                        android:id="@+id/time_text_txt"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewmodel.timeTypeWord}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <EditText
+                        android:id="@+id/time_text_et"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        android:background="#00FFFFFF"
+                        android:hint="@{viewmodel.timeTextHint}"
+                        android:inputType="textPersonName"
+                        android:text="@={viewmodel.timeText}"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/time_text_txt"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <include
+                    layout="@layout/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/check_in_start_layout"
+                    style="@style/CreateEdictLayout.Small.EndsWithTime"
+                    android:layout_width="match_parent"
+                    >
+
+                    <ImageView
+                        android:id="@+id/check_in_icon"
+                        style="@style/Preference.Icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/check_in_start_txt"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_check_black_24dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/check_in_start_txt"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Check-in starts"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/check_in_start_time"
+                        app:layout_constraintStart_toEndOf="@+id/check_in_icon"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/check_in_start_time"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewmodel.checkInStart}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/check_in_end_layout"
+                    style="@style/CreateEdictLayout.Small.NoIcon.EndsWithTime"
+                    android:layout_width="match_parent"
+                    >
+
+                    <TextView
+                        android:id="@+id/check_in_end_txt"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Check-in ends"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/check_in_end_time"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/check_in_end_time"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewmodel.checkInEnd}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <include
+                    layout="@layout/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/notif_header"
+                    style="@style/CreateEdictLayout.Small"
+                    android:layout_width="match_parent"
+                    android:onClick="@{() -> viewmodel.toggleNotifDetailsVisibility()}"
+                    >
+
+                    <ImageView
+                        android:id="@+id/notif_icon"
+                        style="@style/Preference.Icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/notif_txt"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_notifications_black_24dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/notif_txt"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewmodel.notifHeader}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/notif_icon"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/notify_at"
+                    style="@style/CreateEdictLayout.Small.NoIcon"
+                    android:layout_width="match_parent"
+                    android:onClick="@{() -> notifyAtSwitch.performClick()}"
+                    android:visibility="@{viewmodel.notifDetailsVisibility}"
+                    >
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/notify_at_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{ viewmodel.newEdict.hasNotification(NotificationType.AT) }"
+                        android:onClick="@{() -> viewmodel.toggleDayForView(NotificationType.AT)}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/notify_at_txt"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="At:"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/notify_at_txt2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/notify_at_txt2"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{ viewmodel.notifyAt }"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/notify_at_switch"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/noitfy_edict_start"
+                    style="@style/CreateEdictLayout.Small.NoIcon"
+                    android:layout_width="match_parent"
+                    android:onClick="@{() -> notifyEdictStartSwitch.performClick()}"
+                    android:visibility="@{viewmodel.notifDetailsVisibility}"
+                    >
+
+                    <TextView
+                        android:id="@+id/notify_edict_start_txt"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="When the edict starts"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/notify_edict_start_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{ viewmodel.newEdict.hasNotification(NotificationType.START) }"
+                        android:onClick="@{() -> viewmodel.toggleDayForView(NotificationType.START)}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/notify_before_edict_end"
+                    style="@style/CreateEdictLayout.Small.NoIcon"
+                    android:layout_width="match_parent"
+                    android:onClick="@{() -> notifyBeforeEdictEndSwitch.performClick()}"
+                    android:visibility="@{ viewmodel.notifDetailsVisibility }"
+                    >
+
+                    <Spinner
+                        android:id="@+id/notify_before_edict_end_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/notify_before_check_in_end_txt2"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="before the edict ends"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/notify_before_edict_end_spinner"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/notify_before_edict_end_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{ viewmodel.newEdict.hasNotification(NotificationType.BEFORE_END) }"
+                        android:onClick="@{() -> viewmodel.toggleDayForView(NotificationType.BEFORE_END)}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/notify_edict_end"
+                    style="@style/CreateEdictLayout.Small.NoIcon"
+                    android:layout_width="match_parent"
+                    android:onClick="@{() -> notifyEdictEndSwitch.performClick()}"
+                    android:visibility="@{ viewmodel.notifDetailsVisibility }"
+                    >
+
+                    <TextView
+                        android:id="@+id/notify_edict_end_txt"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="When the edict ends"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/notify_edict_end_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{ viewmodel.newEdict.hasNotification(NotificationType.END) }"
+                        android:onClick="@{() -> viewmodel.toggleDayForView(NotificationType.END)}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/notify_check_in_start"
+                    style="@style/CreateEdictLayout.Small.NoIcon"
+                    android:layout_width="match_parent"
+                    android:onClick="@{() -> notifyCheckInStartSwitch.performClick()}"
+                    android:visibility="@{ viewmodel.notifDetailsVisibility }"
+                    >
+
+                    <TextView
+                        android:id="@+id/notif_check_in_start_txt"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="When check-in starts"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/notify_check_in_start_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{ viewmodel.newEdict.hasNotification(NotificationType.CHECK_IN_START) }"
+                        android:onClick="@{() -> viewmodel.toggleDayForView(NotificationType.CHECK_IN_START)}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/notify_before_check_in_end"
+                    style="@style/CreateEdictLayout.Small.NoIcon"
+                    android:layout_width="match_parent"
+                    android:onClick="@{() -> notifyBeforeCheckInEndSwitch.performClick()}"
+                    android:visibility="@{ viewmodel.notifDetailsVisibility }"
+                    >
+
+                    <Spinner
+                        android:id="@+id/notify_before_check_in_end_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/notify_before_check_in_end_txt"
+                        style="@style/Preference.Text.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="before check-in ends"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/notify_before_check_in_end_spinner"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/notify_before_check_in_end_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{ viewmodel.newEdict.hasNotification(NotificationType.CHECK_IN_BEFORE_END) }"
+                        android:onClick="@{() -> viewmodel.toggleDayForView(NotificationType.CHECK_IN_BEFORE_END)}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <include
+                    layout="@layout/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

@@ -8,8 +8,8 @@
     <ToggleButton
         android:id="@+id/days_sunday_btn"
         style="@style/toggleButton"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:background="@drawable/toggle_bg"

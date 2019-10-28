@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    style="@style/Theme.MaterialComponents.Dialog"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@drawable/dialog_background_default"
+    >
+
+    <RadioButton
+        android:id="@+id/all_the_time_rb"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="All the time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <include
+        android:id="@+id/time_divider_left"
+        layout="@layout/divider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/time_divider_icon"
+        app:layout_constraintEnd_toStartOf="@+id/time_divider_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/time_divider_icon"
+        />
+
+    <ImageView
+        android:id="@+id/time_divider_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/time_divider_right"
+        app:layout_constraintStart_toEndOf="@+id/time_divider_left"
+        app:layout_constraintTop_toBottomOf="@+id/all_the_time_rb"
+        app:srcCompat="@drawable/ic_time_black_24dp"
+        />
+
+    <include
+        android:id="@+id/time_divider_right"
+        layout="@layout/divider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/time_divider_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/time_divider_icon"
+        app:layout_constraintTop_toTopOf="@+id/time_divider_icon"
+        />
+
+    <TextView
+        android:id="@+id/after_time_txt"
+        style="@style/Preference.Text.Title.Example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="... 8pm"
+        app:layout_constraintBottom_toBottomOf="@+id/after_time_rb"
+        app:layout_constraintEnd_toEndOf="@+id/after_time_rb"
+        app:layout_constraintTop_toTopOf="@+id/after_time_rb"
+        />
+
+    <RadioButton
+        android:id="@+id/after_time_rb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="After"
+        app:layout_constraintEnd_toEndOf="@+id/all_the_time_rb"
+        app:layout_constraintStart_toStartOf="@+id/all_the_time_rb"
+        app:layout_constraintTop_toBottomOf="@+id/time_divider_icon"
+        />
+
+    <TextView
+        android:id="@+id/before_time_txt"
+        style="@style/Preference.Text.Title.Example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="... 10pm"
+        app:layout_constraintBottom_toBottomOf="@+id/before_time_rb"
+        app:layout_constraintEnd_toEndOf="@+id/before_time_rb"
+        app:layout_constraintTop_toBottomOf="@+id/after_time_rb"
+        />
+
+    <RadioButton
+        android:id="@+id/before_time_rb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Before"
+        app:layout_constraintEnd_toEndOf="@+id/after_time_rb"
+        app:layout_constraintStart_toStartOf="@+id/after_time_rb"
+        app:layout_constraintTop_toBottomOf="@+id/after_time_rb"
+        />
+
+    <TextView
+        android:id="@+id/between_time_txt"
+        style="@style/Preference.Text.Title.Example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="... 8pm and 10pm"
+        app:layout_constraintBottom_toBottomOf="@+id/between_time_rb"
+        app:layout_constraintEnd_toEndOf="@+id/between_time_rb"
+        app:layout_constraintTop_toBottomOf="@+id/before_time_rb"
+        />
+
+    <RadioButton
+        android:id="@+id/between_time_rb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Between"
+        app:layout_constraintEnd_toEndOf="@+id/before_time_rb"
+        app:layout_constraintStart_toStartOf="@+id/before_time_rb"
+        app:layout_constraintTop_toBottomOf="@+id/before_time_rb"
+        />
+
+    <include
+        android:id="@+id/text_divider_left"
+        layout="@layout/divider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/text_divider_icon"
+        app:layout_constraintEnd_toStartOf="@+id/text_divider_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_divider_icon"
+        />
+
+    <ImageView
+        android:id="@+id/text_divider_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/text_divider_right"
+        app:layout_constraintStart_toEndOf="@+id/text_divider_left"
+        app:layout_constraintTop_toBottomOf="@+id/between_time_rb"
+        app:srcCompat="@drawable/ic_text_fields_black_24dp"
+        />
+
+    <include
+        android:id="@+id/text_divider_right"
+        layout="@layout/divider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/text_divider_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_divider_icon"
+        app:layout_constraintTop_toTopOf="@+id/text_divider_icon"
+        />
+
+    <TextView
+        android:id="@+id/after_text_txt"
+        style="@style/Preference.Text.Title.Example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="... something else"
+        app:layout_constraintBottom_toBottomOf="@+id/after_text_rb"
+        app:layout_constraintEnd_toEndOf="@+id/after_text_rb"
+        app:layout_constraintTop_toTopOf="@+id/after_text_rb"
+        />
+
+    <RadioButton
+        android:id="@+id/after_text_rb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="After"
+        app:layout_constraintEnd_toEndOf="@+id/between_time_rb"
+        app:layout_constraintStart_toStartOf="@+id/between_time_rb"
+        app:layout_constraintTop_toBottomOf="@+id/text_divider_icon"
+        />
+
+    <TextView
+        android:id="@+id/before_text_txt"
+        style="@style/Preference.Text.Title.Example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="... something else"
+        app:layout_constraintBottom_toBottomOf="@+id/before_text_rb"
+        app:layout_constraintEnd_toEndOf="@+id/before_text_rb"
+        app:layout_constraintTop_toBottomOf="@+id/after_text_rb"
+        />
+
+    <RadioButton
+        android:id="@+id/before_text_rb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Before"
+        app:layout_constraintEnd_toEndOf="@+id/after_text_rb"
+        app:layout_constraintStart_toStartOf="@+id/after_text_rb"
+        app:layout_constraintTop_toBottomOf="@+id/after_text_rb"
+        />
+
+    <TextView
+        android:id="@+id/between_text_txt"
+        style="@style/Preference.Text.Title.Example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="... two events"
+        app:layout_constraintBottom_toBottomOf="@+id/between_text_rb"
+        app:layout_constraintEnd_toEndOf="@+id/between_text_rb"
+        app:layout_constraintTop_toBottomOf="@+id/before_text_rb"
+        />
+
+    <RadioButton
+        android:id="@+id/between_text_rb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Between"
+        app:layout_constraintEnd_toEndOf="@+id/before_text_rb"
+        app:layout_constraintStart_toStartOf="@+id/before_text_rb"
+        app:layout_constraintTop_toBottomOf="@+id/before_text_rb"
+        />
+
+    <TextView
+        android:id="@+id/when_text_txt"
+        style="@style/Preference.Text.Title.Example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="... something happens"
+        app:layout_constraintBottom_toBottomOf="@+id/when_rb"
+        app:layout_constraintEnd_toEndOf="@+id/when_rb"
+        app:layout_constraintTop_toBottomOf="@+id/between_text_rb"
+        />
+
+    <RadioButton
+        android:id="@+id/when_rb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="When"
+        app:layout_constraintEnd_toEndOf="@+id/between_text_rb"
+        app:layout_constraintStart_toStartOf="@+id/between_text_rb"
+        app:layout_constraintTop_toBottomOf="@+id/between_text_rb"
+        />
+
+    <TextView
+        android:id="@+id/while_text_txt"
+        style="@style/Preference.Text.Title.Example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="... doing something else"
+        app:layout_constraintBottom_toBottomOf="@+id/while_rb"
+        app:layout_constraintEnd_toEndOf="@+id/while_rb"
+        app:layout_constraintTop_toBottomOf="@+id/when_rb"
+        />
+
+    <RadioButton
+        android:id="@+id/while_rb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="While"
+        app:layout_constraintEnd_toEndOf="@+id/when_rb"
+        app:layout_constraintStart_toStartOf="@+id/when_rb"
+        app:layout_constraintTop_toBottomOf="@+id/when_rb"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

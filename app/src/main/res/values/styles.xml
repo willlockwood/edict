@@ -1,6 +1,5 @@
 <resources>
-
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -15,6 +14,77 @@
         <item name="colorOnSurface">@color/colorPrimary</item>
         <item name="android:colorBackground">@color/background</item>
         <item name="colorOnBackground">#@color/colorPrimary</item>
+
+<!--        <item name="fontFamily">Open Sans</item>-->
+        <item name="fontFamily">@string/fontFamily</item>
+<!--        <item name="android:textViewStyle">@style/Widget.MaterialComponents.TextView</item>-->
+
+        <item name="buttonStyleSmall">@style/Widget.MaterialComponents.Button.TextButton</item>
+        <item name="radioButtonStyle">@style/Widget.MaterialComponents.CompoundButton.RadioButton.Dialog</item>
+        <item name="switchStyle">@style/Widget.MaterialComponents.CompoundButton.Switch.Large</item>
+    </style>
+
+<!--    <style name="DialogDefault" parent="Widget.Di"-->
+
+    <style name="errorText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/text_background_error</item>
+        <item name="android:textColor">@color/darkText</item>
+    </style>
+
+
+    <style name="TextAppearance.CollapsedTitle"
+        parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="TextAppearance.ExpandedTitle"
+        parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="Widget.MaterialComponents.CompoundButton.Switch.Large" parent="Widget.MaterialComponents.CompoundButton.Switch">
+<!--        <item name="switchPadding">20dp</item>-->
+<!--        <item name="android:minWidth"></item>-->
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+    </style>
+
+    <style name="RoutineText">
+        <item name="android:textColor">@color/routineColor</item>
+    </style>
+    <style name="RestrictionText">
+        <item name="android:textColor">@color/restrictionColor</item>
+    </style>
+    <style name="RestrictionIcon">
+        <item name="android:tint">@color/restrictionColor</item>
+    </style>
+
+    <style name="BigEditText">
+        <item name="android:textColor">@color/darkText</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TimePicker" parent="Theme.MaterialComponents.Dialog">
+        <item name="android:windowIsFloating">true</item>
+    </style>
+    <style name="TimePicker.Green">
+        <item name="colorPrimary">@color/routineColor</item>
+        <item name="colorPrimaryDark">@color/routineColorDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="TimePicker.RED">
+        <item name="colorPrimary">@color/restrictionColor</item>
+        <item name="colorPrimaryDark">@color/restrictionColorDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Widget.MaterialComponents.CompoundButton.RadioButton.Dialog" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:textSize">16sp</item>
+
+        <item name="buttonTint">@color/colorAccent</item>
+        <item name="android:textColor">@color/darkText</item>
+        <item name="android:paddingLeft">20dp</item>
     </style>
 
     <style name="TextAppearance.MaterialComponents.Headline2" parent="AppTheme">
@@ -41,13 +111,107 @@
         <item name="android:tint">@color/colorPrimary</item>
     </style>
 
+    <style name="CreateEdictLayout">
+        <item name="android:layout_height">68dp</item>
+    </style>
+
+    <style name="CreateEdictLayout.Small" parent="CreateEdictLayout">
+        <item name="android:layout_height">48dp</item>
+    </style>
+
+    <style name="CreateEdictLayout.Small.NoIcon" parent="CreateEdictLayout.Small">
+        <item name="paddingStart">64dp</item>
+        <item name="android:paddingLeft">64dp</item>
+    </style>
+
+    <style name="CreateEdictLayout.Small.NoIcon.EndsWithTime" parent="CreateEdictLayout.Small.NoIcon">
+        <item name="android:paddingRight">12dp</item>
+        <item name="paddingEnd">12dp</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+    </style>
+
+    <style name="CreateEdictLayout.Small.EndsWithTime" parent="CreateEdictLayout.Small">
+        <item name="android:paddingRight">12dp</item>
+        <item name="paddingEnd">12dp</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+    </style>
+
+    <style name="Preference.Text">
+        <item name="android:minWidth">40dp</item>
+    </style>
+
+    <style name="Preference.Text.Title" parent="Preference.Text">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/darkText</item>
+        <item name="layout_constraintVertical_chainStyle">packed</item>
+    </style>
+
+    <style name="Preference.Text.Title.Example" parent="Preference.Text.Title">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">@color/darkTextDisabled</item>
+    </style>
+
+    <style name="Preference.Text.Title.Time" parent="Preference.Text.Title">
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+    </style>
+
+    <style name="Preference.Text.Subtitle" parent="Preference.Text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/darkTextDisabled</item>
+<!--        <item name="android:layout_marginLeft">24dp</item>-->
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="layout_constraintVertical_chainStyle">packed</item>
+    </style>
+
+    <style name="Preference.Icon">
+        <item name="tint">#99000000</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintLeft_toLeftOf">parent</item>
+    </style>
+
+    <style name="Preference.Icon.Warning" parent="Preference.Icon">
+        <item name="android:padding">3dp</item>
+<!--        <item name="srcCompat">@drawable/ic_warning_black_10dp</item>-->
+        <item name="srcCompat">@drawable/ic_exclamation_black_24dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_width">20dp</item>
+        <item name="android:background">@drawable/text_background_error</item>
+    </style>
+
     <style name="Widget.Button.Toggle" parent="android:Widget">
         <item name="android:background">@drawable/toggle_bg</item>
+    </style>
+
+    <style name="RadioButtonDialogLayout">
+        <item name="paddingStart">20dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="paddingEnd">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
     </style>
 
     <style name="toggleButton" parent="AppTheme">
         <item name="android:buttonStyleToggle">@style/Widget.Button.Toggle</item>
         <item name="android:textColor">@drawable/toggle_text_color</item>
+    </style>
+
+    <style name="toggleButton.Day" parent="toggleButton">
+        <item name="android:layout_height">@dimen/day_picker_item_diameter</item>
+        <item name="android:layout_width">@dimen/day_picker_item_diameter</item>
+        <item name="android:layout_marginLeft">@dimen/day_picker_item_margin</item>
+        <item name="android:layout_marginRight">@dimen/day_picker_item_margin</item>
     </style>
 
     <style name="MyActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
@@ -132,30 +296,23 @@
         <item name="android:background">@drawable/bottom_line_thin_gray</item>
     </style>
     <style name="ReviewEdictHeaderText">
-<!--        <item name="android:textColor">@color/colorPrimaryDark</item>-->
         <item name="android:textSize">16sp</item>
     </style>
     <style name="ReviewEdictValueText">
-<!--        <item name="android:textColor">@color/colorPrimary</item>-->
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="NewEdictBigText">
-<!--        <item name="android:textColor">@color/white</item>-->
         <item name="android:textSize">18sp</item>
     </style>
 
     <style name="NewEdictHeaderText">
-<!--        <item name="android:textColor">@color/white</item>-->
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">22dp</item>
     </style>
 
     <style name="NewEdictButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-<!--        <item name="strokeColor">@color/white</item>-->
         <item name="strokeWidth">2dp</item>
-<!--        <item name="android:textColor">@color/white</item>-->
-<!--        <item name="rippleColor">@color/white</item>-->
     </style>
 
 
@@ -165,14 +322,15 @@
         <item name="android:textColorHint">@color/offWhite</item>
     </style>
 
-<!--    <style name="ErrorText">-->
-<!--        <item name="android:textColor">@color/maroonHighlighted</item>-->
-<!--        <item name="android:textSize">14sp</item>-->
-<!--    </style>-->
-
     <style name="CheckedChip">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/offWhite</item>
+    </style>
+
+    <style name="menu_labels_style">
+<!--        <item name="android:background">@drawable/fab_label_background</item>-->
+        <item name="fontFamily">Open Sans</item>
+        <item name="android:textColor">@color/onColorPrimary</item>
     </style>
 
     <style name="AppTheme.Picker" parent="Theme.MaterialComponents.Light" >

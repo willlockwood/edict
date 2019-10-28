@@ -6,6 +6,7 @@ import androidx.databinding.BaseObservable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.willlockwood.edict.utils.TimeHelper
+import org.threeten.bp.DayOfWeek
 
 @Entity(
     tableName="edicts"
@@ -17,7 +18,7 @@ data class NewEdict(
     var action: String? = null,
     var unitVar: Int? = null,
     var unit: String? = null,
-    var days: List<Int>? = null,
+    var days: List<DayOfWeek> = emptyList(),
     var daysInt: Int? = null,
     var daysText: String? = null,
     var timeType: TimeType? = null,
@@ -39,13 +40,98 @@ data class NewEdict(
     var id: Int = 0
 
     enum class Type { RESTRICTION, ROUTINE }
-    enum class Scope { DAILY, WEEKLY, SOME_DAYS, VAR_DAYS }
+    enum class Scope { DAILY, WEEKLY, SOME_DAYS, TEXT_DAYS, VAR_DAYS }
     enum class TimeType { ALL_DAY, AFTER_TIME, AFTER_TEXT, BEFORE_TIME, BEFORE_TEXT, BETWEEN_TIME, BETWEEN_TEXT, WHEN, WHILE, AT }
     enum class CheckInStartType { BEFORE, AT }
     enum class CheckInEndType { MORNING, MIDDAY, EVENING, AT }
     enum class NotificationType { START, END, BEFORE_END, CHECK_IN_START, CHECK_IN_END, CHECK_IN_BEFORE_END, AT }
 
     enum class UserEditingOrCreating { EDITING, CREATING }
+
+    fun getDaysSubheader(): String {
+        return when (scope) {
+            Scope.DAILY -> "Every day"
+            Scope.WEEKLY -> "Every week"
+            Scope.SOME_DAYS -> when (days) {
+                null -> "On ..."
+                else -> {
+                    val daysList = days!!
+                    var daysStrings = daysList.sorted().map { when (it) {
+                        DayOfWeek.SUNDAY -> "Su"
+                        DayOfWeek.MONDAY -> "M"
+                        DayOfWeek.TUESDAY -> "T"
+                        DayOfWeek.WEDNESDAY -> "W"
+                        DayOfWeek.THURSDAY -> "Th"
+                        DayOfWeek.FRIDAY -> "F"
+                        DayOfWeek.SATURDAY -> "S"
+                    } }
+                    if (daysStrings.size > 1) {
+                        var lastDay = daysStrings.last()
+                        daysStrings = daysStrings.dropLast(1).plus("and $lastDay")
+                    }
+                    val daysText = when (daysStrings.size) {
+                        0 -> "..."
+                        1 -> daysStrings[0]
+                        2 -> daysStrings.joinToString(" ")
+                        else -> daysStrings.joinToString(", ")
+                    }
+                    "On $daysText"
+                }
+            }
+            Scope.TEXT_DAYS -> "On ${daysText ?: "..."}"
+            Scope.VAR_DAYS -> "Every ${daysInt ?: "..."} days,"
+            null -> "..."
+        }
+    }
+
+    fun getActionHeader(): String { return when (type) {
+        Type.RESTRICTION -> "Restricted action"
+        Type.ROUTINE -> "Routine action"
+        null -> ""
+    }}
+    fun getActionSubheader(): String {
+        var verb = action
+        var number = unitVar.toString()
+        var noun = unit
+        if (action == null && unitVar == null && unit == null) {
+            return "None"
+        }
+
+        if (verb == "" || verb == null)         verb = "..."
+        if (number == "" || number == "null")   number = "..."
+        if (noun == "" || noun == null)         noun = "..."
+
+        return when (scalable) {
+            true -> "$verb $number $noun"
+            false -> "$verb"
+            else -> "..."
+    } }
+
+    fun getTimesSubheader(): String {
+        val startTime = when (timeStart) {
+            null -> "..."
+            else -> TimeHelper.minutesToTimeStringShort(timeStart)
+        }
+        val endTime = when (timeEnd) {
+            null -> "..."
+            else -> TimeHelper.minutesToTimeStringShort(timeEnd)
+        }
+        val text = timeText ?: "..."
+
+        return when (timeType) {
+            TimeType.ALL_DAY -> "All the time"
+            TimeType.AFTER_TIME -> "After $startTime"
+            TimeType.BEFORE_TIME -> "Before $startTime"
+            TimeType.BETWEEN_TIME -> "Between $startTime and $endTime"
+            TimeType.AFTER_TEXT -> "After $text"
+            TimeType.BEFORE_TEXT -> "Before $text"
+            TimeType.BETWEEN_TEXT -> "Between $text"
+            TimeType.WHEN -> "When $text"
+            TimeType.WHILE -> "While $text"
+            TimeType.AT -> "At $text"
+            null -> "None"
+        }
+    }
 
     fun removeNotification(type: NotificationType) {
         notifications = notifications.filter { it.first != type }
@@ -62,27 +148,51 @@ data class NewEdict(
             notifications.filter { it.first == type }[0]
         } else { null }
     }
+//    fun getNumberOfNotifications(): Int { return notifications.si
+//    }
+    fun toggleDayOfWeek(value: DayOfWeek) {
+        days = if (days.isEmpty()) {
+            listOf(value)
+        } else if (days.contains(value)) {
+            days.filter { it != value }
+        } else {
+            days.plus(value).sorted()
+        }
+    }
+
+    fun getActionHints(): Triple<String?, String?, String?> {
+        val nullTriple = Triple(null, null, null)
+        return when (type) {
+            Type.RESTRICTION -> when (scalable) {
+                true -> Triple("only smoke", "2", "cigarettes")
+                false -> Triple("don't drink", null, null)
+                null -> nullTriple
+            }
+            Type.ROUTINE -> when (scalable) {
+                true -> Triple("meditate for", "30", "minutes")
+                false -> Triple("clean your room", null, null)
+                null -> nullTriple
+            }
+            null -> nullTriple
+        }
+    }
 
     fun daysString(): String {
         return when (scope) {
-            Scope.DAILY -> "Every day, "
-            Scope.WEEKLY -> "Every week, "
+            Scope.DAILY -> "Every day,"
+            Scope.WEEKLY -> "Every week,"
             Scope.SOME_DAYS -> when (days) {
-                null -> when (daysText) {
-                    null -> "On ..., "
-                    else -> "On $daysText, "
-                }
+                null -> "On ${daysText ?: "..."},"
                 else -> {
                     val daysList = days!!
                     var daysStrings = daysList.sorted().map { when (it) {
-                        1 -> "Su"
-                        2 -> "M"
-                        3 -> "T"
-                        4 -> "W"
-                        5 -> "Th"
-                        6 -> "F"
-                        7 -> "S"
-                        else -> ""
+                        DayOfWeek.SUNDAY -> "Su"
+                        DayOfWeek.MONDAY -> "M"
+                        DayOfWeek.TUESDAY -> "T"
+                        DayOfWeek.WEDNESDAY -> "W"
+                        DayOfWeek.THURSDAY -> "Th"
+                        DayOfWeek.FRIDAY -> "F"
+                        DayOfWeek.SATURDAY -> "S"
                     } }
                     if (daysStrings.size > 1) {
                         var lastDay = daysStrings.last()
@@ -94,13 +204,11 @@ data class NewEdict(
                         2 -> daysStrings.joinToString(" ")
                         else -> daysStrings.joinToString(", ")
                     }
-                    "On $daysText, "
+                    "On $daysText,"
                 }
             }
-            Scope.VAR_DAYS -> when (daysInt) {
-                null -> "Every _ days, "
-                else -> "Every $daysInt days, "
-            }
+            Scope.TEXT_DAYS -> "On ${daysText ?: "..."},"
+            Scope.VAR_DAYS -> "Every ${daysInt ?: "..."} days,"
             null -> "..."
         }
     }
@@ -143,74 +251,34 @@ data class NewEdict(
             null -> "..."
             else -> TimeHelper.minutesToTimeString(timeEnd)
         }
-        val text = when (timeText) {
-            null -> "..."
-            else -> timeText!!
-        }
+        val text = timeText ?: "..."
+//        val text = when (timeText) {
+//            null -> "..."
+//            else -> timeText!!
+//        }
 
         return when (timeType) {
-            TimeType.ALL_DAY -> "all day"
-            TimeType.AFTER_TIME -> "after $startTime"
-            TimeType.AFTER_TEXT -> "after $text"
-            TimeType.BEFORE_TIME -> "before $endTime"
-            TimeType.BEFORE_TEXT -> "before $text"
-            TimeType.BETWEEN_TIME -> "between $startTime and $endTime"
-            TimeType.BETWEEN_TEXT -> "between $text"
-            TimeType.WHEN -> "when $text"
-            TimeType.WHILE -> "while $text"
-            TimeType.AT -> "at $text"
-            null -> "..."
+            TimeType.ALL_DAY ->         "all day"
+            TimeType.AFTER_TIME ->      "after $startTime"
+            TimeType.AFTER_TEXT ->      "after $text"
+            TimeType.BEFORE_TIME ->     "before $endTime"
+            TimeType.BEFORE_TEXT ->     "before $text"
+            TimeType.BETWEEN_TIME ->    "between $startTime and $endTime"
+            TimeType.BETWEEN_TEXT ->    "between $text"
+            TimeType.WHEN ->            "when $text"
+            TimeType.WHILE ->           "while $text"
+            TimeType.AT ->              "at $text"
+            null ->                     "..."
         }
     }
 
     override fun toString(): String {
-
-        val days = when (scope) {
-            Scope.DAILY -> "Every day, "
-            Scope.WEEKLY -> "Every week, "
-            Scope.SOME_DAYS -> when (daysText) {
-                null -> "On ${days!!.map { 
-                    when (it) {
-                        1 -> "Sun."
-                        2 -> "Mon."
-                        3 -> "Tue."
-                        4 -> "Wed."
-                        5 -> "Thu."
-                        6 -> "Fri."
-                        7 -> "Sat."
-                        else -> ""
-                    }
-                }.joinToString(", ")}, "
-                else -> "${daysText!!.capitalize()}, "
-            }
-            Scope.VAR_DAYS -> "Every _ days,"
-            null -> ""
-        }
-
-        val rule = when (scalable) {
-            true -> "$action $unitVar $unit"
-            false -> "$action"
-            null -> ""
-        }
-
-        val time = when (timeType) {
-            TimeType.ALL_DAY -> ""
-
-            TimeType.AFTER_TIME -> " after ${TimeHelper.minutesToTimeString(timeStart)}"
-            TimeType.AFTER_TEXT -> " after $timeText"
-
-            TimeType.BEFORE_TIME -> " before ${TimeHelper.minutesToTimeString(timeEnd)}"
-            TimeType.BEFORE_TEXT -> " before $timeText"
-
-            TimeType.BETWEEN_TIME -> " between ${TimeHelper.minutesToTimeString(timeStart)} and ${TimeHelper.minutesToTimeString(timeEnd)}"
-            TimeType.BETWEEN_TEXT -> " after $timeText"
-
-            TimeType.WHEN -> " when $timeText"
-            TimeType.WHILE -> " while $timeText"
-            TimeType.AT -> " at $timeText"
-            null -> ""
-        }
-        return "$days$rule$time."
+        var string = "${daysString()} ${ruleString()} ${timeString()}."
+        return string
+            .replace("..., ...", "...")
+            .replace("....", "...")
+            .replace("... ... ...", "...")
+            .replace("... ...", "...")
     }
 
     fun notificationsString(): String {
@@ -228,12 +296,12 @@ data class NewEdict(
         }
     }
 
-    fun notificationsToString(list: List<Pair<NotificationType, Int?>>): String {
+    fun notificationsToString(list: List<Pair<NewEdict.NotificationType, Int?>>): String {
         return list.joinToString(";") { "${it.first.name},${it.second}" }
 //        return list.joinToString(";") { "${it.first.name},${it.second}" }
     }
 
-    fun notificationsFromString(value: String): List<Pair<NotificationType, Int?>> {
+    fun notificationsFromString(value: String): List<Pair<NewEdict.NotificationType, Int?>> {
         if (value == "") {
             return emptyList()
         }
@@ -259,7 +327,7 @@ data class NewEdict(
         action = bundle.getString("action")
         unitVar = bundle.get("unitVar") as Int?
         unit = bundle.getString("unit")
-        days = bundle.get("days") as List<Int>?
+        days = bundle.get("days") as List<DayOfWeek>
         daysInt = bundle.get("daysInt") as Int?
         daysText = bundle.getString("daysText")
         timeType = bundle.get("timeType") as TimeType?

@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.willlockwood.edict.data.model.NewEdict
 import com.willlockwood.edict.utils.TimeHelper
+import org.threeten.bp.DayOfWeek
 import java.util.*
 
 class NewNewEdictVM(
@@ -38,6 +39,7 @@ class NewNewEdictVM(
                 NewEdict.Scope.SOME_DAYS -> "On ..."
                 NewEdict.Scope.VAR_DAYS -> "Every ... days"
                 null -> "..."
+                else -> "else "
             },
             "...",
             "..."
@@ -55,14 +57,21 @@ class NewNewEdictVM(
                     }},"
                     else -> "On ${newEdict.days!!.joinToString(", ") {
                         when (it) {
-                            1 -> "S"
-                            2 -> "M"
-                            3 -> "T"
-                            4 -> "W"
-                            5 -> "Th"
-                            6 -> "F"
-                            7 -> "Su"
-                            else -> ""
+                            DayOfWeek.SUNDAY -> "Su"
+                            DayOfWeek.MONDAY -> "M"
+                            DayOfWeek.TUESDAY -> "T"
+                            DayOfWeek.WEDNESDAY -> "W"
+                            DayOfWeek.THURSDAY -> "Th"
+                            DayOfWeek.FRIDAY -> "F"
+                            DayOfWeek.SATURDAY -> "S"
+//                            1 -> "S"
+//                            2 -> "M"
+//                            3 -> "T"
+//                            4 -> "W"
+//                            5 -> "Th"
+//                            6 -> "F"
+//                            7 -> "Su"
+//                            else -> ""
                         }
                     }},"
                 }
@@ -78,13 +87,13 @@ class NewNewEdictVM(
         )
     }
     @Bindable
-    fun getDays(): List<Int>? {
+    fun getDays(): List<DayOfWeek>? {
         return when (newEdict.days) {
             null -> emptyList()
             else -> newEdict.days
         }
     }
-    fun setDays(day: Int) {
+    fun setDays(day: DayOfWeek) {
         if (newEdict.days == null) {
             newEdict.days = listOf(day)
             notifyPropertyChanged(BR.days)
@@ -119,7 +128,7 @@ class NewNewEdictVM(
         if (newEdict.daysText != textValue) {
             newEdict.daysText = textValue
             if (textValue != null && newEdict.days != null) {
-                newEdict.days = null
+                newEdict.days = emptyList()
                 notifyPropertyChanged(BR.days)
             }
             notifyPropertyChanged(BR.daysCanContinue)
@@ -247,6 +256,7 @@ class NewNewEdictVM(
             NewEdict.Scope.SOME_DAYS -> "On ___"
             NewEdict.Scope.VAR_DAYS -> "Every x days"
             null -> ""
+            else -> "else "
         }
 
         val daysHint = when (newEdict.scope) {
@@ -255,6 +265,7 @@ class NewNewEdictVM(
             NewEdict.Scope.SOME_DAYS -> "(on x, y, and z,)"
             NewEdict.Scope.VAR_DAYS -> "(every x days)"
             null -> ""
+            else -> "else "
         }
 
         val ruleHint = when (newEdict.scalable!!) {
@@ -675,14 +686,21 @@ class NewNewEdictVM(
                 when (newEdict.daysText) {
                     null -> newEdict.days!!.map {
                         when (it) {
-                            1 -> "Sun."
-                            2 -> "Mon."
-                            3 -> "Tue."
-                            4 -> "Wed."
-                            5 -> "Thu."
-                            6 -> "Fri."
-                            7 -> "Sat."
-                            else -> ""
+                            DayOfWeek.SUNDAY -> "Su"
+                            DayOfWeek.MONDAY -> "M"
+                            DayOfWeek.TUESDAY -> "T"
+                            DayOfWeek.WEDNESDAY -> "W"
+                            DayOfWeek.THURSDAY -> "Th"
+                            DayOfWeek.FRIDAY -> "F"
+                            DayOfWeek.SATURDAY -> "S"
+//                            1 -> "Sun."
+//                            2 -> "Mon."
+//                            3 -> "Tue."
+//                            4 -> "Wed."
+//                            5 -> "Thu."
+//                            6 -> "Fri."
+//                            7 -> "Sat."
+//                            else -> ""
                         }
                     }.joinToString(", ")
                     else -> text!!
@@ -690,6 +708,7 @@ class NewNewEdictVM(
             }
             NewEdict.Scope.VAR_DAYS -> ""
             null -> ""
+            else -> "else "
         }
     }
 

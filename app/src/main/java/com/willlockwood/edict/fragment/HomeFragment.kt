@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.willlockwood.edict.R
+import com.willlockwood.edict.activity.MainActivity
 import com.willlockwood.edict.adapter.EdictsPagerAdapter
 import com.willlockwood.edict.viewmodel.EdictVM
 import com.willlockwood.edict.viewmodel.ToolbarVM
@@ -43,7 +45,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpToolbar() {
-        toolbarVM.setCurrentLocation(ToolbarVM.AppLocation.HOME_FRAGMENT)
+        (requireActivity() as AppCompatActivity).supportActionBar!!.show()
+        (requireActivity() as MainActivity).doFabAction(MainActivity.FabAction.UNHIDE)
     }
 
     private fun setUpPager() {

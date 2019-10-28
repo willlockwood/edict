@@ -6,14 +6,22 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.getbase.floatingactionbutton.FloatingActionButton
+import com.getbase.floatingactionbutton.FloatingActionsMenu
 import com.willlockwood.edict.R
 import com.willlockwood.edict.data.model.EdictSession
+import com.willlockwood.edict.data.model.NewEdict
 import com.willlockwood.edict.receiver.AlarmReceiver
 import com.willlockwood.edict.receiver.AlarmScheduler
 import com.willlockwood.edict.viewmodel.EdictVM
@@ -22,13 +30,13 @@ import com.willlockwood.edict.viewmodel.ToolbarVM
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity(),
+        FloatingActionsMenu.OnFloatingActionsMenuUpdateListener
+{
     private lateinit var edictVM: EdictVM
     private lateinit var newEdictVM: NewEdictVM
     private lateinit var toolbarVM: ToolbarVM
     private lateinit var sharedPreferences: SharedPreferences
-
     private lateinit var navController: NavController
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -43,13 +51,17 @@ class MainActivity : AppCompatActivity() {
             "check_in" -> navController.navigate(R.id.action_homeFragment_to_checkInPagerFragment)
         }
 
+        setUpFABMenu()
+
         setUpViewModels()
 
         setUpSharedPreferences()
 
-//        setUpToolbar()
+        setUpToolbar()
 
         observeEdictsAndSessions()
+
+        hideKeyboard(toolbar as View)
     }
 
     private fun setUpViewModels() {
@@ -77,21 +89,16 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences.registerOnSharedPreferenceChangeListener(onSharedPreferencesChangeListener)
     }
 
-//    private fun setUpToolbar() {
-//        setSupportActionBar(toolbar as Toolbar)
-//        toolbarVM.getToolbarTitle().observe(this, Observer {
-//            // TODO: figure out why there is no space between title and logo
-//            supportActionBar?.title = "  $it"
-//        })
-//        toolbarVM.getToolbarVisible().observe(this, Observer {
-//            when (it) {
-//                true -> supportActionBar?.show()
-//                false -> supportActionBar?.hide()
-//            }
-//        })
-//        supportActionBar?.elevation = 0f
-//        supportActionBar?.setLogo(R.drawable.ic_launcher_foreground)
-//    }
+//    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun setUpToolbar() {
+        setSupportActionBar(toolbar as Toolbar)
+        supportActionBar!!.show()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        supportActionBar!!.show()
+    }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun rescheduleAllNotificationsFromEdictSessions(edictSessions: List<EdictSession>) {
@@ -145,12 +152,73 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun includeForTesting() {
-//        edictVM.insertEdictAndNewSession(Edict("Never", "sleep", "after", detailMinutes = 600, level=0, deadlineMinutes = 1000))
-//        edictVM.insertEdictAndNewSession(Edict("Never", "go to bed", "before", detailMinutes = 900, level=1, deadlineMinutes = 1100))
-//        edictVM.insertEdictAndNewSession(Edict("Never", "eat", "between", detailMinutes = 500, detailMinutes2 = 1200, level=2, deadlineMinutes = 1300))
-//        edictVM.insertEdictAndNewSession(Edict("Never", "run", "while", whileText = "something else", level=3, deadlineMinutes = 900))
-//        edictVM.insertEdictAndNewSession(Edict("Never", "poop", "at", atText = "school", level=4, deadlineMinutes = 700))
+    private fun includeForTesting() {}
+
+    // SET UP FAB MENU AND FAB ACTIONS
+
+    enum class FabAction { CLOSE, OPEN, UNHIDE, CLOSE_HIDE, CREATE_ROUTINE, CREATE_RESTRICTION }
+
+    private fun setUpFABMenu() {
+        scrim.setBackgroundColor(resources.getColor(R.color.fab_menu_scrim))
+
+        multiple_actions.setOnFloatingActionsMenuUpdateListener(this as FloatingActionsMenu.OnFloatingActionsMenuUpdateListener)
+
+        doFabAction(FabAction.UNHIDE)
+
+        routine_fab.size = FloatingActionButton.SIZE_MINI
+        restriction_fab.size = FloatingActionButton.SIZE_MINI
+
+        routine_fab.setOnClickListener {        doFabAction(FabAction.CREATE_ROUTINE) }
+        restriction_fab.setOnClickListener {    doFabAction(FabAction.CREATE_RESTRICTION) }
+        scrim.setOnClickListener {              doFabAction(FabAction.CLOSE) }
     }
 
+    fun doFabAction(action: FabAction) {
+        val menu = multiple_actions as FloatingActionsMenu
+        when (action) {
+            FabAction.CLOSE ->  menu.collapse()
+            FabAction.OPEN ->   menu.expand()
+            FabAction.UNHIDE -> menu.visibility = View.VISIBLE
+            FabAction.CLOSE_HIDE -> {
+                menu.collapse()
+                menu.visibility = View.GONE
+            }
+            FabAction.CREATE_RESTRICTION -> {
+                supportActionBar!!.setShowHideAnimationEnabled(true)
+                supportActionBar!!.hide()
+                val extras = bundleOf("type" to NewEdict.Type.RESTRICTION)
+                navController.navigate(R.id.action_homeFragment_to_createEdict, extras)
+
+            }
+            FabAction.CREATE_ROUTINE -> {
+                supportActionBar!!.setShowHideAnimationEnabled(true)
+                supportActionBar!!.hide()
+                val extras = bundleOf("type" to NewEdict.Type.ROUTINE)
+                navController.navigate(R.id.action_homeFragment_to_createEdict, extras)
+            }
+        }
+    }
+
+    override fun onMenuCollapsed() {    scrim.visibility = View.GONE }
+    override fun onMenuExpanded() {     scrim.visibility = View.VISIBLE }
+
+    fun setStatusBarColor(colorId: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = resources.getColor(colorId)
+        }
+    }
+
+    fun toggleKeyboard(view: View) {
+        view.requestFocus()
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY)
+    }
+
+    fun hideKeyboard(view: View) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_IMPLICIT_ONLY)
+    }
 }
+
+

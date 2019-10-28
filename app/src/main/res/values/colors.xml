@@ -1,27 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#37474f</color>
-    <color name="colorPrimaryVariant">#102027</color>
-    <color name="colorPrimaryDark">#102027</color>
-    <color name="colorAccent">#102027</color>
-    <color name="onColorPrimary">#FFFFFF</color>
+<!--    <color name="colorPrimary">#37474f</color>-->
+<!--    <color name="colorPrimaryVariant">#102027</color>-->
+<!--    <color name="colorPrimaryDark">#102027</color>-->
+<!--    <color name="colorAccent">#102027</color>-->
+<!--    <color name="onColorPrimary">#FFFFFF</color>-->
+<!--    <color name="colorSecondary">#0277bd</color>-->
+<!--    <color name="colorSecondaryVariant">#004c8c</color>-->
+<!--    <color name="onColorSecondary">#FFFFFF</color>-->
 
-    <color name="colorSecondary">#0277bd</color>
-    <color name="colorSecondaryVariant">#004c8c</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryVariant">#FFFFFF</color>
+    <color name="colorPrimaryDark">#CCCCCC</color>
+    <color name="colorAccent">#01579b</color>
+    <color name="onColorPrimary">#3C4043</color>
+    <color name="onColorPrimaryVariant">#5F6368</color>
+
+    <color name="colorSecondary">#01579b</color>
+    <color name="colorSecondaryVariant">#4f83cc</color>
+    <color name="colorSecondaryDark">#002f6c</color>
     <color name="onColorSecondary">#FFFFFF</color>
 
+<!--    <color name="routineColor">#2e7d32</color>-->
+<!--    <color name="restrictionColor">#b71c1c</color>-->
+    <color name="routineColor">#004d40</color>
+    <color name="routineColorDark">#00251a</color>
+    <color name="restrictionColor">#880e4f</color>
+    <color name="restrictionColorDark">#560027</color>
+
+
     <color name="lightText">#FFFFFF</color>
-    <color name="darkText">#000000</color>
-    <color name="colorError">#B60033</color>
-
-    <color name="background">#FAFAFA</color>
-
-
-
-
+<!--    <color name="darkText">#000000</color>-->
+    <color name="darkIcon">#5F6368</color>
+    <color name="darkText">#3C4043</color>
+    <color name="darkTextDisabled">#70757A</color>
+<!--    <color name="colorError">#B60033</color>-->
+    <color name="colorError">#f9a825</color>
 
 
+
+    <color name="background">#FFFFFF</color>
+
+
+
+    <color name="dividerColor">#E8EAED</color>
     <color name="offWhite">#F2F2F2</color>
     <color name="lightGray">#838383</color>
     <color name="darkGray">#070707</color>
@@ -69,5 +92,17 @@
     <color name="edict_level_7">#880e4f</color>
     <color name="edict_level_7_light">#bc447b</color>
     <color name="edict_level_7_dark">#560027</color>
+
+
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="fab_menu_scrim">#AEFFFFFF</color>
+<!--    <color name="background">#e5e5e5</color>-->
+    <color name="half_black">#808080</color>
+<!--    <color name="white">#fafafa</color>-->
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
 
 </resources>
