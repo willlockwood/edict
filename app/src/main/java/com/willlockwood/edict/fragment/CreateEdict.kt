@@ -184,7 +184,7 @@ class CreateEdict : Fragment(),
         val minute = c.get(Calendar.MINUTE)
 
         val pickerStyle = when (type) {
-            NewEdict.Type.RESTRICTION -> R.style.TimePicker_RED
+            NewEdict.Type.RESTRICTION -> R.style.TimePicker_Red
             NewEdict.Type.ROUTINE -> R.style.TimePicker_Green
         }
 

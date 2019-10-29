@@ -15,16 +15,12 @@
         <item name="android:colorBackground">@color/background</item>
         <item name="colorOnBackground">#@color/colorPrimary</item>
 
-<!--        <item name="fontFamily">Open Sans</item>-->
         <item name="fontFamily">@string/fontFamily</item>
-<!--        <item name="android:textViewStyle">@style/Widget.MaterialComponents.TextView</item>-->
 
         <item name="buttonStyleSmall">@style/Widget.MaterialComponents.Button.TextButton</item>
         <item name="radioButtonStyle">@style/Widget.MaterialComponents.CompoundButton.RadioButton.Dialog</item>
         <item name="switchStyle">@style/Widget.MaterialComponents.CompoundButton.Switch.Large</item>
     </style>
-
-<!--    <style name="DialogDefault" parent="Widget.Di"-->
 
     <style name="errorText">
         <item name="android:layout_width">wrap_content</item>
@@ -44,8 +40,6 @@
     </style>
 
     <style name="Widget.MaterialComponents.CompoundButton.Switch.Large" parent="Widget.MaterialComponents.CompoundButton.Switch">
-<!--        <item name="switchPadding">20dp</item>-->
-<!--        <item name="android:minWidth"></item>-->
         <item name="android:paddingLeft">20dp</item>
         <item name="android:paddingRight">20dp</item>
     </style>
@@ -65,23 +59,20 @@
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="TimePicker" parent="Theme.MaterialComponents.Dialog">
+    <style name="TimePicker" parent="AppTheme">
         <item name="android:windowIsFloating">true</item>
     </style>
     <style name="TimePicker.Green">
         <item name="colorPrimary">@color/routineColor</item>
-        <item name="colorPrimaryDark">@color/routineColorDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/routineColor</item>
     </style>
-    <style name="TimePicker.RED">
+    <style name="TimePicker.Red">
         <item name="colorPrimary">@color/restrictionColor</item>
-        <item name="colorPrimaryDark">@color/restrictionColorDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/restrictionColor</item>
     </style>
 
     <style name="Widget.MaterialComponents.CompoundButton.RadioButton.Dialog" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
         <item name="android:textSize">16sp</item>
-
         <item name="buttonTint">@color/colorAccent</item>
         <item name="android:textColor">@color/darkText</item>
         <item name="android:paddingLeft">20dp</item>
@@ -182,7 +173,6 @@
 
     <style name="Preference.Icon.Warning" parent="Preference.Icon">
         <item name="android:padding">3dp</item>
-<!--        <item name="srcCompat">@drawable/ic_warning_black_10dp</item>-->
         <item name="srcCompat">@drawable/ic_exclamation_black_24dp</item>
         <item name="android:layout_height">20dp</item>
         <item name="android:layout_width">20dp</item>
@@ -215,7 +205,6 @@
     </style>
 
     <style name="MyActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
-<!--        <item name="android:background">@color/colorPrimary</item>-->
         <item name="android:icon">@drawable/ic_launcher_foreground</item>
     </style>
 
@@ -235,25 +224,18 @@
 
         <item name="colorControlNormal">@color/white</item>
         <item name="colorControlActivated">@color/white</item>
-        <!--<item name="android:"-->
     </style>
 
-<!--    <style name="NewEdictConstraintLayout">-->
-<!--&lt;!&ndash;        <item name="android:background">@color/lightGray</item>&ndash;&gt;-->
-<!--    </style>-->
     <style name="NewEdictExampleText">
-<!--        <item name="android:textColor">@color/white</item>-->
         <item name="android:textStyle">italic</item>
     </style>
     <style name="NewEdictEditText2" parent="Theme.MaterialComponents.Light.NoActionBar">
-<!--        <item name="android:textColor">@color/white</item>-->
         <item name="android:textSize">18sp</item>
         <item name="android:textColorHint">@color/white_hint_text</item>
         <item name="colorControlNormal">@color/white</item>
         <item name="colorControlActivated">@color/white</item>
     </style>
     <style name="NewEdictListItemText">
-<!--        <item name="android:textColor">@color/white</item>-->
         <item name="android:layout_marginRight">8dp</item>
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginTop">4dp</item>
@@ -262,19 +244,15 @@
         <item name="android:gravity">center_vertical</item>
     </style>
     <style name="NewEdictHeader2Text">
-<!--        <item name="android:textColor">@color/white</item>-->
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>
-<!--        <item name="android:background">@drawable/edit_text</item>-->
     </style>
 
     <style name="NewEdictRadioButton" parent="Theme.MaterialComponents.Light.NoActionBar">
-<!--        <item name="android:textColor">@color/white</item>-->
         <item name="buttonTint">@color/white</item>
     </style>
 
     <style name="mySpinnerItemStyle" parent="Widget.AppCompat.Spinner.DropDown">
-<!--        <item name="android:textColor">@color/white</item>-->
         <item name="android:textSize">18sp</item>
         <item name="android:textColorHint">@color/white_hint_text</item>
         <item name="backgroundTint">@color/white_hint_text</item>
@@ -283,7 +261,6 @@
     </style>
 
     <style name="mySpinnerStyle" parent="Widget.AppCompat.Spinner">
-<!--        <item name="android:textColor">@color/white</item>-->
         <item name="android:tint">@color/white</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColorHint">@color/white_hint_text</item>
@@ -328,16 +305,12 @@
     </style>
 
     <style name="menu_labels_style">
-<!--        <item name="android:background">@drawable/fab_label_background</item>-->
         <item name="fontFamily">Open Sans</item>
         <item name="android:textColor">@color/onColorPrimary</item>
     </style>
 
     <style name="AppTheme.Picker" parent="Theme.MaterialComponents.Light" >
-<!--        <item name="android:textColorPrimary">@color/white</item>-->
-<!--        <item name="android:color">@color/white</item>-->
         <item name="android:textSize">@dimen/new_edict_basic_text_size</item>
-<!--        <item name="colorControlNormal">@color/white</item>-->
     </style>
 
     <style name="DayChipGroup" parent="Widget.MaterialComponents.ChipGroup">
@@ -390,24 +363,12 @@
     </style>
 
     <style name="newEdictSelectedExampleIcon">
-<!--        <item name="android:background">@color/colorSecondary</item>-->
-<!--        <item name="android:tint">@color/colorAccent</item>-->
     </style>
     <style name="newEdictNotSelectedExampleIcon">
     </style>
     <style name="newEdictSelectedExampleText">
-<!--        <item name="android:paddingBottom">8dp</item>-->
-<!--        <item name="android:paddingLeft">4dp</item>-->
-<!--        <item name="android:paddingRight">4dp</item>-->
-<!--        <item name="android:minWidth">50dp</item>-->
-<!--        <item name="android:gravity">center_horizontal</item>-->
-<!--        <item name="android:textStyle">italic</item>-->
     </style>
     <style name="newEdictNotSelectedExampleText">
-<!--        <item name="android:paddingBottom">8dp</item>-->
-<!--        <item name="android:minWidth">50dp</item>-->
-<!--        <item name="android:gravity">center_horizontal</item>-->
-<!--        <item name="android:textStyle">italic</item>-->
     </style>
 
 
