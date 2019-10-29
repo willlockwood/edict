@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -25,7 +26,7 @@ import com.willlockwood.edict.data.model.NewEdict
 import com.willlockwood.edict.receiver.AlarmReceiver
 import com.willlockwood.edict.receiver.AlarmScheduler
 import com.willlockwood.edict.viewmodel.EdictVM
-import com.willlockwood.edict.viewmodel.NewEdictVM
+import com.willlockwood.edict.viewmodel.NewEdictNewVM
 import com.willlockwood.edict.viewmodel.ToolbarVM
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity(),
         FloatingActionsMenu.OnFloatingActionsMenuUpdateListener
 {
     private lateinit var edictVM: EdictVM
-    private lateinit var newEdictVM: NewEdictVM
+    private lateinit var newEdictVM: NewEdictNewVM
     private lateinit var toolbarVM: ToolbarVM
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var navController: NavController
@@ -66,6 +67,7 @@ class MainActivity : AppCompatActivity(),
 
     private fun setUpViewModels() {
         edictVM = ViewModelProviders.of(this).get(EdictVM::class.java)
+        newEdictVM = ViewModelProviders.of(this).get(NewEdictNewVM::class.java)
         toolbarVM = ViewModelProviders.of(this).get(ToolbarVM::class.java)
     }
 
@@ -80,6 +82,12 @@ class MainActivity : AppCompatActivity(),
         edictVM.getActiveEdictSessions().observe(this, Observer {
             if (it.isNotEmpty()) {
                 rescheduleAllNotificationsFromEdictSessions(it)
+            }
+        })
+        newEdictVM.getAllEdicts().observe(this, Observer {
+            if (it.isNotEmpty()) {
+                val blah = it
+                Log.i("MainActivity", blah.toString())
             }
         })
     }

@@ -5,33 +5,42 @@ import androidx.core.os.bundleOf
 import androidx.databinding.BaseObservable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.willlockwood.edict.data.converter.EdictTypeConverters
 import com.willlockwood.edict.utils.TimeHelper
 import org.threeten.bp.DayOfWeek
 
 @Entity(
-    tableName="edicts"
+    tableName="new_edicts"
 )
 data class NewEdict(
+
+    @TypeConverters(EdictTypeConverters::class)
     var type: Type? = null,
+
+    @TypeConverters(EdictTypeConverters::class)
     var scope: Scope? = null,
     var scalable: Boolean? = null,
     var action: String? = null,
     var unitVar: Int? = null,
     var unit: String? = null,
+
+    @TypeConverters(EdictTypeConverters::class)
     var days: List<DayOfWeek> = emptyList(),
     var daysInt: Int? = null,
     var daysText: String? = null,
+
+    @TypeConverters(EdictTypeConverters::class)
     var timeType: TimeType? = null,
     var timeStart: Int? = 0,
     var timeEnd: Int? = 1440,
-//    var timeStart: Int? = null,
-//    var timeEnd: Int? = null,
     var timeText: String? = null,
-    var checkInStartType: CheckInStartType? = null,
+//    var checkInStartType: CheckInStartType? = null,
     var checkInStart: Int? = null,
-    var checkInEndType: CheckInEndType? = null,
+//    var checkInEndType: CheckInEndType? = null,
     var checkInEnd: Int? = null,
 
+    @TypeConverters(EdictTypeConverters::class)
     var notifications: List<Pair<NotificationType, Int?>> = listOf(Pair(NotificationType.CHECK_IN_BEFORE_END, 15))
 
 
@@ -42,11 +51,11 @@ data class NewEdict(
     enum class Type { RESTRICTION, ROUTINE }
     enum class Scope { DAILY, WEEKLY, SOME_DAYS, TEXT_DAYS, VAR_DAYS }
     enum class TimeType { ALL_DAY, AFTER_TIME, AFTER_TEXT, BEFORE_TIME, BEFORE_TEXT, BETWEEN_TIME, BETWEEN_TEXT, WHEN, WHILE, AT }
-    enum class CheckInStartType { BEFORE, AT }
-    enum class CheckInEndType { MORNING, MIDDAY, EVENING, AT }
+//    enum class CheckInStartType { BEFORE, AT }
+//    enum class CheckInEndType { MORNING, MIDDAY, EVENING, AT }
     enum class NotificationType { START, END, BEFORE_END, CHECK_IN_START, CHECK_IN_END, CHECK_IN_BEFORE_END, AT }
 
-    enum class UserEditingOrCreating { EDITING, CREATING }
+//    enum class UserEditingOrCreating { EDITING, CREATING }
 
     fun getDaysSubheader(): String {
         return when (scope) {
@@ -334,9 +343,9 @@ data class NewEdict(
         timeStart = bundle.get("timeStart") as Int?
         timeEnd = bundle.get("timeEnd") as Int?
         timeText = bundle.getString("timeText")
-        checkInStartType = bundle.get("checkInStartType") as CheckInStartType?
+//        checkInStartType = bundle.get("checkInStartType") as CheckInStartType?
+//        checkInEndType = bundle.get("checkInEndType") as CheckInEndType?
         checkInStart = bundle.get("checkInStart") as Int?
-        checkInEndType = bundle.get("checkInEndType") as CheckInEndType?
         checkInEnd = bundle.get("checkInEnd") as Int?
         notifications = notificationsFromString(bundle.getString("notifications", ""))
         return this
@@ -357,8 +366,10 @@ data class NewEdict(
             "timeStart" to timeStart,
             "timeEnd" to timeEnd,
             "timeText" to timeText,
-            "checkInStartType" to checkInStartType, "checkInStart" to checkInStart,
-            "checkInEndType" to checkInEndType,     "checkInEnd" to checkInEnd,
+//            "checkInStartType" to checkInStartType,
+//            "checkInEndType" to checkInEndType,
+            "checkInStart" to checkInStart,
+            "checkInEnd" to checkInEnd,
             "notifications" to notificationsToString(notifications)
         )
     }

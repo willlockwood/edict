@@ -19,10 +19,13 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.willlockwood.edict.BR
 import com.willlockwood.edict.R
 import com.willlockwood.edict.activity.MainActivity
 import com.willlockwood.edict.data.model.NewEdict
+import com.willlockwood.edict.viewmodel.NewEdictNewVM
 import com.willlockwood.edict.viewmodel.binding.CreateEdictBVM
 import kotlinx.android.synthetic.main.fragment_create_edict.*
 import java.util.*
@@ -32,11 +35,11 @@ class CreateEdict : Fragment(),
     CreateEdictDaysDialog.DaysDialogListener,
     CreateEdictTimesDialog.TimesDialogListener,
     CreateEdictBVM.ViewListener
-//    , MainActivity.FabListener
 {
 
     private lateinit var binding: ViewDataBinding
     private lateinit var viewmodel: CreateEdictBVM
+    private lateinit var newEdictVM: NewEdictNewVM
     private lateinit var newEdict: NewEdict
     private lateinit var extras: Bundle
     private lateinit var type: NewEdict.Type
@@ -66,6 +69,8 @@ class CreateEdict : Fragment(),
 
         (requireActivity() as MainActivity).doFabAction(MainActivity.FabAction.CLOSE_HIDE)
 
+        setUpViewModels()
+
         setUpToolbar()
 
         setUpClickListeners()
@@ -89,6 +94,10 @@ class CreateEdict : Fragment(),
 
         (requireActivity() as MainActivity).setStatusBarColor(R.color.colorPrimaryDark)
         super.onPause()
+    }
+
+    private fun setUpViewModels() {
+        newEdictVM= ViewModelProviders.of(this).get(NewEdictNewVM::class.java)
     }
 
     @TargetApi(Build.VERSION_CODES.N)
@@ -151,6 +160,17 @@ class CreateEdict : Fragment(),
             viewmodel.setDoneFabClicked()
             if (viewmodel.getDoneFabClicked()) {
                 Toast.makeText(requireContext(), "done fab clicked", Toast.LENGTH_LONG).show()
+                if (!(viewmodel.getDaysSubheaderError() || viewmodel.getActionSubheaderError() || viewmodel.getTimesSubheaderError())) {
+                    val newEdict = viewmodel.getNewEdict()
+                    newEdictVM.insertNewEdict(newEdict)
+                    findNavController().navigate(R.id.action_createEdict_to_homeFragment)
+//                    val fm = parentFragmentManager
+//                    val trans = fm.beginTransaction()
+//                    trans.remove(this)
+//                    trans.commit()
+//                    fm.popBackStack()
+//                    (requireActivity() as MainActivity).supportActionBar!!.show()
+                }
             }
         }
     }
@@ -175,16 +195,6 @@ class CreateEdict : Fragment(),
             NewEdict.Scope.VAR_DAYS -> { (requireActivity() as MainActivity).toggleKeyboard(var_days_et) }
         }
     }
-
-//    override fun onStart() {
-//        (requireActivity() as MainActivity).setStatusBarColor(R.color.colorPrimaryDark)
-//        super.onStart()
-//    }
-//
-//    override fun onStop() {
-//        (requireActivity() as MainActivity).setStatusBarColor(R.color.colorPrimaryDark)
-//        super.onStop()
-//    }
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun clickTimePicker(startOrEnd: String) {

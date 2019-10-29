@@ -15,18 +15,7 @@ import com.willlockwood.edict.adapter.EdictRecyclerAdapter
 import com.willlockwood.edict.viewmodel.EdictVM
 import kotlinx.android.synthetic.main.fragment_all_edicts.*
 
-class AllEdictsPage : Fragment()
-//    , FloatingActionsMenu.OnFloatingActionsMenuUpdateListener
-{
-
-
-//    override fun onMenuCollapsed() {
-//        multiple_actions.setBackgroundColor(requireContext().resources.getColor(R.color.transparent))
-//    }
-//
-//    override fun onMenuExpanded() {
-//        multiple_actions.setBackgroundColor(requireContext().resources.getColor(R.color.fab_menu_scrim))
-//    }
+class AllEdictsPage : Fragment() {
 
     private lateinit var edictVM: EdictVM
 

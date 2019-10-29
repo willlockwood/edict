@@ -79,5 +79,13 @@
         android:id="@+id/createEdict"
         android:name="com.willlockwood.edict.fragment.CreateEdict"
         android:label="CreateEdict"
-        />
+        >
+        <action
+            android:id="@+id/action_createEdict_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:exitAnim="@anim/slide_out_down"
+            app:popUpTo="@+id/homeFragment"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
 </navigation>
