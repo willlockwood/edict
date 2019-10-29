@@ -183,14 +183,14 @@ class MainActivity : AppCompatActivity(),
                 menu.visibility = View.GONE
             }
             FabAction.CREATE_RESTRICTION -> {
-                supportActionBar!!.setShowHideAnimationEnabled(true)
+//                supportActionBar!!.setShowHideAnimationEnabled(true)
                 supportActionBar!!.hide()
                 val extras = bundleOf("type" to NewEdict.Type.RESTRICTION)
                 navController.navigate(R.id.action_homeFragment_to_createEdict, extras)
 
             }
             FabAction.CREATE_ROUTINE -> {
-                supportActionBar!!.setShowHideAnimationEnabled(true)
+//                supportActionBar!!.setShowHideAnimationEnabled(true)
                 supportActionBar!!.hide()
                 val extras = bundleOf("type" to NewEdict.Type.ROUTINE)
                 navController.navigate(R.id.action_homeFragment_to_createEdict, extras)

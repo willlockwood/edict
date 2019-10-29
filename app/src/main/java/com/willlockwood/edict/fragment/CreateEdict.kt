@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -69,8 +68,6 @@ class CreateEdict : Fragment(),
 
         (requireActivity() as MainActivity).doFabAction(MainActivity.FabAction.CLOSE_HIDE)
 
-//        setUpViewModels()
-
         setUpToolbar()
 
         setUpClickListeners()
@@ -79,7 +76,6 @@ class CreateEdict : Fragment(),
     }
 
     override fun onResume() {
-        setUpToolbar()
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         when (type) {
@@ -95,10 +91,6 @@ class CreateEdict : Fragment(),
         (requireActivity() as MainActivity).setStatusBarColor(R.color.colorPrimaryDark)
         super.onPause()
     }
-
-//    private fun setUpViewModels() {
-//        newEdictVM= ViewModelProviders.of(this).get(NewEdictNewVM::class.java)
-//    }
 
     @TargetApi(Build.VERSION_CODES.N)
     private fun setUpClickListeners() {
@@ -146,11 +138,6 @@ class CreateEdict : Fragment(),
     }
 
     private fun setUpToolbar() {
-        toolbar = (requireActivity() as AppCompatActivity).supportActionBar!!
-        if (toolbar.isShowing) {
-            toolbar.hide()
-        }
-
         when (type) {
             NewEdict.Type.RESTRICTION -> (requireActivity() as MainActivity).setStatusBarColor(R.color.restrictionColorDark)
             NewEdict.Type.ROUTINE -> (requireActivity() as MainActivity).setStatusBarColor(R.color.routineColorDark)
@@ -159,17 +146,11 @@ class CreateEdict : Fragment(),
         toolbarFab.setOnClickListener {
             viewmodel.setDoneFabClicked()
             if (viewmodel.getDoneFabClicked()) {
-                Toast.makeText(requireContext(), "done fab clicked", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "New edict created!", Toast.LENGTH_SHORT).show()
                 if (!(viewmodel.getDaysSubheaderError() || viewmodel.getActionSubheaderError() || viewmodel.getTimesSubheaderError())) {
                     val newEdict = viewmodel.getNewEdict()
                     newEdictVM.insertNewEdict(newEdict)
                     findNavController().navigate(R.id.action_createEdict_to_homeFragment)
-//                    val fm = parentFragmentManager
-//                    val trans = fm.beginTransaction()
-//                    trans.remove(this)
-//                    trans.commit()
-//                    fm.popBackStack()
-//                    (requireActivity() as MainActivity).supportActionBar!!.show()
                 }
             }
         }
@@ -209,7 +190,6 @@ class CreateEdict : Fragment(),
 
         val tpd = TimePickerDialog(
             ContextThemeWrapper(requireActivity(), pickerStyle),
-//            requireContext(),
             TimePickerDialog.OnTimeSetListener(
             function = { _, h, m ->
                 val minutes = h * 60 + m

@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : Fragment() {
 
     private val edictVM: EdictVM by viewModels()
-//    private lateinit var toolbarVM: ToolbarVM
 
     private lateinit var viewPager: ViewPager
     private lateinit var pagerAdapter: EdictsPagerAdapter
@@ -31,17 +30,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        setUpViewModels()
-
         setUpToolbar()
 
         setUpPager()
     }
-
-//    private fun setUpViewModels() {
-//        edictVM = ViewModelProviders.of(requireActivity()).get(EdictVM::class.java)
-//        toolbarVM = ViewModelProviders.of(requireActivity()).get(ToolbarVM::class.java)
-//    }
 
     private fun setUpToolbar() {
         (requireActivity() as AppCompatActivity).supportActionBar!!.show()
