@@ -6,20 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.willlockwood.edict.R
 import com.willlockwood.edict.activity.MainActivity
 import com.willlockwood.edict.adapter.EdictsPagerAdapter
 import com.willlockwood.edict.viewmodel.EdictVM
-import com.willlockwood.edict.viewmodel.ToolbarVM
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
-    private lateinit var edictVM: EdictVM
-    private lateinit var toolbarVM: ToolbarVM
+    private val edictVM: EdictVM by viewModels()
+//    private lateinit var toolbarVM: ToolbarVM
 
     private lateinit var viewPager: ViewPager
     private lateinit var pagerAdapter: EdictsPagerAdapter
@@ -32,17 +31,17 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpViewModels()
+//        setUpViewModels()
 
         setUpToolbar()
 
         setUpPager()
     }
 
-    private fun setUpViewModels() {
-        edictVM = ViewModelProviders.of(requireActivity()).get(EdictVM::class.java)
-        toolbarVM = ViewModelProviders.of(requireActivity()).get(ToolbarVM::class.java)
-    }
+//    private fun setUpViewModels() {
+//        edictVM = ViewModelProviders.of(requireActivity()).get(EdictVM::class.java)
+//        toolbarVM = ViewModelProviders.of(requireActivity()).get(ToolbarVM::class.java)
+//    }
 
     private fun setUpToolbar() {
         (requireActivity() as AppCompatActivity).supportActionBar!!.show()

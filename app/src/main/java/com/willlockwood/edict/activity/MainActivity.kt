@@ -10,12 +10,12 @@ import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.getbase.floatingactionbutton.FloatingActionButton
@@ -27,16 +27,16 @@ import com.willlockwood.edict.receiver.AlarmReceiver
 import com.willlockwood.edict.receiver.AlarmScheduler
 import com.willlockwood.edict.viewmodel.EdictVM
 import com.willlockwood.edict.viewmodel.NewEdictNewVM
-import com.willlockwood.edict.viewmodel.ToolbarVM
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity(),
         FloatingActionsMenu.OnFloatingActionsMenuUpdateListener
 {
-    private lateinit var edictVM: EdictVM
-    private lateinit var newEdictVM: NewEdictNewVM
-    private lateinit var toolbarVM: ToolbarVM
+    // ViewModels
+    private val edictVM: EdictVM by viewModels()
+    private val viewmodel: NewEdictNewVM by viewModels()
+
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var navController: NavController
 
@@ -54,8 +54,6 @@ class MainActivity : AppCompatActivity(),
 
         setUpFABMenu()
 
-        setUpViewModels()
-
         setUpSharedPreferences()
 
         setUpToolbar()
@@ -63,12 +61,6 @@ class MainActivity : AppCompatActivity(),
         observeEdictsAndSessions()
 
         hideKeyboard(toolbar as View)
-    }
-
-    private fun setUpViewModels() {
-        edictVM = ViewModelProviders.of(this).get(EdictVM::class.java)
-        newEdictVM = ViewModelProviders.of(this).get(NewEdictNewVM::class.java)
-        toolbarVM = ViewModelProviders.of(this).get(ToolbarVM::class.java)
     }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -84,7 +76,7 @@ class MainActivity : AppCompatActivity(),
                 rescheduleAllNotificationsFromEdictSessions(it)
             }
         })
-        newEdictVM.getAllEdicts().observe(this, Observer {
+        viewmodel.getAllEdicts().observe(this, Observer {
             if (it.isNotEmpty()) {
                 val blah = it
                 Log.i("MainActivity", blah.toString())
@@ -97,7 +89,6 @@ class MainActivity : AppCompatActivity(),
         sharedPreferences.registerOnSharedPreferenceChangeListener(onSharedPreferencesChangeListener)
     }
 
-//    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun setUpToolbar() {
         setSupportActionBar(toolbar as Toolbar)
         supportActionBar!!.show()

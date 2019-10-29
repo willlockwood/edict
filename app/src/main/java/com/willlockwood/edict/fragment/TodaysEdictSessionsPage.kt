@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_all_edicts.*
 
 class TodaysEdictSessionsPage : Fragment() {
 
-    private lateinit var edictVM: EdictVM
+    private val edictVM: EdictVM by viewModels()
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var edictAdapter: EdictSessionAdapter
@@ -30,17 +30,11 @@ class TodaysEdictSessionsPage : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpViewModels()
-
         setUpRecyclerView()
 
         observeEdictsForRecycler()
 
         setUpButtons()
-    }
-
-    private fun setUpViewModels() {
-        edictVM = ViewModelProviders.of(this).get(EdictVM::class.java)
     }
 
     private fun setUpButtons() {

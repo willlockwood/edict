@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,15 +19,13 @@ import com.willlockwood.edict.adapter.EdictFragmentSessionAdapter
 import com.willlockwood.edict.data.model.Edict
 import com.willlockwood.edict.viewmodel.EdictFragmentVM
 import com.willlockwood.edict.viewmodel.EdictVM
-import com.willlockwood.edict.viewmodel.ToolbarVM
 import kotlinx.android.synthetic.main.fragment_edict.*
 
 
 class EdictFragment : Fragment() {
 
     private lateinit var binding: ViewDataBinding
-    private lateinit var edictVM: EdictVM
-    private lateinit var toolbarVM: ToolbarVM
+    private val edictVM: EdictVM by viewModels()
     private lateinit var edict: Edict
     private lateinit var edictFragmentVM: EdictFragmentVM
     private var edictId: Int = -1
@@ -52,8 +50,6 @@ class EdictFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpViewModels()
-
         observeEdictById()
 
         setUpRecyclerView()
@@ -75,11 +71,6 @@ class EdictFragment : Fragment() {
             edictVM.deleteEdict(edict)
             findNavController().navigate(R.id.action_edictFragment_to_homeFragment)
         }
-    }
-
-    private fun setUpViewModels() {
-        edictVM = ViewModelProviders.of(requireActivity()).get(EdictVM::class.java)
-        toolbarVM = ViewModelProviders.of(requireActivity()).get(ToolbarVM::class.java)
     }
 
     private fun observeEdictById() {

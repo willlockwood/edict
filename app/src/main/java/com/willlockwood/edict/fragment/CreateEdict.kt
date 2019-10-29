@@ -19,7 +19,7 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.willlockwood.edict.BR
 import com.willlockwood.edict.R
@@ -39,7 +39,7 @@ class CreateEdict : Fragment(),
 
     private lateinit var binding: ViewDataBinding
     private lateinit var viewmodel: CreateEdictBVM
-    private lateinit var newEdictVM: NewEdictNewVM
+    private val newEdictVM: NewEdictNewVM by viewModels()
     private lateinit var newEdict: NewEdict
     private lateinit var extras: Bundle
     private lateinit var type: NewEdict.Type
@@ -69,7 +69,7 @@ class CreateEdict : Fragment(),
 
         (requireActivity() as MainActivity).doFabAction(MainActivity.FabAction.CLOSE_HIDE)
 
-        setUpViewModels()
+//        setUpViewModels()
 
         setUpToolbar()
 
@@ -96,9 +96,9 @@ class CreateEdict : Fragment(),
         super.onPause()
     }
 
-    private fun setUpViewModels() {
-        newEdictVM= ViewModelProviders.of(this).get(NewEdictNewVM::class.java)
-    }
+//    private fun setUpViewModels() {
+//        newEdictVM= ViewModelProviders.of(this).get(NewEdictNewVM::class.java)
+//    }
 
     @TargetApi(Build.VERSION_CODES.N)
     private fun setUpClickListeners() {

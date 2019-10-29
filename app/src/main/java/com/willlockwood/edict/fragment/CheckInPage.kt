@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.willlockwood.edict.BR
@@ -20,8 +20,9 @@ import kotlinx.android.synthetic.main.item_check_in_edict.*
 
 class CheckInPage(private val edictId: Int, private val edictSession: EdictSession, private val edictSessions: List<EdictSession>, private val position: Int) : Fragment() {
 
+    private val edictVM: EdictVM by viewModels()
+
     private lateinit var binding: ViewDataBinding
-    private lateinit var edictVM: EdictVM
     private lateinit var edict: Edict
     private lateinit var viewPager: ViewPager
 
@@ -39,8 +40,6 @@ class CheckInPage(private val edictId: Int, private val edictSession: EdictSessi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpViewModels()
-
         observeEdictById(edictId)
 
         setUpButtons()
@@ -54,10 +53,6 @@ class CheckInPage(private val edictId: Int, private val edictSession: EdictSessi
                 binding.notifyPropertyChanged(BR.edict) // Replace the dummy edict
             }
         })
-    }
-
-    private fun setUpViewModels() {
-        edictVM = ViewModelProviders.of(this).get(EdictVM::class.java)
     }
 
     private fun setUpButtons() {

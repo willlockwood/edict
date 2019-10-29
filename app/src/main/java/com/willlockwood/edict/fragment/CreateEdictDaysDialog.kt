@@ -1,6 +1,5 @@
 package com.willlockwood.edict.fragment
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,11 +35,6 @@ class CreateEdictDaysDialog(
 
         val v = dialog!!.window!!.decorView
         v.setBackgroundResource(R.color.transparent)
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-//        (requireActivity() as MainActivity).hideKeyboard(view!!)
-        super.onDismiss(dialog)
     }
 
     private fun setUpInitialCheck() {

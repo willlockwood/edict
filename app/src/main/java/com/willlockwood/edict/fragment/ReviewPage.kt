@@ -7,17 +7,19 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.willlockwood.edict.BR
 import com.willlockwood.edict.R
 import com.willlockwood.edict.data.model.Edict
 import com.willlockwood.edict.viewmodel.EdictVM
 
-class ReviewPage(private val edictId: Int) : Fragment() {
+class ReviewPage(
+    private val edictId: Int
+) : Fragment() {
 
+    private val edictVM: EdictVM by viewModels()
     private lateinit var binding: ViewDataBinding
-    private lateinit var edictVM: EdictVM
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_review_edict, container, false)
@@ -28,7 +30,7 @@ class ReviewPage(private val edictId: Int) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpViewModels()
+
         observeEdictById(edictId)
     }
 
@@ -37,9 +39,5 @@ class ReviewPage(private val edictId: Int) : Fragment() {
             binding.setVariable(BR.edict, it)
             binding.notifyPropertyChanged(BR.edict) // Replace the dummy edict
         })
-    }
-
-    private fun setUpViewModels() {
-        edictVM = ViewModelProviders.of(this).get(EdictVM::class.java)
     }
 }
