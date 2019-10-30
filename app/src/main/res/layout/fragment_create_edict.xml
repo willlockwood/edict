@@ -24,7 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        android:fitsSystemWindows="true"
         >
 
         <com.google.android.material.appbar.AppBarLayout
@@ -40,11 +39,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@{viewmodel.type == Type.RESTRICTION ? @color/restrictionColor : @color/routineColor }"
-                app:contentScrim="@{viewmodel.type == Type.RESTRICTION ? @color/restrictionColor : @color/routineColor }"
+                android:fitsSystemWindows="true"
                 app:collapsedTitleTextAppearance="@style/TextAppearance.CollapsedTitle"
+                app:contentScrim="@{viewmodel.type == Type.RESTRICTION ? @color/restrictionColor : @color/routineColor }"
                 app:expandedTitleTextAppearance="@style/TextAppearance.ExpandedTitle"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                android:fitsSystemWindows="true"
                 app:lineSpacingMultiplier="1.2"
                 app:maxLines="3"
                 app:title="@{viewmodel.fullText}"
@@ -56,18 +55,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@{viewmodel.type == Type.RESTRICTION ? @color/restrictionColor : @color/routineColor }"
-                    app:navigationIcon="@{viewmodel.type == Type.RESTRICTION ? @drawable/ic_restriction_white_24dp : @drawable/ic_routine_white_24dp }"
                     app:elevation="5dp"
                     app:layout_collapseMode="pin"
+                    app:navigationIcon="@{viewmodel.type == Type.RESTRICTION ? @drawable/ic_restriction_white_24dp : @drawable/ic_routine_white_24dp }"
                     />
 
             </net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout>
 
-<!--            <include-->
-<!--                layout="@layout/divider_thin"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                />-->
+            <!--            <include-->
+            <!--                layout="@layout/divider_thin"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                />-->
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -85,8 +84,8 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:fitsSystemWindows="true"
+            android:fillViewport="false"
+            android:fitsSystemWindows="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             >
 
@@ -173,6 +172,8 @@
                     style="@style/CreateEdictLayout.Small"
                     android:layout_width="match_parent"
                     android:animateLayoutChanges="true"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
                     android:visibility="@{viewmodel.scope == Scope.SOME_DAYS ? View.VISIBLE : View.GONE}"
                     >
 
@@ -282,7 +283,6 @@
                         android:imeOptions="actionDone"
                         android:inputType="textPersonName"
                         android:text="@={viewmodel.daysText}"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -304,7 +304,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Every"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -323,7 +322,6 @@
                         android:minWidth="15dp"
                         android:text="@={viewmodel.daysInt}"
                         android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/var_days_every_text"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -336,7 +334,6 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
                         android:text="days"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/var_days_et"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -415,7 +412,6 @@
                         android:layout_marginEnd="32dp"
                         android:layout_marginRight="32dp"
                         android:text="@{ viewmodel.actionSubheader }"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/action_header"
@@ -438,7 +434,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="More challenging over time"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -515,7 +510,6 @@
                         android:layout_marginEnd="32dp"
                         android:layout_marginRight="32dp"
                         android:text="@{ viewmodel.timeSubheader }"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/time_header"
@@ -540,7 +534,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@{viewmodel.timeTypeWord}"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/time_time_start"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -553,7 +546,6 @@
                         android:layout_height="wrap_content"
                         android:text="@{viewmodel.timeStart}"
                         android:visibility="@{viewmodel.timeType == TimeType.AFTER_TIME || viewmodel.timeType == TimeType.BETWEEN_TIME ? View.VISIBLE : View.GONE }"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/time_time_and"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -567,7 +559,6 @@
                         android:paddingRight="8dp"
                         android:text="and"
                         android:visibility="@{viewmodel.timeType == TimeType.BETWEEN_TIME ? View.VISIBLE : View.GONE }"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/time_time_end"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -579,7 +570,6 @@
                         android:layout_height="wrap_content"
                         android:text="@{viewmodel.timeEnd}"
                         android:visibility="@{viewmodel.timeType == TimeType.BEFORE_TIME || viewmodel.timeType == TimeType.BETWEEN_TIME ? View.VISIBLE : View.GONE }"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -600,7 +590,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewmodel.timeTypeWord}"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -618,7 +607,6 @@
                         android:inputType="textPersonName"
                         android:text="@={viewmodel.timeText}"
                         android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/time_text_txt"
                         app:layout_constraintTop_toTopOf="parent"
@@ -656,7 +644,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Check-in starts"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/check_in_start_time"
                         app:layout_constraintStart_toEndOf="@+id/check_in_icon"
                         app:layout_constraintTop_toTopOf="parent"
@@ -668,7 +655,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewmodel.checkInStart}"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -687,7 +673,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Check-in ends"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/check_in_end_time"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -699,7 +684,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewmodel.checkInEnd}"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -736,7 +720,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@{viewmodel.notifHeader}"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/notif_icon"
                         app:layout_constraintTop_toTopOf="parent"
@@ -770,7 +753,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="At:"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/notify_at_txt2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -782,7 +764,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{ viewmodel.notifyAt }"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/notify_at_switch"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -803,7 +784,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="When the edict starts"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -834,7 +814,6 @@
                         android:id="@+id/notify_before_edict_end_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -845,7 +824,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="before the edict ends"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/notify_before_edict_end_spinner"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -878,7 +856,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="When the edict ends"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -911,7 +888,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="When check-in starts"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         />
@@ -980,7 +956,6 @@
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
-
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

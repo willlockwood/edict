@@ -109,15 +109,21 @@
 
     <style name="CreateEdictLayout">
         <item name="android:layout_height">68dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
     </style>
 
     <style name="CreateEdictLayout.Small" parent="CreateEdictLayout">
         <item name="android:layout_height">48dp</item>
+<!--        <item name="android:paddingTop">14dp</item>-->
+<!--        <item name="android:paddingBottom">12dp</item>-->
     </style>
 
     <style name="CreateEdictLayout.Small.NoIcon" parent="CreateEdictLayout.Small">
         <item name="paddingStart">64dp</item>
         <item name="android:paddingLeft">64dp</item>
+<!--        <item name="android:paddingTop">12dp</item>-->
+<!--        <item name="android:paddingBottom">12dp</item>-->
     </style>
 
     <style name="CreateEdictLayout.Small.NoIcon.EndsWithTime" parent="CreateEdictLayout.Small.NoIcon">
@@ -139,6 +145,7 @@
     </style>
 
     <style name="Preference.Text.Title" parent="Preference.Text">
+<!--        <item name="android:layout_marginTop">8dp</item>-->
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/darkText</item>
         <item name="layout_constraintVertical_chainStyle">packed</item>

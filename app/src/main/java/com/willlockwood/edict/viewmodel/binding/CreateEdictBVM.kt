@@ -364,7 +364,7 @@ class CreateEdictBVM(
         else -> "${newEdict.notifications.size} notifications"
     } }
 
-    private var notifDetailsVisibility: Int = View.VISIBLE
+    private var notifDetailsVisibility: Int = View.GONE
     @Bindable
     fun getNotifDetailsVisibility(): Int { return notifDetailsVisibility }
     fun toggleNotifDetailsVisibility() {

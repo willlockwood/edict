@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -77,6 +78,8 @@ class CreateEdict : Fragment(),
 
     override fun onResume() {
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        val toolbar = (requireActivity() as AppCompatActivity).supportActionBar!!
+        if (toolbar.isShowing) toolbar.hide()
 
         when (type) {
             NewEdict.Type.RESTRICTION -> (requireActivity() as MainActivity).setStatusBarColor(R.color.restrictionColorDark)
@@ -88,9 +91,12 @@ class CreateEdict : Fragment(),
     override fun onPause() {
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
 
+
+
         (requireActivity() as MainActivity).setStatusBarColor(R.color.colorPrimaryDark)
         super.onPause()
     }
+
 
     @TargetApi(Build.VERSION_CODES.N)
     private fun setUpClickListeners() {
@@ -138,6 +144,9 @@ class CreateEdict : Fragment(),
     }
 
     private fun setUpToolbar() {
+        val toolbar = (requireActivity() as AppCompatActivity).supportActionBar!!
+        if (toolbar.isShowing) toolbar.hide()
+
         when (type) {
             NewEdict.Type.RESTRICTION -> (requireActivity() as MainActivity).setStatusBarColor(R.color.restrictionColorDark)
             NewEdict.Type.ROUTINE -> (requireActivity() as MainActivity).setStatusBarColor(R.color.routineColorDark)
