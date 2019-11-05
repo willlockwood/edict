@@ -21,4 +21,17 @@ object TimeConverters {
     fun fromOffsetDateTime(date: OffsetDateTime?): String? {
         return date?.format(formatter)
     }
+
+    @TypeConverter
+    @JvmStatic
+    fun fromTimePair(pair: Pair<OffsetDateTime?, OffsetDateTime?>): String {
+        return "${fromOffsetDateTime(pair.first)};${fromOffsetDateTime(pair.second)}"
+    }
+
+    @TypeConverter
+    @JvmStatic
+    fun toTimePair(value: String): Pair<OffsetDateTime?, OffsetDateTime?> {
+        val times = value.split(";").map { toOffsetDateTime(it) }
+        return Pair(times[0], times[1])
+    }
 }

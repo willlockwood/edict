@@ -12,15 +12,17 @@ import com.willlockwood.edict.data.converter.TimeConverters
 import com.willlockwood.edict.data.dao.EdictDao
 import com.willlockwood.edict.data.dao.EdictSessionDao
 import com.willlockwood.edict.data.dao.NewEdictDao
+import com.willlockwood.edict.data.dao.NewEdictSessionDao
 import com.willlockwood.edict.data.model.Edict
 import com.willlockwood.edict.data.model.EdictSession
 import com.willlockwood.edict.data.model.NewEdict
+import com.willlockwood.edict.data.model.NewEdictSession
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Database (
-    entities = [Edict::class, EdictSession::class, NewEdict::class],
-    version = 21
+    entities = [Edict::class, EdictSession::class, NewEdict::class, NewEdictSession::class],
+    version = 24
 )
 @TypeConverters(value= [TimeConverters::class, MapConverters::class, EdictTypeConverters::class])
 abstract class EdictDatabase : RoomDatabase() {
@@ -28,6 +30,7 @@ abstract class EdictDatabase : RoomDatabase() {
     abstract fun edictDao(): EdictDao
     abstract fun edictSessionDao(): EdictSessionDao
     abstract fun newEdictDao(): NewEdictDao
+    abstract fun newEdictSessionDao(): NewEdictSessionDao
 
     companion object {
         @Volatile

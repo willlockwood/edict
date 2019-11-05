@@ -3,6 +3,7 @@ package com.willlockwood.edict.data.converter
 import androidx.room.TypeConverter
 import com.willlockwood.edict.data.model.NewEdict
 import org.threeten.bp.DayOfWeek
+import org.threeten.bp.OffsetDateTime
 
 object EdictTypeConverters {
 
@@ -68,6 +69,26 @@ object EdictTypeConverters {
         return when (value.size) {
             0 -> ""
             else -> value.joinToString(";") { "${it.first.name},${it.second ?: ""}" }
+        }
+    }
+
+    @TypeConverter
+    @JvmStatic
+    fun toTimedNotifications(value: String?): List<Pair<NewEdict.NotificationType, OffsetDateTime?>> {
+        value ?: return emptyList()
+        return value.split(";").map {
+            val first= it.split(",")[0]
+            val second = TimeConverters.toOffsetDateTime(it.split(",")[1])
+            Pair(NewEdict.NotificationType.valueOf(first), second)
+        }
+    }
+
+    @TypeConverter
+    @JvmStatic
+    fun fromTimedNotifications(value: List<Pair<NewEdict.NotificationType, OffsetDateTime?>>): String? {
+        return when (value.size) {
+            0 -> null
+            else -> value.joinToString(";") { "${it.first.name},${TimeConverters.fromOffsetDateTime(it.second)}" }
         }
     }
 }

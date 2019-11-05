@@ -25,8 +25,8 @@ interface NewEdictDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertNewEdict(edict: NewEdict)
 
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insertEdictGetId(edict: Edict): Long
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertEdictGetId(edict: NewEdict): Long
 
 //    @Delete
 //    fun deleteEdict(edict: Edict)

@@ -25,7 +25,7 @@ import com.willlockwood.edict.BR
 import com.willlockwood.edict.R
 import com.willlockwood.edict.activity.MainActivity
 import com.willlockwood.edict.data.model.NewEdict
-import com.willlockwood.edict.viewmodel.NewEdictNewVM
+import com.willlockwood.edict.viewmodel.CreateEdictVM
 import com.willlockwood.edict.viewmodel.binding.CreateEdictBVM
 import kotlinx.android.synthetic.main.fragment_create_edict.*
 import java.util.*
@@ -39,7 +39,8 @@ class CreateEdict : Fragment(),
 
     private lateinit var binding: ViewDataBinding
     private lateinit var viewmodel: CreateEdictBVM
-    private val newEdictVM: NewEdictNewVM by viewModels()
+//    private val newEdictVM: NewEdictNewVM by viewModels()
+    private val createEdictVM: CreateEdictVM by viewModels()
     private lateinit var newEdict: NewEdict
     private lateinit var extras: Bundle
     private lateinit var type: NewEdict.Type
@@ -157,8 +158,10 @@ class CreateEdict : Fragment(),
             if (viewmodel.getDoneFabClicked()) {
                 Toast.makeText(requireContext(), "New edict created!", Toast.LENGTH_SHORT).show()
                 if (!(viewmodel.getDaysSubheaderError() || viewmodel.getActionSubheaderError() || viewmodel.getTimesSubheaderError())) {
-                    val newEdict = viewmodel.getNewEdict()
-                    newEdictVM.insertNewEdict(newEdict)
+//                    val newEdict = viewmodel.getNewEdict()
+                    createEdictVM.insertEdictAndNewSession(viewmodel.getNewEdict())
+//                    newEdictVM.insertNewEdict(newEdict)
+//                    newEdictVM.insertEdictAndNewSession(newEdict)
                     findNavController().navigate(R.id.action_createEdict_to_homeFragment)
                 }
             }

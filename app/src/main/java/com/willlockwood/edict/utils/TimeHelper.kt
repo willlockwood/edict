@@ -1,5 +1,7 @@
 package com.willlockwood.edict.utils
 
+import org.threeten.bp.OffsetDateTime
+
 object TimeHelper {
 
     fun minutesToTimeStringShort(min: Int?): String {
@@ -50,5 +52,28 @@ object TimeHelper {
         }
         val minutes = time.split(":")[1].split(" ")[0].toInt()
         return hours * 60 + minutes
+    }
+
+    fun getTimeFromMinutes(min: Int): OffsetDateTime? {
+        val hour = min / 60 % 24
+        val minute = min % 60
+        val now = OffsetDateTime.now()
+        return if (min < 1400) {
+            now.withHour(hour)
+                .withMinute(minute)
+                .withSecond(0).withNano(0)
+        } else {
+            when (OffsetDateTime.now().dayOfYear) {
+                365 -> now.withYear(now.year + 1)
+                    .withDayOfYear(1)
+                    .withHour(hour)
+                    .withMinute(minute)
+                    .withSecond(0).withNano(0)
+                else -> now.withDayOfYear(now.dayOfYear + 1)
+                    .withHour(hour)
+                    .withMinute(minute)
+                    .withSecond(0).withNano(0)
+            }
+        }
     }
 }

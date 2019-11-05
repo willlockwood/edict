@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -76,12 +75,27 @@ class MainActivity : AppCompatActivity(),
                 rescheduleAllNotificationsFromEdictSessions(it)
             }
         })
-        viewmodel.getAllEdicts().observe(this, Observer {
-            if (it.isNotEmpty()) {
-                val blah = it
-                Log.i("MainActivity", blah.toString())
-            }
-        })
+//        viewmodel.getAllEdicts().observe(this, Observer {
+//            if (it.isNotEmpty()) {
+//                val blah = it
+//                Log.i("MainActivity", blah.toString())
+//            }
+//        })
+//        viewmodel.getAllSessions().observe(this, Observer {
+//            val blah = it
+//            val blah2 = blah
+//        })
+//        viewmodel.getUncheckedSessions().observe(this, Observer {
+//            val uncheckedSessions = it
+//            val blah = uncheckedSessions
+//        })
+//        viewmodel.getUnresolvedSessions().observe(this, Observer {
+//            if (it != null) {
+//                val blah = it
+//            }
+//            val blah = it
+////            Log.i("mainActivity", it.toString())
+//        })
     }
 
     private fun setUpSharedPreferences() {

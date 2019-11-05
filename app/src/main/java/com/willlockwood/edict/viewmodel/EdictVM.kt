@@ -61,7 +61,7 @@ class EdictVM(application: Application) : AndroidViewModel(application) {
 //    fun insertEdict(edict: Edict) = viewModelScope.launch(Dispatchers.IO) { repository.insertEdict(edict) }
 //    fun insertEdictGetId(edict: Edict): Long = repository.insertEdictGetId(edict)
 //    fun updateEdict(edict: Edict) = viewModelScope.launch(Dispatchers.IO) { repository.updateEdict(edict) }
-//    fun updateEdictSession(edictSession: EdictSession) = viewModelScope.launch(Dispatchers.IO) { repository.updateEdictSession(edictSession) }
+//    fun updateEdictSessions(edictSession: EdictSession) = viewModelScope.launch(Dispatchers.IO) { repository.updateEdictSessions(edictSession) }
 
 //    fun insertEdictSessions(edictSession: EdictSession) = viewModelScope.launch(Dispatchers.IO) { repository.insertEdictSessions(edictSession) }
 //    fun insertEdictSessions(edictSessions: List<EdictSession>) = viewModelScope.launch(Dispatchers.IO) { repository.insertEdictSessions(edictSessions) }

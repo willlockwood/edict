@@ -9,6 +9,7 @@ import androidx.room.TypeConverters
 import com.willlockwood.edict.data.converter.EdictTypeConverters
 import com.willlockwood.edict.utils.TimeHelper
 import org.threeten.bp.DayOfWeek
+import org.threeten.bp.OffsetDateTime
 
 @Entity(
     tableName="new_edicts"
@@ -56,6 +57,19 @@ data class NewEdict(
     enum class NotificationType { START, END, BEFORE_END, CHECK_IN_START, CHECK_IN_END, CHECK_IN_BEFORE_END, AT }
 
 //    enum class UserEditingOrCreating { EDITING, CREATING }
+
+    fun getMinuteFromNotifType(pair: Pair<NotificationType, Int?>): OffsetDateTime {
+        val minute = when (pair.first) {
+            NotificationType.START -> timeStart!!
+            NotificationType.END -> timeEnd!!
+            NotificationType.BEFORE_END -> timeEnd!! - pair.second!!
+            NotificationType.CHECK_IN_START -> checkInStart!! - pair.second!!
+            NotificationType.CHECK_IN_END -> checkInEnd!!
+            NotificationType.CHECK_IN_BEFORE_END -> checkInEnd!! - pair.second!!
+            NotificationType.AT -> pair.second!!
+        }
+        return TimeHelper.getTimeFromMinutes(minute)!!
+    }
 
     fun getDaysSubheader(): String {
         return when (scope) {

@@ -30,7 +30,7 @@ class EdictRepository(
 
 //    Unused so far
 //    fun updateEdict(edict: Edict) = edictDao.updateEdict(edict)
-//    fun updateEdictSession(edictSession: EdictSession) = edictSessionDao.updateEdictSession(edictSession)
+//    fun updateEdictSessions(edictSession: EdictSession) = edictSessionDao.updateEdictSessions(edictSession)
 
 //    suspend fun insertEdictSessions(edictSessions: List<EdictSession>) = edictSessionDao.insertEdictSessions(edictSessions)
 }
