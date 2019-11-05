@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
 
         pagerAdapter = EdictsPagerAdapter(childFragmentManager)
         viewPager.adapter = pagerAdapter
-        viewPager.currentItem = 1
+//        viewPager.currentItem = 0
 
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
 

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+        <variable
+            name="session"
+            type="com.willlockwood.edict.data.model.NewEdictSession"
+            />
+        <variable
+            name="vm"
+            type="com.willlockwood.edict.viewmodel.EdictSessionVM"
+            />
+        <variable
+            name="edict"
+            type="com.willlockwood.edict.data.model.Edict"
+            />
+        <variable
+            name="rightNow"
+            type="Integer"
+            />
+        <variable
+            name="timeMax"
+            type="Integer"
+            />
+        <variable
+            name="timeMin"
+            type="Integer"
+            />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/recyclerViewCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardUseCompatPadding="false"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            >
+
+<!--            <androidx.constraintlayout.widget.Guideline-->
+<!--                android:id="@+id/session_start_guide"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                app:guidePercent="@{vm.sessionStart}"-->
+<!--                />-->
+
+<!--            <androidx.constraintlayout.widget.Guideline-->
+<!--                android:id="@+id/session_end_guide"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                app:guidePercent="@{vm.sessionEnd}"-->
+<!--                />-->
+
+<!--            <androidx.constraintlayout.widget.Guideline-->
+<!--                android:id="@+id/check_in_start_guide"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                app:guidePercent="@{vm.checkInStart}"-->
+<!--                />-->
+
+<!--            <androidx.constraintlayout.widget.Guideline-->
+<!--                android:id="@+id/end_guide"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                app:guidePercent="@{vm.checkInEnd}"-->
+<!--                />-->
+
+            <TextView
+                android:id="@+id/edict_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{session.toString()}"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+<!--            <ProgressBar-->
+<!--                android:id="@+id/progress_day"-->
+<!--                style="?android:attr/progressBarStyleHorizontal"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:max="1440"-->
+<!--                android:progress="@{vm.minutesIntoDay}"-->
+<!--                android:progressBackgroundTint="@color/white"-->
+<!--                android:progressTint="@color/lightGray"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/edict_text"-->
+<!--                />-->
+
+<!--            <ProgressBar-->
+<!--                android:id="@+id/progress_session"-->
+<!--                style="?android:attr/progressBarStyleHorizontal"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:max="@{vm.sessionLength}"-->
+<!--                android:progress="@{vm.minutesIntoSession}"-->
+<!--                app:layout_constraintBottom_toBottomOf="@id/progress_day"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/session_end_guide"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/session_start_guide"-->
+<!--                app:layout_constraintTop_toTopOf="@id/progress_day"-->
+<!--                app:progressTintDarkFromLevel="@{edict.level}"-->
+<!--                />-->
+
+<!--            <ProgressBar-->
+<!--                android:id="@+id/progress_check_in"-->
+<!--                style="?android:attr/progressBarStyleHorizontal"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:max="@{vm.checkInLength}"-->
+<!--                android:progress="@{vm.minutesIntoCheckIn}"-->
+<!--                android:progressBackgroundTint="@color/edict_level_5_light"-->
+<!--                android:progressTint="@color/offWhite"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/end_guide"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/check_in_start_guide"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/progress_session"-->
+<!--                />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

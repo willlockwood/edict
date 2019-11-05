@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.willlockwood.edict.R
-import com.willlockwood.edict.adapter.EdictSessionAdapter
-import com.willlockwood.edict.viewmodel.EdictVM
-import kotlinx.android.synthetic.main.fragment_all_edicts.*
+import com.willlockwood.edict.adapter.SessionAdapter
+import com.willlockwood.edict.viewmodel.SessionsVM
+import kotlinx.android.synthetic.main.fragment_sessions_page.*
 
-class TodaysEdictSessionsPage : Fragment() {
+class SessionsPage : Fragment() {
 
-    private val edictVM: EdictVM by viewModels()
+    private val sessionsVM: SessionsVM by viewModels()
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var edictAdapter: EdictSessionAdapter
+    private lateinit var sessionAdapter: SessionAdapter
     private lateinit var layoutManager: LinearLayoutManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_edicts_today_page, container, false)
+        return inflater.inflate(R.layout.fragment_sessions_page, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,26 +31,20 @@ class TodaysEdictSessionsPage : Fragment() {
 
         setUpRecyclerView()
 
-        observeEdictsForRecycler()
-
-        setUpButtons()
-    }
-
-    private fun setUpButtons() {
-//        fab.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_checkInPagerFragment) }
+        observeSessions()
     }
 
     private fun setUpRecyclerView() {
-        recyclerView = edict_recycler
-        edictAdapter = EdictSessionAdapter(this.context!!, edictVM)
-        recyclerView.adapter = edictAdapter
+        recyclerView = session_recycler
+        sessionAdapter = SessionAdapter(this.context!!, sessionsVM)
+        recyclerView.adapter = sessionAdapter
         layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
     }
 
-    private fun observeEdictsForRecycler() {
-        edictVM.getActiveEdictSessions().observe(viewLifecycleOwner, Observer {
-            edictAdapter.setEdicts(it)
+    private fun observeSessions() {
+        sessionsVM.getAllSessions().observe(viewLifecycleOwner, Observer {
+            sessionAdapter.setEdicts(it)
         })
     }
 }

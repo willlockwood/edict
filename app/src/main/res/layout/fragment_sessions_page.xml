@@ -5,12 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.HomeFragment"
-    android:id="@+id/all_edicts_layout"
+    tools:context=".fragment.SessionsPage"
+    android:id="@+id/sessions_page"
     >
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/edict_recycler"
+        android:id="@+id/session_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

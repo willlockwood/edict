@@ -6,14 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.willlockwood.edict.R
 import com.willlockwood.edict.adapter.EdictRecyclerAdapter
 import com.willlockwood.edict.viewmodel.EdictVM
-import kotlinx.android.synthetic.main.fragment_all_edicts.*
 
 class AllEdictsPage : Fragment() {
 
@@ -46,17 +43,17 @@ class AllEdictsPage : Fragment() {
 //    }
 
     private fun setUpRecyclerView() {
-        recyclerView = edict_recycler
-        edictAdapter = EdictRecyclerAdapter(this.context!!, findNavController())
-        recyclerView.adapter = edictAdapter
-        layoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = layoutManager
+//        recyclerView = edict_recycler
+//        edictAdapter = EdictRecyclerAdapter(this.context!!, findNavController())
+//        recyclerView.adapter = edictAdapter
+//        layoutManager = LinearLayoutManager(context)
+//        recyclerView.layoutManager = layoutManager
     }
 
     private fun observeEdictsForRecycler() {
-        edictVM.getAllEdicts().observe(viewLifecycleOwner, Observer {
-            edictAdapter.setEdicts(it)
-        })
+//        edictVM.getAllEdicts().observe(viewLifecycleOwner, Observer {
+//            edictAdapter.setEdicts(it)
+//        })
     }
 
     private fun setUpToolbar() {
